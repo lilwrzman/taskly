@@ -1,7 +1,7 @@
 "use server";
 
 import { NextRequest, NextResponse } from "next/server";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from '@prisma/client'
 import bcrypt from "bcryptjs";
 import z from "zod";
 
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     validationSchema.parse({ name, email, password });
 
     const hashedPassword: string = await bcrypt.hash(password, 10);
-    const newUser = await prisma.user.create({
+    await prisma.user.create({
       data: {
         name: name,
         email,
