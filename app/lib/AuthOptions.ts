@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/prisma";
 import { z } from "zod";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 
 const loginSchema = z.object({
   email: z
@@ -55,11 +55,16 @@ const authOptions: AuthOptions = {
             );
           }
 
-          return user;
+          return {
+            id: String(user.id),
+            name: user.name,
+            email: user.email,
+            image: user.image,
+          };
         } catch (e) {
           console.log(e);
           if (e instanceof z.ZodError) {
-            const errors = e.errors.reduce((acc, curr) => {
+            const errors = e.errors.reduce((acc: {[key: string]: string}, curr) => {
               acc[curr.path[0]] = curr.message;
               return acc;
             }, {});
@@ -102,4 +107,4 @@ const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-export { authOptions }
+export { authOptions };
