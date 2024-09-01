@@ -36,7 +36,7 @@ const ContactForm = () => {
   }
 
   return (
-    <div className="w-full bg-white rounded-2xl md:mt-0 sm:max-w-md xl:p-0">
+    <div className="w-full bg-white rounded-2xl md:mt-0 lg:max-w-md xl:p-0">
       <div className="p-6 space-y-6 md:space-y-6 sm:p-8">
         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
           <div>

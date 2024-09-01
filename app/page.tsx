@@ -51,15 +51,15 @@ export default function Home() {
     <>
       <Navbar />
       <section id="home" className="flex flex-col min-h-screen" ref={setRef(0)}>
-        <div className="container p-16 mx-auto flex-1 flex flex-col">
-          <div className="grid grid-cols-2 flex-1 content-center">
+        <div className="container px-4 md:px-8 lg:px-16 mx-auto flex-1 flex flex-col">
+          <div className="grid grid-cols-1 md:grid-cols-2 flex-1 content-center">
             <div className="flex flex-col gap-10 py-32">
               <div className="flex flex-col gap-4">
-                <h1 className="text-custom-gray font-bold text-8xl block">
+                <h1 className="text-custom-gray font-bold text-6xl lg:text-8xl block">
                   Ayo Produktif dengan{" "}
                   <span className="text-custom-orange">Taskly.</span>
                 </h1>
-                <p className="text-custom-gray font-normal text-md text-wrap w-[70%]">
+                <p className="text-custom-gray font-normal text-sm md:text-base text-wrap w-[70%]">
                   Atur tugas harian Anda dengan mudah.{" "}
                   <span className="text-custom-orange font-bold">Taskly</span>{" "}
                   membantu Anda tetap fokus dan terorganisir, baik di kantor
@@ -68,7 +68,7 @@ export default function Home() {
               </div>
               <Link
                 href="/signup"
-                className="font-poppins text-sm w-fit px-5 py-2.5 bg-custom-gray rounded-lg font-medium font-sm text-white"
+                className="font-poppins text-sm md:text-base w-fit px-5 py-2.5 bg-custom-gray rounded-lg font-medium font-sm text-white"
               >
                 Mulai Sekarang
               </Link>
@@ -90,29 +90,29 @@ export default function Home() {
         </div>
       </section>
       <section id="about" ref={setRef(1)}>
-        <div className="container p-16 mx-auto flex flex-col gap-10">
-          <div className="grid grid-cols-6 gap-10">
+        <div className="container px-4 md:px-8 lg:px-16 mx-auto flex flex-col gap-10">
+          <div className="flex flex-col md:grid grid-cols-6 gap-8 md:gap-10">
             <div
-              className="col-span-2"
+              className="h-48 md:col-span-2"
               style={{
                 backgroundColor: "#f3f2ec",
                 backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 192 192'%3E%3Cpath fill='%231e2631' fill-opacity='0.4' d='M192 15v2a11 11 0 0 0-11 11c0 1.94 1.16 4.75 2.53 6.11l2.36 2.36a6.93 6.93 0 0 1 1.22 7.56l-.43.84a8.08 8.08 0 0 1-6.66 4.13H145v35.02a6.1 6.1 0 0 0 3.03 4.87l.84.43c1.58.79 4 .4 5.24-.85l2.36-2.36a12.04 12.04 0 0 1 7.51-3.11 13 13 0 1 1 .02 26 12 12 0 0 1-7.53-3.11l-2.36-2.36a4.93 4.93 0 0 0-5.24-.85l-.84.43a6.1 6.1 0 0 0-3.03 4.87V143h35.02a8.08 8.08 0 0 1 6.66 4.13l.43.84a6.91 6.91 0 0 1-1.22 7.56l-2.36 2.36A10.06 10.06 0 0 0 181 164a11 11 0 0 0 11 11v2a13 13 0 0 1-13-13 12 12 0 0 1 3.11-7.53l2.36-2.36a4.93 4.93 0 0 0 .85-5.24l-.43-.84a6.1 6.1 0 0 0-4.87-3.03H145v35.02a8.08 8.08 0 0 1-4.13 6.66l-.84.43a6.91 6.91 0 0 1-7.56-1.22l-2.36-2.36A10.06 10.06 0 0 0 124 181a11 11 0 0 0-11 11h-2a13 13 0 0 1 13-13c2.47 0 5.79 1.37 7.53 3.11l2.36 2.36a4.94 4.94 0 0 0 5.24.85l.84-.43a6.1 6.1 0 0 0 3.03-4.87V145h-35.02a8.08 8.08 0 0 1-6.66-4.13l-.43-.84a6.91 6.91 0 0 1 1.22-7.56l2.36-2.36A10.06 10.06 0 0 0 107 124a11 11 0 0 0-22 0c0 1.94 1.16 4.75 2.53 6.11l2.36 2.36a6.93 6.93 0 0 1 1.22 7.56l-.43.84a8.08 8.08 0 0 1-6.66 4.13H49v35.02a6.1 6.1 0 0 0 3.03 4.87l.84.43c1.58.79 4 .4 5.24-.85l2.36-2.36a12.04 12.04 0 0 1 7.51-3.11A13 13 0 0 1 81 192h-2a11 11 0 0 0-11-11c-1.94 0-4.75 1.16-6.11 2.53l-2.36 2.36a6.93 6.93 0 0 1-7.56 1.22l-.84-.43a8.08 8.08 0 0 1-4.13-6.66V145H11.98a6.1 6.1 0 0 0-4.87 3.03l-.43.84c-.79 1.58-.4 4 .85 5.24l2.36 2.36a12.04 12.04 0 0 1 3.11 7.51A13 13 0 0 1 0 177v-2a11 11 0 0 0 11-11c0-1.94-1.16-4.75-2.53-6.11l-2.36-2.36a6.93 6.93 0 0 1-1.22-7.56l.43-.84a8.08 8.08 0 0 1 6.66-4.13H47v-35.02a6.1 6.1 0 0 0-3.03-4.87l-.84-.43c-1.59-.8-4-.4-5.24.85l-2.36 2.36A12 12 0 0 1 28 109a13 13 0 1 1 0-26c2.47 0 5.79 1.37 7.53 3.11l2.36 2.36a4.94 4.94 0 0 0 5.24.85l.84-.43A6.1 6.1 0 0 0 47 84.02V49H11.98a8.08 8.08 0 0 1-6.66-4.13l-.43-.84a6.91 6.91 0 0 1 1.22-7.56l2.36-2.36A10.06 10.06 0 0 0 11 28 11 11 0 0 0 0 17v-2a13 13 0 0 1 13 13c0 2.47-1.37 5.79-3.11 7.53l-2.36 2.36a4.94 4.94 0 0 0-.85 5.24l.43.84A6.1 6.1 0 0 0 11.98 47H47V11.98a8.08 8.08 0 0 1 4.13-6.66l.84-.43a6.91 6.91 0 0 1 7.56 1.22l2.36 2.36A10.06 10.06 0 0 0 68 11 11 11 0 0 0 79 0h2a13 13 0 0 1-13 13 12 12 0 0 1-7.53-3.11l-2.36-2.36a4.93 4.93 0 0 0-5.24-.85l-.84.43A6.1 6.1 0 0 0 49 11.98V47h35.02a8.08 8.08 0 0 1 6.66 4.13l.43.84a6.91 6.91 0 0 1-1.22 7.56l-2.36 2.36A10.06 10.06 0 0 0 85 68a11 11 0 0 0 22 0c0-1.94-1.16-4.75-2.53-6.11l-2.36-2.36a6.93 6.93 0 0 1-1.22-7.56l.43-.84a8.08 8.08 0 0 1 6.66-4.13H143V11.98a6.1 6.1 0 0 0-3.03-4.87l-.84-.43c-1.59-.8-4-.4-5.24.85l-2.36 2.36A12 12 0 0 1 124 13a13 13 0 0 1-13-13h2a11 11 0 0 0 11 11c1.94 0 4.75-1.16 6.11-2.53l2.36-2.36a6.93 6.93 0 0 1 7.56-1.22l.84.43a8.08 8.08 0 0 1 4.13 6.66V47h35.02a6.1 6.1 0 0 0 4.87-3.03l.43-.84c.8-1.59.4-4-.85-5.24l-2.36-2.36A12 12 0 0 1 179 28a13 13 0 0 1 13-13zM84.02 143a6.1 6.1 0 0 0 4.87-3.03l.43-.84c.8-1.59.4-4-.85-5.24l-2.36-2.36A12 12 0 0 1 83 124a13 13 0 1 1 26 0c0 2.47-1.37 5.79-3.11 7.53l-2.36 2.36a4.94 4.94 0 0 0-.85 5.24l.43.84a6.1 6.1 0 0 0 4.87 3.03H143v-35.02a8.08 8.08 0 0 1 4.13-6.66l.84-.43a6.91 6.91 0 0 1 7.56 1.22l2.36 2.36A10.06 10.06 0 0 0 164 107a11 11 0 0 0 0-22c-1.94 0-4.75 1.16-6.11 2.53l-2.36 2.36a6.93 6.93 0 0 1-7.56 1.22l-.84-.43a8.08 8.08 0 0 1-4.13-6.66V49h-35.02a6.1 6.1 0 0 0-4.87 3.03l-.43.84c-.79 1.58-.4 4 .85 5.24l2.36 2.36a12.04 12.04 0 0 1 3.11 7.51A13 13 0 1 1 83 68a12 12 0 0 1 3.11-7.53l2.36-2.36a4.93 4.93 0 0 0 .85-5.24l-.43-.84A6.1 6.1 0 0 0 84.02 49H49v35.02a8.08 8.08 0 0 1-4.13 6.66l-.84.43a6.91 6.91 0 0 1-7.56-1.22l-2.36-2.36A10.06 10.06 0 0 0 28 85a11 11 0 0 0 0 22c1.94 0 4.75-1.16 6.11-2.53l2.36-2.36a6.93 6.93 0 0 1 7.56-1.22l.84.43a8.08 8.08 0 0 1 4.13 6.66V143h35.02z'%3E%3C/path%3E%3C/svg%3E");`,
               }}
             ></div>
-            <div className="col-span-4">
-              <div className="flex flex-col gap-8">
-                <h1 className="font-bold text-custom-gray text-6xl">
+            <div className="col-span-5 md:col-span-4">
+              <div className="flex flex-col gap-4 md:gap-8">
+                <h1 className="font-bold text-custom-gray text-4xl md:text-6xl">
                   Tentang <span className="text-custom-orange">Taskly.</span>
                 </h1>
-                <div className="flex flex-col gap-4">
-                  <p className="font-normal text-custom-gray text-md text-justify">
+                <div className="flex flex-col gap-3 md:gap-4">
+                  <p className="font-normal text-custom-gray text-sm md:text-base text-justify">
                     Selamat datang di Taskly, solusi terdepan untuk manajemen
                     tugas dan produktivitas pribadi Anda. Taskly berkomitmen
                     untuk membantu Anda mengelola pekerjaan dengan cara yang
                     lebih efisien dan terorganisir, sehingga Anda dapat fokus
                     pada hal-hal yang benar-benar penting.
                   </p>
-                  <p className="font-normal text-custom-gray text-md text-justify">
+                  <p className="font-normal text-custom-gray text-sm md:text-base text-justify">
                     Taskly didirikan pada tahun 2024 dengan misi untuk
                     menyederhanakan cara mengelola tugas sehari-hari Anda. Dari
                     hari pertama, kami bertekad untuk menciptakan platform yang
@@ -122,18 +122,16 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-2">
-            <div className="flex flex-col gap-4 p-32">
-              <h1 className="font-bold text-4xl text-custom-gray italic">
+          <div className="flex flex-col-reverse md:grid grid-cols-2">
+            <div className="flex flex-col gap-4 md:p-8 lg:p-32">
+              <h1 className="font-bold text-2xl md:text-4xl text-custom-gray italic">
                 &quot;Prioritaskan tugas Anda dan lakukan yang terpenting
                 terlebih dahulu.&quot;
               </h1>
-              <p className="font-light text-lg">— Stephen Covey</p>
+              <p className="font-light text-sm md:text-lg">— Stephen Covey</p>
             </div>
             <div className="flex items-center justify-center">
-              <div
-                style={{ width: "100%", height: "100%", position: "relative" }}
-              >
+              <div className="relative aspect-square md:aspect-auto w-full h-full">
                 <Image
                   alt="Illustration"
                   src="/image/quotes.svg"
@@ -144,7 +142,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-6 gap-10">
+          <div className="flex flex-col-reverse lg:grid grid-cols-6 gap-6 lg:gap-10">
             <div className="col-span-2 flex flex-col gap-4 items-start p-4 rounded-lg bg-white h-fit">
               <div className="w-full aspect-square relative ">
                 <Image
@@ -254,21 +252,21 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="col-span-4 flex flex-col gap-8">
-              <h1 className="font-bold text-custom-gray text-6xl">
+            <div className="col-span-4 flex flex-col gap-4 md:gap-8">
+              <h1 className="font-bold text-custom-gray text-4xl md:text-6xl">
                 Di Balik <span className="text-custom-orange">Taskly.</span>
               </h1>
-              <div className="flex flex-col gap-4">
-                <p className="font-bold text-custom-gray text-2xl">
+              <div className="flex flex-col gap-3 md:gap-4">
+                <p className="font-bold text-custom-gray text-lg md:text-2xl">
                   Halo, saya Egy. 🤗
                 </p>
-                <p className="font-normal text-custom-gray text-md text-justify">
+                <p className="font-normal text-custom-gray text-sm md:text-base text-justify">
                   Saya adalah seorang lulusan D4 Teknik Informatika dari
                   Politeknik Caltex Riau dengan IPK 3.85. Saat ini, saya sedang
                   berusaha mencari peluang kerja yang sesuai dengan minat dan
                   keahlian saya sebagai seorang Fresh Graduate.
                 </p>
-                <p className="font-normal text-custom-gray text-md text-justify">
+                <p className="font-normal text-custom-gray text-sm md:text-base text-justify">
                   Selama masa studi dan beberapa tahun terakhir, saya telah
                   mengembangkan keterampilan saya di bidang Fullstack Web
                   Development. Saya memiliki pengalaman sebagai UI/UX Designer
@@ -280,7 +278,7 @@ export default function Home() {
                   desain UI dan integrasi API sambil melakukan black-box testing
                   untuk memastikan kualitas aplikasi.
                 </p>
-                <p className="font-normal text-custom-gray text-md text-justify">
+                <p className="font-normal text-custom-gray text-sm md:text-base text-justify">
                   Selain itu, saya memiliki pengalaman sebagai Fullstack Web
                   Developer Mentor di PT Global Investment Institusi
                   (LearningX), di mana saya membimbing siswa MSIB dan siswa
@@ -290,13 +288,13 @@ export default function Home() {
                   mengembangkan proyek akhir untuk manajemen kehadiran dan nilai
                   peserta MSIB.
                 </p>
-                <p className="font-normal text-custom-gray text-md text-justify">
+                <p className="font-normal text-custom-gray text-sm md:text-base text-justify">
                   Di luar dunia profesional, saya menikmati bermusik dan
                   menonton film. Saya percaya bahwa kombinasi pengalaman teknis
                   dan minat pribadi saya memberi saya perspektif unik dalam
                   mengatasi tantangan dan menemukan solusi kreatif.
                 </p>
-                <p className="font-normal text-custom-gray text-md text-justify">
+                <p className="font-normal text-custom-gray text-sm md:text-base text-justify">
                   Saya sangat antusias untuk menerapkan keterampilan dan
                   pengetahuan saya dalam lingkungan kerja yang dinamis dan terus
                   berkembang. Terima kasih telah meluangkan waktu untuk mengenal
@@ -308,22 +306,22 @@ export default function Home() {
         </div>
       </section>
       <section id="contact" ref={setRef(2)}>
-        <div className="container p-16 mx-auto flex flex-col gap-10">
-          <div className="grid grid-cols-2">
-            <div className="flex flex-col gap-10">
+        <div className="container px-4 py-16 md:px-8 md:py-16 lg:p-16 mx-auto flex flex-col gap-10">
+          <div className="flex flex-col gap-10 lg:grid grid-cols-10">
+            <div className="flex flex-col gap-8 md:gap-10 lg:col-span-6">
               <div className="flex flex-col">
-                <p className="text-md text-custom-orange">KONTAK</p>
-                <h1 className="font-bold text-custom-gray text-6xl">
+                <p className="text-sm md:text-base text-custom-orange">KONTAK</p>
+                <h1 className="font-bold text-custom-gray text-4xl md:text-6xl">
                   Ayo, kita ngobrol!
                 </h1>
               </div>
-              <p className="text-md text-custom-gray">
+              <p className="text-sm md:text-base text-custom-gray">
                 Saya selalu senang mendengar sesuatu dari Anda. Punya
                 pertanyaan, ide, atau sekadar ingin berbagi cerita? Jangan ragu,
                 Saya di sini untuk mendengarkan dan membantu. ✨
               </p>
-              <div className="flex gap-4">
-                <div className="flex gap-4 items-center bg-white rounded-lg p-4">
+              <div className="flex flex-col md:flex-row gap-4">
+                <div className="flex w-full gap-4 items-center bg-white rounded-lg p-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     x="0px"
@@ -355,12 +353,12 @@ export default function Home() {
                   </svg>
                   <div className="flex flex-col">
                     <p className="text-custom-gray text-xs font-bold">Gmail</p>
-                    <p className="text-custom-gray text-md">
+                    <p className="text-custom-gray text-sm md:text-base">
                       egydya.edh12@gmail.com
                     </p>
                   </div>
                 </div>
-                <div className="flex gap-4 items-center bg-white rounded-lg p-4">
+                <div className="flex w-full gap-4 items-center bg-white rounded-lg p-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     x="0px"
@@ -387,23 +385,23 @@ export default function Home() {
                     ></path>
                     <path
                       fill="#fff"
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M19.268,16.045c-0.355-0.79-0.729-0.806-1.068-0.82c-0.277-0.012-0.593-0.011-0.909-0.011c-0.316,0-0.83,0.119-1.265,0.594c-0.435,0.475-1.661,1.622-1.661,3.956c0,2.334,1.7,4.59,1.937,4.906c0.237,0.316,3.282,5.259,8.104,7.161c4.007,1.58,4.823,1.266,5.693,1.187c0.87-0.079,2.807-1.147,3.202-2.255c0.395-1.108,0.395-2.057,0.277-2.255c-0.119-0.198-0.435-0.316-0.909-0.554s-2.807-1.385-3.242-1.543c-0.435-0.158-0.751-0.237-1.068,0.238c-0.316,0.474-1.225,1.543-1.502,1.859c-0.277,0.317-0.554,0.357-1.028,0.119c-0.474-0.238-2.002-0.738-3.815-2.354c-1.41-1.257-2.362-2.81-2.639-3.285c-0.277-0.474-0.03-0.731,0.208-0.968c0.213-0.213,0.474-0.554,0.712-0.831c0.237-0.277,0.316-0.475,0.474-0.791c0.158-0.317,0.079-0.594-0.04-0.831C20.612,19.329,19.69,16.983,19.268,16.045z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                   <div className="flex flex-col">
                     <p className="text-custom-gray text-xs font-bold">
                       WhatsApp
                     </p>
-                    <p className="text-custom-gray text-md">
+                    <p className="text-custom-gray text-sm md:text-base">
                       +62 823-8765-5402
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="flex justify-end">
+            <div className="flex lg:justify-end lg:col-span-4">
               <ContactForm />
             </div>
           </div>

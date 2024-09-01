@@ -27,10 +27,10 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="en">
-      <body className={`${poppins.className} ${playfairDisplay.className}`}>
+      <body className={`${poppins.className} ${playfairDisplay.className} w-full`}>
         <LenisScroll/>
         <NextAuthProvider session={session}>
-          <main className="flex flex-col min-h-screen">
+          <main className="w-full flex flex-col min-h-screen">
             {children}
           </main>
         </NextAuthProvider>

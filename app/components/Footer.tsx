@@ -9,19 +9,19 @@ const navItems = [
 const Footer = () => {
   return (
     <footer className="w-full bg-custom-gray">
-      <div className="container px-16 py-4 mx-auto">
-        <div className="flex items-center justify-between">
-          <div className="flex gap-4 divide-x">
-            <h1 className="font-bold text-white text-4xl">Taskly</h1>
+      <div className="container px-4 py-4 md:px-8 lg:px-16 mx-auto">
+        <div className="flex flex-col gap-2 md:flex-row items-center justify-between">
+          <div className="flex gap-4 divide-x items-center">
+            <h1 className="font-bold text-white texl-2xl md:text-4xl">Taskly</h1>
             <div className="flex flex-col px-4">
-              <ul className="flex gap-4">
+              <ul className="flex gap-2 md:gap-4">
                 {navItems.map(({ href, label }) => {
                   return (
                     <li className="list-none" key={href}>
                       <Link
                         shallow={true}
                         href={href}
-                        className="text-white font-poppins font-light text-sm"
+                        className="text-white font-poppins font-light text-xs md:text-sm"
                       >
                         {label}
                       </Link>
@@ -29,12 +29,12 @@ const Footer = () => {
                   );
                 })}
               </ul>
-              <p className="text-white font-poppins font-light text-sm">
+              <p className="text-white font-poppins font-light text-xs md:text-sm">
                 &copy; Taskly. All right reserved.
               </p>
             </div>
           </div>
-          <p className="text-white font-poppins font-light text-sm">Support egydya.edh12@gmail.com</p>
+          <p className="text-white font-poppins font-light text-xs md:text-sm">Support egydya.edh12@gmail.com</p>
         </div>
       </div>
     </footer>
