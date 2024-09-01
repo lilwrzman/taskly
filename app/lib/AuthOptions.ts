@@ -1,9 +1,11 @@
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "@/prisma";
+import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
+
+const prisma = new PrismaClient()
 
 const loginSchema = z.object({
   email: z
