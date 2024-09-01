@@ -1,14 +1,15 @@
 {
+  "version": 2,
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/node"
+      "use": "@vercel/next"
     }
   ],
-  "build": {
-    "commands": [
-      "next build",
-      "npx prisma generate"
-    ]
-  }
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
 }
