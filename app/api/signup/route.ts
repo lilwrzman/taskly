@@ -1,9 +1,10 @@
 "use server";
 
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import bcrypt from "bcryptjs";
 import z from "zod";
+import { PrismaClientUnknownRequestError } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 
@@ -52,7 +53,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ errors }, { status: 400 });
     }
 
-    if (e instanceof Prisma.PrismaClientUnknownRequestError) {
+    if (e instanceof PrismaClientUnknownRequestError) {
       if (e.message === "Unique constraint failed on the {constraint}") {
         return NextResponse.json(
           { errors: { username: "Email already been taken." } },
