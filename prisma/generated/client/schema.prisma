@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ItemStatus {
+  TODO
+  ONPROGRESS
+  COMPLETED
+}
+
+enum MemberRole {
+  LEADER
+  MEMBER
+  GUEST
+}
+
+model User {
+  id            Int             @id @default(autoincrement())
+  name          String
+  email         String          @unique
+  password      String
+  image         String          @default("/image/default.png")
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  Board         Board[]
+  Project       Project[]
+  ProjectMember ProjectMember[]
+  Item          Item[]
+  Session       Session[]
+}
+
+model Board {
+  id        Int      @id @default(autoincrement())
+  title     String
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Item      Item[]
+}
+
+model Item {
+  id        Int        @id @default(autoincrement())
+  content   String
+  status    ItemStatus @default(TODO)
+  board     Board      @relation(fields: [boardId], references: [id])
+  boardId   Int
+  user      User       @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Project {
+  id            Int             @id @default(autoincrement())
+  title         String
+  description   String
+  user          User            @relation(fields: [authorId], references: [id])
+  authorId      Int
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  ProjectMember ProjectMember[]
+}
+
+model ProjectMember {
+  id        Int        @id @default(autoincrement())
+  user      User       @relation(fields: [userId], references: [id])
+  project   Project    @relation(fields: [projectId], references: [id])
+  userId    Int
+  projectId Int
+  role      MemberRole
+  joinDate  DateTime   @default(now())
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+  expires      DateTime
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
