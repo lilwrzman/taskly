@@ -125,8 +125,8 @@ export default function Home() {
           <div className="grid grid-cols-2">
             <div className="flex flex-col gap-4 p-32">
               <h1 className="font-bold text-4xl text-custom-gray italic">
-                "Prioritaskan tugas Anda dan lakukan yang terpenting terlebih
-                dahulu."
+                &quot;Prioritaskan tugas Anda dan lakukan yang terpenting
+                terlebih dahulu.&quot;
               </h1>
               <p className="font-light text-lg">— Stephen Covey</p>
             </div>
@@ -409,7 +409,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </>
   );
 }
