@@ -52,8 +52,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ errors }, { status: 400 });
     }
 
-    if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      if (e.code === "P2002") {
+    if (e instanceof Prisma.PrismaClientUnknownRequestError) {
+      if (e.message === "Unique constraint failed on the {constraint}") {
         return NextResponse.json(
           { errors: { username: "Email already been taken." } },
           { status: 400 }
