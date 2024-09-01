@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "../lib/AuthOptions";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import SignOutButton from "../components/SignOutButton";
