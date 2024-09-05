@@ -132,7 +132,8 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.BoardScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  ownerId: 'ownerId',
+  projectId: 'projectId',
+  color: 'color',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -140,9 +141,22 @@ exports.Prisma.BoardScalarFieldEnum = {
 exports.Prisma.ItemScalarFieldEnum = {
   id: 'id',
   content: 'content',
+  description: 'description',
   status: 'status',
   boardId: 'boardId',
   userId: 'userId',
+  itemCategoryId: 'itemCategoryId',
+  start: 'start',
+  end: 'end',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ItemCategoryScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  category: 'category',
+  color: 'color',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -152,29 +166,19 @@ exports.Prisma.ProjectScalarFieldEnum = {
   title: 'title',
   description: 'description',
   authorId: 'authorId',
+  projectScope: 'projectScope',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ProjectMemberScalarFieldEnum = {
+exports.Prisma.MyProjectScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   projectId: 'projectId',
   role: 'role',
-  joinDate: 'joinDate'
-};
-
-exports.Prisma.SessionScalarFieldEnum = {
-  id: 'id',
-  sessionToken: 'sessionToken',
-  userId: 'userId',
-  expires: 'expires'
-};
-
-exports.Prisma.VerificationTokenScalarFieldEnum = {
-  identifier: 'identifier',
-  token: 'token',
-  expires: 'expires'
+  isFavorite: 'isFavorite',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -186,13 +190,23 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
 exports.ItemStatus = exports.$Enums.ItemStatus = {
   TODO: 'TODO',
   ONPROGRESS: 'ONPROGRESS',
   COMPLETED: 'COMPLETED'
 };
 
-exports.MemberRole = exports.$Enums.MemberRole = {
+exports.ProjectScope = exports.$Enums.ProjectScope = {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE'
+};
+
+exports.ProjectRole = exports.$Enums.ProjectRole = {
   LEADER: 'LEADER',
   MEMBER: 'MEMBER',
   GUEST: 'GUEST'
@@ -202,10 +216,9 @@ exports.Prisma.ModelName = {
   User: 'User',
   Board: 'Board',
   Item: 'Item',
+  ItemCategory: 'ItemCategory',
   Project: 'Project',
-  ProjectMember: 'ProjectMember',
-  Session: 'Session',
-  VerificationToken: 'VerificationToken'
+  MyProject: 'MyProject'
 };
 
 /**

@@ -29,25 +29,20 @@ export type Board = $Result.DefaultSelection<Prisma.$BoardPayload>
  */
 export type Item = $Result.DefaultSelection<Prisma.$ItemPayload>
 /**
+ * Model ItemCategory
+ * 
+ */
+export type ItemCategory = $Result.DefaultSelection<Prisma.$ItemCategoryPayload>
+/**
  * Model Project
  * 
  */
 export type Project = $Result.DefaultSelection<Prisma.$ProjectPayload>
 /**
- * Model ProjectMember
+ * Model MyProject
  * 
  */
-export type ProjectMember = $Result.DefaultSelection<Prisma.$ProjectMemberPayload>
-/**
- * Model Session
- * 
- */
-export type Session = $Result.DefaultSelection<Prisma.$SessionPayload>
-/**
- * Model VerificationToken
- * 
- */
-export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTokenPayload>
+export type MyProject = $Result.DefaultSelection<Prisma.$MyProjectPayload>
 
 /**
  * Enums
@@ -62,13 +57,21 @@ export namespace $Enums {
 export type ItemStatus = (typeof ItemStatus)[keyof typeof ItemStatus]
 
 
-export const MemberRole: {
+export const ProjectScope: {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE'
+};
+
+export type ProjectScope = (typeof ProjectScope)[keyof typeof ProjectScope]
+
+
+export const ProjectRole: {
   LEADER: 'LEADER',
   MEMBER: 'MEMBER',
   GUEST: 'GUEST'
 };
 
-export type MemberRole = (typeof MemberRole)[keyof typeof MemberRole]
+export type ProjectRole = (typeof ProjectRole)[keyof typeof ProjectRole]
 
 }
 
@@ -76,9 +79,13 @@ export type ItemStatus = $Enums.ItemStatus
 
 export const ItemStatus: typeof $Enums.ItemStatus
 
-export type MemberRole = $Enums.MemberRole
+export type ProjectScope = $Enums.ProjectScope
 
-export const MemberRole: typeof $Enums.MemberRole
+export const ProjectScope: typeof $Enums.ProjectScope
+
+export type ProjectRole = $Enums.ProjectRole
+
+export const ProjectRole: typeof $Enums.ProjectRole
 
 /**
  * ##  Prisma Client ʲˢ
@@ -234,6 +241,16 @@ export class PrismaClient<
   get item(): Prisma.ItemDelegate<ExtArgs>;
 
   /**
+   * `prisma.itemCategory`: Exposes CRUD operations for the **ItemCategory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ItemCategories
+    * const itemCategories = await prisma.itemCategory.findMany()
+    * ```
+    */
+  get itemCategory(): Prisma.ItemCategoryDelegate<ExtArgs>;
+
+  /**
    * `prisma.project`: Exposes CRUD operations for the **Project** model.
     * Example usage:
     * ```ts
@@ -244,34 +261,14 @@ export class PrismaClient<
   get project(): Prisma.ProjectDelegate<ExtArgs>;
 
   /**
-   * `prisma.projectMember`: Exposes CRUD operations for the **ProjectMember** model.
+   * `prisma.myProject`: Exposes CRUD operations for the **MyProject** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ProjectMembers
-    * const projectMembers = await prisma.projectMember.findMany()
+    * // Fetch zero or more MyProjects
+    * const myProjects = await prisma.myProject.findMany()
     * ```
     */
-  get projectMember(): Prisma.ProjectMemberDelegate<ExtArgs>;
-
-  /**
-   * `prisma.session`: Exposes CRUD operations for the **Session** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Sessions
-    * const sessions = await prisma.session.findMany()
-    * ```
-    */
-  get session(): Prisma.SessionDelegate<ExtArgs>;
-
-  /**
-   * `prisma.verificationToken`: Exposes CRUD operations for the **VerificationToken** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more VerificationTokens
-    * const verificationTokens = await prisma.verificationToken.findMany()
-    * ```
-    */
-  get verificationToken(): Prisma.VerificationTokenDelegate<ExtArgs>;
+  get myProject(): Prisma.MyProjectDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -714,10 +711,9 @@ export namespace Prisma {
     User: 'User',
     Board: 'Board',
     Item: 'Item',
+    ItemCategory: 'ItemCategory',
     Project: 'Project',
-    ProjectMember: 'ProjectMember',
-    Session: 'Session',
-    VerificationToken: 'VerificationToken'
+    MyProject: 'MyProject'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -733,7 +729,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "board" | "item" | "project" | "projectMember" | "session" | "verificationToken"
+      modelProps: "user" | "board" | "item" | "itemCategory" | "project" | "myProject"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -947,6 +943,76 @@ export namespace Prisma {
           }
         }
       }
+      ItemCategory: {
+        payload: Prisma.$ItemCategoryPayload<ExtArgs>
+        fields: Prisma.ItemCategoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ItemCategoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemCategoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ItemCategoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemCategoryPayload>
+          }
+          findFirst: {
+            args: Prisma.ItemCategoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemCategoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ItemCategoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemCategoryPayload>
+          }
+          findMany: {
+            args: Prisma.ItemCategoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemCategoryPayload>[]
+          }
+          create: {
+            args: Prisma.ItemCategoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemCategoryPayload>
+          }
+          createMany: {
+            args: Prisma.ItemCategoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ItemCategoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemCategoryPayload>[]
+          }
+          delete: {
+            args: Prisma.ItemCategoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemCategoryPayload>
+          }
+          update: {
+            args: Prisma.ItemCategoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemCategoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.ItemCategoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ItemCategoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ItemCategoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ItemCategoryPayload>
+          }
+          aggregate: {
+            args: Prisma.ItemCategoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateItemCategory>
+          }
+          groupBy: {
+            args: Prisma.ItemCategoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ItemCategoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ItemCategoryCountArgs<ExtArgs>
+            result: $Utils.Optional<ItemCategoryCountAggregateOutputType> | number
+          }
+        }
+      }
       Project: {
         payload: Prisma.$ProjectPayload<ExtArgs>
         fields: Prisma.ProjectFieldRefs
@@ -1017,213 +1083,73 @@ export namespace Prisma {
           }
         }
       }
-      ProjectMember: {
-        payload: Prisma.$ProjectMemberPayload<ExtArgs>
-        fields: Prisma.ProjectMemberFieldRefs
+      MyProject: {
+        payload: Prisma.$MyProjectPayload<ExtArgs>
+        fields: Prisma.MyProjectFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.ProjectMemberFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectMemberPayload> | null
+            args: Prisma.MyProjectFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MyProjectPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.ProjectMemberFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectMemberPayload>
+            args: Prisma.MyProjectFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MyProjectPayload>
           }
           findFirst: {
-            args: Prisma.ProjectMemberFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectMemberPayload> | null
+            args: Prisma.MyProjectFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MyProjectPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.ProjectMemberFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectMemberPayload>
+            args: Prisma.MyProjectFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MyProjectPayload>
           }
           findMany: {
-            args: Prisma.ProjectMemberFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectMemberPayload>[]
+            args: Prisma.MyProjectFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MyProjectPayload>[]
           }
           create: {
-            args: Prisma.ProjectMemberCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectMemberPayload>
+            args: Prisma.MyProjectCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MyProjectPayload>
           }
           createMany: {
-            args: Prisma.ProjectMemberCreateManyArgs<ExtArgs>
+            args: Prisma.MyProjectCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.ProjectMemberCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectMemberPayload>[]
+            args: Prisma.MyProjectCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MyProjectPayload>[]
           }
           delete: {
-            args: Prisma.ProjectMemberDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectMemberPayload>
+            args: Prisma.MyProjectDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MyProjectPayload>
           }
           update: {
-            args: Prisma.ProjectMemberUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectMemberPayload>
+            args: Prisma.MyProjectUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MyProjectPayload>
           }
           deleteMany: {
-            args: Prisma.ProjectMemberDeleteManyArgs<ExtArgs>
+            args: Prisma.MyProjectDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.ProjectMemberUpdateManyArgs<ExtArgs>
+            args: Prisma.MyProjectUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           upsert: {
-            args: Prisma.ProjectMemberUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectMemberPayload>
+            args: Prisma.MyProjectUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MyProjectPayload>
           }
           aggregate: {
-            args: Prisma.ProjectMemberAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateProjectMember>
+            args: Prisma.MyProjectAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMyProject>
           }
           groupBy: {
-            args: Prisma.ProjectMemberGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ProjectMemberGroupByOutputType>[]
+            args: Prisma.MyProjectGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MyProjectGroupByOutputType>[]
           }
           count: {
-            args: Prisma.ProjectMemberCountArgs<ExtArgs>
-            result: $Utils.Optional<ProjectMemberCountAggregateOutputType> | number
-          }
-        }
-      }
-      Session: {
-        payload: Prisma.$SessionPayload<ExtArgs>
-        fields: Prisma.SessionFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.SessionFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.SessionFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
-          }
-          findFirst: {
-            args: Prisma.SessionFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.SessionFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
-          }
-          findMany: {
-            args: Prisma.SessionFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>[]
-          }
-          create: {
-            args: Prisma.SessionCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
-          }
-          createMany: {
-            args: Prisma.SessionCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.SessionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>[]
-          }
-          delete: {
-            args: Prisma.SessionDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
-          }
-          update: {
-            args: Prisma.SessionUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
-          }
-          deleteMany: {
-            args: Prisma.SessionDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.SessionUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.SessionUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
-          }
-          aggregate: {
-            args: Prisma.SessionAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSession>
-          }
-          groupBy: {
-            args: Prisma.SessionGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SessionGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.SessionCountArgs<ExtArgs>
-            result: $Utils.Optional<SessionCountAggregateOutputType> | number
-          }
-        }
-      }
-      VerificationToken: {
-        payload: Prisma.$VerificationTokenPayload<ExtArgs>
-        fields: Prisma.VerificationTokenFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.VerificationTokenFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationTokenPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.VerificationTokenFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationTokenPayload>
-          }
-          findFirst: {
-            args: Prisma.VerificationTokenFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationTokenPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.VerificationTokenFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationTokenPayload>
-          }
-          findMany: {
-            args: Prisma.VerificationTokenFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationTokenPayload>[]
-          }
-          create: {
-            args: Prisma.VerificationTokenCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationTokenPayload>
-          }
-          createMany: {
-            args: Prisma.VerificationTokenCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.VerificationTokenCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationTokenPayload>[]
-          }
-          delete: {
-            args: Prisma.VerificationTokenDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationTokenPayload>
-          }
-          update: {
-            args: Prisma.VerificationTokenUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationTokenPayload>
-          }
-          deleteMany: {
-            args: Prisma.VerificationTokenDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.VerificationTokenUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.VerificationTokenUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationTokenPayload>
-          }
-          aggregate: {
-            args: Prisma.VerificationTokenAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateVerificationToken>
-          }
-          groupBy: {
-            args: Prisma.VerificationTokenGroupByArgs<ExtArgs>
-            result: $Utils.Optional<VerificationTokenGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.VerificationTokenCountArgs<ExtArgs>
-            result: $Utils.Optional<VerificationTokenCountAggregateOutputType> | number
+            args: Prisma.MyProjectCountArgs<ExtArgs>
+            result: $Utils.Optional<MyProjectCountAggregateOutputType> | number
           }
         }
       }
@@ -1388,19 +1314,15 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    Board: number
     Project: number
-    ProjectMember: number
     Item: number
-    Session: number
+    MyProject: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Board?: boolean | UserCountOutputTypeCountBoardArgs
     Project?: boolean | UserCountOutputTypeCountProjectArgs
-    ProjectMember?: boolean | UserCountOutputTypeCountProjectMemberArgs
     Item?: boolean | UserCountOutputTypeCountItemArgs
-    Session?: boolean | UserCountOutputTypeCountSessionArgs
+    MyProject?: boolean | UserCountOutputTypeCountMyProjectArgs
   }
 
   // Custom InputTypes
@@ -1417,22 +1339,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountBoardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BoardWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
   export type UserCountOutputTypeCountProjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProjectWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountProjectMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProjectMemberWhereInput
   }
 
   /**
@@ -1445,8 +1353,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountSessionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SessionWhereInput
+  export type UserCountOutputTypeCountMyProjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MyProjectWhereInput
   }
 
 
@@ -1482,15 +1390,50 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ItemCategoryCountOutputType
+   */
+
+  export type ItemCategoryCountOutputType = {
+    Item: number
+  }
+
+  export type ItemCategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Item?: boolean | ItemCategoryCountOutputTypeCountItemArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ItemCategoryCountOutputType without action
+   */
+  export type ItemCategoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategoryCountOutputType
+     */
+    select?: ItemCategoryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ItemCategoryCountOutputType without action
+   */
+  export type ItemCategoryCountOutputTypeCountItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemWhereInput
+  }
+
+
+  /**
    * Count Type ProjectCountOutputType
    */
 
   export type ProjectCountOutputType = {
-    ProjectMember: number
+    ItemCategory: number
+    MyProject: number
+    Board: number
   }
 
   export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    ProjectMember?: boolean | ProjectCountOutputTypeCountProjectMemberArgs
+    ItemCategory?: boolean | ProjectCountOutputTypeCountItemCategoryArgs
+    MyProject?: boolean | ProjectCountOutputTypeCountMyProjectArgs
+    Board?: boolean | ProjectCountOutputTypeCountBoardArgs
   }
 
   // Custom InputTypes
@@ -1507,8 +1450,22 @@ export namespace Prisma {
   /**
    * ProjectCountOutputType without action
    */
-  export type ProjectCountOutputTypeCountProjectMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProjectMemberWhereInput
+  export type ProjectCountOutputTypeCountItemCategoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemCategoryWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountMyProjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MyProjectWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountBoardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BoardWhereInput
   }
 
 
@@ -1730,11 +1687,9 @@ export namespace Prisma {
     image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Board?: boolean | User$BoardArgs<ExtArgs>
     Project?: boolean | User$ProjectArgs<ExtArgs>
-    ProjectMember?: boolean | User$ProjectMemberArgs<ExtArgs>
     Item?: boolean | User$ItemArgs<ExtArgs>
-    Session?: boolean | User$SessionArgs<ExtArgs>
+    MyProject?: boolean | User$MyProjectArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1759,11 +1714,9 @@ export namespace Prisma {
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Board?: boolean | User$BoardArgs<ExtArgs>
     Project?: boolean | User$ProjectArgs<ExtArgs>
-    ProjectMember?: boolean | User$ProjectMemberArgs<ExtArgs>
     Item?: boolean | User$ItemArgs<ExtArgs>
-    Session?: boolean | User$SessionArgs<ExtArgs>
+    MyProject?: boolean | User$MyProjectArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1771,11 +1724,9 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      Board: Prisma.$BoardPayload<ExtArgs>[]
       Project: Prisma.$ProjectPayload<ExtArgs>[]
-      ProjectMember: Prisma.$ProjectMemberPayload<ExtArgs>[]
       Item: Prisma.$ItemPayload<ExtArgs>[]
-      Session: Prisma.$SessionPayload<ExtArgs>[]
+      MyProject: Prisma.$MyProjectPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2149,11 +2100,9 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Board<T extends User$BoardArgs<ExtArgs> = {}>(args?: Subset<T, User$BoardArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findMany"> | Null>
     Project<T extends User$ProjectArgs<ExtArgs> = {}>(args?: Subset<T, User$ProjectArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany"> | Null>
-    ProjectMember<T extends User$ProjectMemberArgs<ExtArgs> = {}>(args?: Subset<T, User$ProjectMemberArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findMany"> | Null>
     Item<T extends User$ItemArgs<ExtArgs> = {}>(args?: Subset<T, User$ItemArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findMany"> | Null>
-    Session<T extends User$SessionArgs<ExtArgs> = {}>(args?: Subset<T, User$SessionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany"> | Null>
+    MyProject<T extends User$MyProjectArgs<ExtArgs> = {}>(args?: Subset<T, User$MyProjectArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MyProjectPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2504,26 +2453,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.Board
-   */
-  export type User$BoardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Board
-     */
-    select?: BoardSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BoardInclude<ExtArgs> | null
-    where?: BoardWhereInput
-    orderBy?: BoardOrderByWithRelationInput | BoardOrderByWithRelationInput[]
-    cursor?: BoardWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: BoardScalarFieldEnum | BoardScalarFieldEnum[]
-  }
-
-  /**
    * User.Project
    */
   export type User$ProjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2541,26 +2470,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
-  }
-
-  /**
-   * User.ProjectMember
-   */
-  export type User$ProjectMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectMember
-     */
-    select?: ProjectMemberSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProjectMemberInclude<ExtArgs> | null
-    where?: ProjectMemberWhereInput
-    orderBy?: ProjectMemberOrderByWithRelationInput | ProjectMemberOrderByWithRelationInput[]
-    cursor?: ProjectMemberWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ProjectMemberScalarFieldEnum | ProjectMemberScalarFieldEnum[]
   }
 
   /**
@@ -2584,23 +2493,23 @@ export namespace Prisma {
   }
 
   /**
-   * User.Session
+   * User.MyProject
    */
-  export type User$SessionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$MyProjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Session
+     * Select specific fields to fetch from the MyProject
      */
-    select?: SessionSelect<ExtArgs> | null
+    select?: MyProjectSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SessionInclude<ExtArgs> | null
-    where?: SessionWhereInput
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    cursor?: SessionWhereUniqueInput
+    include?: MyProjectInclude<ExtArgs> | null
+    where?: MyProjectWhereInput
+    orderBy?: MyProjectOrderByWithRelationInput | MyProjectOrderByWithRelationInput[]
+    cursor?: MyProjectWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+    distinct?: MyProjectScalarFieldEnum | MyProjectScalarFieldEnum[]
   }
 
   /**
@@ -2632,18 +2541,19 @@ export namespace Prisma {
 
   export type BoardAvgAggregateOutputType = {
     id: number | null
-    ownerId: number | null
+    projectId: number | null
   }
 
   export type BoardSumAggregateOutputType = {
     id: number | null
-    ownerId: number | null
+    projectId: number | null
   }
 
   export type BoardMinAggregateOutputType = {
     id: number | null
     title: string | null
-    ownerId: number | null
+    projectId: number | null
+    color: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2651,7 +2561,8 @@ export namespace Prisma {
   export type BoardMaxAggregateOutputType = {
     id: number | null
     title: string | null
-    ownerId: number | null
+    projectId: number | null
+    color: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2659,7 +2570,8 @@ export namespace Prisma {
   export type BoardCountAggregateOutputType = {
     id: number
     title: number
-    ownerId: number
+    projectId: number
+    color: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2668,18 +2580,19 @@ export namespace Prisma {
 
   export type BoardAvgAggregateInputType = {
     id?: true
-    ownerId?: true
+    projectId?: true
   }
 
   export type BoardSumAggregateInputType = {
     id?: true
-    ownerId?: true
+    projectId?: true
   }
 
   export type BoardMinAggregateInputType = {
     id?: true
     title?: true
-    ownerId?: true
+    projectId?: true
+    color?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2687,7 +2600,8 @@ export namespace Prisma {
   export type BoardMaxAggregateInputType = {
     id?: true
     title?: true
-    ownerId?: true
+    projectId?: true
+    color?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2695,7 +2609,8 @@ export namespace Prisma {
   export type BoardCountAggregateInputType = {
     id?: true
     title?: true
-    ownerId?: true
+    projectId?: true
+    color?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2790,7 +2705,8 @@ export namespace Prisma {
   export type BoardGroupByOutputType = {
     id: number
     title: string
-    ownerId: number
+    projectId: number
+    color: string | null
     createdAt: Date
     updatedAt: Date
     _count: BoardCountAggregateOutputType | null
@@ -2817,10 +2733,11 @@ export namespace Prisma {
   export type BoardSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    ownerId?: boolean
+    projectId?: boolean
+    color?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
     Item?: boolean | Board$ItemArgs<ExtArgs>
     _count?: boolean | BoardCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["board"]>
@@ -2828,39 +2745,42 @@ export namespace Prisma {
   export type BoardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    ownerId?: boolean
+    projectId?: boolean
+    color?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["board"]>
 
   export type BoardSelectScalar = {
     id?: boolean
     title?: boolean
-    ownerId?: boolean
+    projectId?: boolean
+    color?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
   export type BoardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
     Item?: boolean | Board$ItemArgs<ExtArgs>
     _count?: boolean | BoardCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BoardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
   }
 
   export type $BoardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Board"
     objects: {
-      owner: Prisma.$UserPayload<ExtArgs>
+      project: Prisma.$ProjectPayload<ExtArgs>
       Item: Prisma.$ItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
-      ownerId: number
+      projectId: number
+      color: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["board"]>
@@ -3227,7 +3147,7 @@ export namespace Prisma {
    */
   export interface Prisma__BoardClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     Item<T extends Board$ItemArgs<ExtArgs> = {}>(args?: Subset<T, Board$ItemArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3260,7 +3180,8 @@ export namespace Prisma {
   interface BoardFieldRefs {
     readonly id: FieldRef<"Board", 'Int'>
     readonly title: FieldRef<"Board", 'String'>
-    readonly ownerId: FieldRef<"Board", 'Int'>
+    readonly projectId: FieldRef<"Board", 'Int'>
+    readonly color: FieldRef<"Board", 'String'>
     readonly createdAt: FieldRef<"Board", 'DateTime'>
     readonly updatedAt: FieldRef<"Board", 'DateTime'>
   }
@@ -3631,20 +3552,26 @@ export namespace Prisma {
     id: number | null
     boardId: number | null
     userId: number | null
+    itemCategoryId: number | null
   }
 
   export type ItemSumAggregateOutputType = {
     id: number | null
     boardId: number | null
     userId: number | null
+    itemCategoryId: number | null
   }
 
   export type ItemMinAggregateOutputType = {
     id: number | null
     content: string | null
+    description: string | null
     status: $Enums.ItemStatus | null
     boardId: number | null
     userId: number | null
+    itemCategoryId: number | null
+    start: Date | null
+    end: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3652,9 +3579,13 @@ export namespace Prisma {
   export type ItemMaxAggregateOutputType = {
     id: number | null
     content: string | null
+    description: string | null
     status: $Enums.ItemStatus | null
     boardId: number | null
     userId: number | null
+    itemCategoryId: number | null
+    start: Date | null
+    end: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3662,9 +3593,13 @@ export namespace Prisma {
   export type ItemCountAggregateOutputType = {
     id: number
     content: number
+    description: number
     status: number
     boardId: number
     userId: number
+    itemCategoryId: number
+    start: number
+    end: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -3675,20 +3610,26 @@ export namespace Prisma {
     id?: true
     boardId?: true
     userId?: true
+    itemCategoryId?: true
   }
 
   export type ItemSumAggregateInputType = {
     id?: true
     boardId?: true
     userId?: true
+    itemCategoryId?: true
   }
 
   export type ItemMinAggregateInputType = {
     id?: true
     content?: true
+    description?: true
     status?: true
     boardId?: true
     userId?: true
+    itemCategoryId?: true
+    start?: true
+    end?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3696,9 +3637,13 @@ export namespace Prisma {
   export type ItemMaxAggregateInputType = {
     id?: true
     content?: true
+    description?: true
     status?: true
     boardId?: true
     userId?: true
+    itemCategoryId?: true
+    start?: true
+    end?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3706,9 +3651,13 @@ export namespace Prisma {
   export type ItemCountAggregateInputType = {
     id?: true
     content?: true
+    description?: true
     status?: true
     boardId?: true
     userId?: true
+    itemCategoryId?: true
+    start?: true
+    end?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3803,9 +3752,13 @@ export namespace Prisma {
   export type ItemGroupByOutputType = {
     id: number
     content: string
+    description: string | null
     status: $Enums.ItemStatus
-    boardId: number
-    userId: number
+    boardId: number | null
+    userId: number | null
+    itemCategoryId: number | null
+    start: Date | null
+    end: Date | null
     createdAt: Date
     updatedAt: Date
     _count: ItemCountAggregateOutputType | null
@@ -3832,58 +3785,79 @@ export namespace Prisma {
   export type ItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
+    description?: boolean
     status?: boolean
     boardId?: boolean
     userId?: boolean
+    itemCategoryId?: boolean
+    start?: boolean
+    end?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    board?: boolean | BoardDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    board?: boolean | Item$boardArgs<ExtArgs>
+    user?: boolean | Item$userArgs<ExtArgs>
+    itemCategory?: boolean | Item$itemCategoryArgs<ExtArgs>
   }, ExtArgs["result"]["item"]>
 
   export type ItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
+    description?: boolean
     status?: boolean
     boardId?: boolean
     userId?: boolean
+    itemCategoryId?: boolean
+    start?: boolean
+    end?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    board?: boolean | BoardDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    board?: boolean | Item$boardArgs<ExtArgs>
+    user?: boolean | Item$userArgs<ExtArgs>
+    itemCategory?: boolean | Item$itemCategoryArgs<ExtArgs>
   }, ExtArgs["result"]["item"]>
 
   export type ItemSelectScalar = {
     id?: boolean
     content?: boolean
+    description?: boolean
     status?: boolean
     boardId?: boolean
     userId?: boolean
+    itemCategoryId?: boolean
+    start?: boolean
+    end?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
   export type ItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    board?: boolean | BoardDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    board?: boolean | Item$boardArgs<ExtArgs>
+    user?: boolean | Item$userArgs<ExtArgs>
+    itemCategory?: boolean | Item$itemCategoryArgs<ExtArgs>
   }
   export type ItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    board?: boolean | BoardDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    board?: boolean | Item$boardArgs<ExtArgs>
+    user?: boolean | Item$userArgs<ExtArgs>
+    itemCategory?: boolean | Item$itemCategoryArgs<ExtArgs>
   }
 
   export type $ItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Item"
     objects: {
-      board: Prisma.$BoardPayload<ExtArgs>
-      user: Prisma.$UserPayload<ExtArgs>
+      board: Prisma.$BoardPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs> | null
+      itemCategory: Prisma.$ItemCategoryPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       content: string
+      description: string | null
       status: $Enums.ItemStatus
-      boardId: number
-      userId: number
+      boardId: number | null
+      userId: number | null
+      itemCategoryId: number | null
+      start: Date | null
+      end: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["item"]>
@@ -4250,8 +4224,9 @@ export namespace Prisma {
    */
   export interface Prisma__ItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    board<T extends BoardDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BoardDefaultArgs<ExtArgs>>): Prisma__BoardClient<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    board<T extends Item$boardArgs<ExtArgs> = {}>(args?: Subset<T, Item$boardArgs<ExtArgs>>): Prisma__BoardClient<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    user<T extends Item$userArgs<ExtArgs> = {}>(args?: Subset<T, Item$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    itemCategory<T extends Item$itemCategoryArgs<ExtArgs> = {}>(args?: Subset<T, Item$itemCategoryArgs<ExtArgs>>): Prisma__ItemCategoryClient<$Result.GetResult<Prisma.$ItemCategoryPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4283,9 +4258,13 @@ export namespace Prisma {
   interface ItemFieldRefs {
     readonly id: FieldRef<"Item", 'Int'>
     readonly content: FieldRef<"Item", 'String'>
+    readonly description: FieldRef<"Item", 'String'>
     readonly status: FieldRef<"Item", 'ItemStatus'>
     readonly boardId: FieldRef<"Item", 'Int'>
     readonly userId: FieldRef<"Item", 'Int'>
+    readonly itemCategoryId: FieldRef<"Item", 'Int'>
+    readonly start: FieldRef<"Item", 'DateTime'>
+    readonly end: FieldRef<"Item", 'DateTime'>
     readonly createdAt: FieldRef<"Item", 'DateTime'>
     readonly updatedAt: FieldRef<"Item", 'DateTime'>
   }
@@ -4606,6 +4585,51 @@ export namespace Prisma {
   }
 
   /**
+   * Item.board
+   */
+  export type Item$boardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+    where?: BoardWhereInput
+  }
+
+  /**
+   * Item.user
+   */
+  export type Item$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Item.itemCategory
+   */
+  export type Item$itemCategoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategory
+     */
+    select?: ItemCategorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemCategoryInclude<ExtArgs> | null
+    where?: ItemCategoryWhereInput
+  }
+
+  /**
    * Item without action
    */
   export type ItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4617,6 +4641,1015 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ItemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ItemCategory
+   */
+
+  export type AggregateItemCategory = {
+    _count: ItemCategoryCountAggregateOutputType | null
+    _avg: ItemCategoryAvgAggregateOutputType | null
+    _sum: ItemCategorySumAggregateOutputType | null
+    _min: ItemCategoryMinAggregateOutputType | null
+    _max: ItemCategoryMaxAggregateOutputType | null
+  }
+
+  export type ItemCategoryAvgAggregateOutputType = {
+    id: number | null
+    projectId: number | null
+  }
+
+  export type ItemCategorySumAggregateOutputType = {
+    id: number | null
+    projectId: number | null
+  }
+
+  export type ItemCategoryMinAggregateOutputType = {
+    id: number | null
+    projectId: number | null
+    category: string | null
+    color: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ItemCategoryMaxAggregateOutputType = {
+    id: number | null
+    projectId: number | null
+    category: string | null
+    color: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ItemCategoryCountAggregateOutputType = {
+    id: number
+    projectId: number
+    category: number
+    color: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ItemCategoryAvgAggregateInputType = {
+    id?: true
+    projectId?: true
+  }
+
+  export type ItemCategorySumAggregateInputType = {
+    id?: true
+    projectId?: true
+  }
+
+  export type ItemCategoryMinAggregateInputType = {
+    id?: true
+    projectId?: true
+    category?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ItemCategoryMaxAggregateInputType = {
+    id?: true
+    projectId?: true
+    category?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ItemCategoryCountAggregateInputType = {
+    id?: true
+    projectId?: true
+    category?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ItemCategoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemCategory to aggregate.
+     */
+    where?: ItemCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemCategories to fetch.
+     */
+    orderBy?: ItemCategoryOrderByWithRelationInput | ItemCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ItemCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ItemCategories
+    **/
+    _count?: true | ItemCategoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ItemCategoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ItemCategorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ItemCategoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ItemCategoryMaxAggregateInputType
+  }
+
+  export type GetItemCategoryAggregateType<T extends ItemCategoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateItemCategory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateItemCategory[P]>
+      : GetScalarType<T[P], AggregateItemCategory[P]>
+  }
+
+
+
+
+  export type ItemCategoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ItemCategoryWhereInput
+    orderBy?: ItemCategoryOrderByWithAggregationInput | ItemCategoryOrderByWithAggregationInput[]
+    by: ItemCategoryScalarFieldEnum[] | ItemCategoryScalarFieldEnum
+    having?: ItemCategoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ItemCategoryCountAggregateInputType | true
+    _avg?: ItemCategoryAvgAggregateInputType
+    _sum?: ItemCategorySumAggregateInputType
+    _min?: ItemCategoryMinAggregateInputType
+    _max?: ItemCategoryMaxAggregateInputType
+  }
+
+  export type ItemCategoryGroupByOutputType = {
+    id: number
+    projectId: number
+    category: string
+    color: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ItemCategoryCountAggregateOutputType | null
+    _avg: ItemCategoryAvgAggregateOutputType | null
+    _sum: ItemCategorySumAggregateOutputType | null
+    _min: ItemCategoryMinAggregateOutputType | null
+    _max: ItemCategoryMaxAggregateOutputType | null
+  }
+
+  type GetItemCategoryGroupByPayload<T extends ItemCategoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ItemCategoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ItemCategoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ItemCategoryGroupByOutputType[P]>
+            : GetScalarType<T[P], ItemCategoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ItemCategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    category?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    Item?: boolean | ItemCategory$ItemArgs<ExtArgs>
+    _count?: boolean | ItemCategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["itemCategory"]>
+
+  export type ItemCategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    category?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["itemCategory"]>
+
+  export type ItemCategorySelectScalar = {
+    id?: boolean
+    projectId?: boolean
+    category?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ItemCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    Item?: boolean | ItemCategory$ItemArgs<ExtArgs>
+    _count?: boolean | ItemCategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ItemCategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }
+
+  export type $ItemCategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ItemCategory"
+    objects: {
+      project: Prisma.$ProjectPayload<ExtArgs>
+      Item: Prisma.$ItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      projectId: number
+      category: string
+      color: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["itemCategory"]>
+    composites: {}
+  }
+
+  type ItemCategoryGetPayload<S extends boolean | null | undefined | ItemCategoryDefaultArgs> = $Result.GetResult<Prisma.$ItemCategoryPayload, S>
+
+  type ItemCategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ItemCategoryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ItemCategoryCountAggregateInputType | true
+    }
+
+  export interface ItemCategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ItemCategory'], meta: { name: 'ItemCategory' } }
+    /**
+     * Find zero or one ItemCategory that matches the filter.
+     * @param {ItemCategoryFindUniqueArgs} args - Arguments to find a ItemCategory
+     * @example
+     * // Get one ItemCategory
+     * const itemCategory = await prisma.itemCategory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ItemCategoryFindUniqueArgs>(args: SelectSubset<T, ItemCategoryFindUniqueArgs<ExtArgs>>): Prisma__ItemCategoryClient<$Result.GetResult<Prisma.$ItemCategoryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ItemCategory that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ItemCategoryFindUniqueOrThrowArgs} args - Arguments to find a ItemCategory
+     * @example
+     * // Get one ItemCategory
+     * const itemCategory = await prisma.itemCategory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ItemCategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, ItemCategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ItemCategoryClient<$Result.GetResult<Prisma.$ItemCategoryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ItemCategory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCategoryFindFirstArgs} args - Arguments to find a ItemCategory
+     * @example
+     * // Get one ItemCategory
+     * const itemCategory = await prisma.itemCategory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ItemCategoryFindFirstArgs>(args?: SelectSubset<T, ItemCategoryFindFirstArgs<ExtArgs>>): Prisma__ItemCategoryClient<$Result.GetResult<Prisma.$ItemCategoryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ItemCategory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCategoryFindFirstOrThrowArgs} args - Arguments to find a ItemCategory
+     * @example
+     * // Get one ItemCategory
+     * const itemCategory = await prisma.itemCategory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ItemCategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, ItemCategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__ItemCategoryClient<$Result.GetResult<Prisma.$ItemCategoryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ItemCategories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCategoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ItemCategories
+     * const itemCategories = await prisma.itemCategory.findMany()
+     * 
+     * // Get first 10 ItemCategories
+     * const itemCategories = await prisma.itemCategory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const itemCategoryWithIdOnly = await prisma.itemCategory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ItemCategoryFindManyArgs>(args?: SelectSubset<T, ItemCategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemCategoryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ItemCategory.
+     * @param {ItemCategoryCreateArgs} args - Arguments to create a ItemCategory.
+     * @example
+     * // Create one ItemCategory
+     * const ItemCategory = await prisma.itemCategory.create({
+     *   data: {
+     *     // ... data to create a ItemCategory
+     *   }
+     * })
+     * 
+     */
+    create<T extends ItemCategoryCreateArgs>(args: SelectSubset<T, ItemCategoryCreateArgs<ExtArgs>>): Prisma__ItemCategoryClient<$Result.GetResult<Prisma.$ItemCategoryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ItemCategories.
+     * @param {ItemCategoryCreateManyArgs} args - Arguments to create many ItemCategories.
+     * @example
+     * // Create many ItemCategories
+     * const itemCategory = await prisma.itemCategory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ItemCategoryCreateManyArgs>(args?: SelectSubset<T, ItemCategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ItemCategories and returns the data saved in the database.
+     * @param {ItemCategoryCreateManyAndReturnArgs} args - Arguments to create many ItemCategories.
+     * @example
+     * // Create many ItemCategories
+     * const itemCategory = await prisma.itemCategory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ItemCategories and only return the `id`
+     * const itemCategoryWithIdOnly = await prisma.itemCategory.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ItemCategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, ItemCategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemCategoryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ItemCategory.
+     * @param {ItemCategoryDeleteArgs} args - Arguments to delete one ItemCategory.
+     * @example
+     * // Delete one ItemCategory
+     * const ItemCategory = await prisma.itemCategory.delete({
+     *   where: {
+     *     // ... filter to delete one ItemCategory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ItemCategoryDeleteArgs>(args: SelectSubset<T, ItemCategoryDeleteArgs<ExtArgs>>): Prisma__ItemCategoryClient<$Result.GetResult<Prisma.$ItemCategoryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ItemCategory.
+     * @param {ItemCategoryUpdateArgs} args - Arguments to update one ItemCategory.
+     * @example
+     * // Update one ItemCategory
+     * const itemCategory = await prisma.itemCategory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ItemCategoryUpdateArgs>(args: SelectSubset<T, ItemCategoryUpdateArgs<ExtArgs>>): Prisma__ItemCategoryClient<$Result.GetResult<Prisma.$ItemCategoryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ItemCategories.
+     * @param {ItemCategoryDeleteManyArgs} args - Arguments to filter ItemCategories to delete.
+     * @example
+     * // Delete a few ItemCategories
+     * const { count } = await prisma.itemCategory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ItemCategoryDeleteManyArgs>(args?: SelectSubset<T, ItemCategoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ItemCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCategoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ItemCategories
+     * const itemCategory = await prisma.itemCategory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ItemCategoryUpdateManyArgs>(args: SelectSubset<T, ItemCategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ItemCategory.
+     * @param {ItemCategoryUpsertArgs} args - Arguments to update or create a ItemCategory.
+     * @example
+     * // Update or create a ItemCategory
+     * const itemCategory = await prisma.itemCategory.upsert({
+     *   create: {
+     *     // ... data to create a ItemCategory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ItemCategory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ItemCategoryUpsertArgs>(args: SelectSubset<T, ItemCategoryUpsertArgs<ExtArgs>>): Prisma__ItemCategoryClient<$Result.GetResult<Prisma.$ItemCategoryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ItemCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCategoryCountArgs} args - Arguments to filter ItemCategories to count.
+     * @example
+     * // Count the number of ItemCategories
+     * const count = await prisma.itemCategory.count({
+     *   where: {
+     *     // ... the filter for the ItemCategories we want to count
+     *   }
+     * })
+    **/
+    count<T extends ItemCategoryCountArgs>(
+      args?: Subset<T, ItemCategoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ItemCategoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ItemCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCategoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ItemCategoryAggregateArgs>(args: Subset<T, ItemCategoryAggregateArgs>): Prisma.PrismaPromise<GetItemCategoryAggregateType<T>>
+
+    /**
+     * Group by ItemCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ItemCategoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ItemCategoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ItemCategoryGroupByArgs['orderBy'] }
+        : { orderBy?: ItemCategoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ItemCategoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetItemCategoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ItemCategory model
+   */
+  readonly fields: ItemCategoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ItemCategory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ItemCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    Item<T extends ItemCategory$ItemArgs<ExtArgs> = {}>(args?: Subset<T, ItemCategory$ItemArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ItemCategory model
+   */ 
+  interface ItemCategoryFieldRefs {
+    readonly id: FieldRef<"ItemCategory", 'Int'>
+    readonly projectId: FieldRef<"ItemCategory", 'Int'>
+    readonly category: FieldRef<"ItemCategory", 'String'>
+    readonly color: FieldRef<"ItemCategory", 'String'>
+    readonly createdAt: FieldRef<"ItemCategory", 'DateTime'>
+    readonly updatedAt: FieldRef<"ItemCategory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ItemCategory findUnique
+   */
+  export type ItemCategoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategory
+     */
+    select?: ItemCategorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemCategory to fetch.
+     */
+    where: ItemCategoryWhereUniqueInput
+  }
+
+  /**
+   * ItemCategory findUniqueOrThrow
+   */
+  export type ItemCategoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategory
+     */
+    select?: ItemCategorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemCategory to fetch.
+     */
+    where: ItemCategoryWhereUniqueInput
+  }
+
+  /**
+   * ItemCategory findFirst
+   */
+  export type ItemCategoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategory
+     */
+    select?: ItemCategorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemCategory to fetch.
+     */
+    where?: ItemCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemCategories to fetch.
+     */
+    orderBy?: ItemCategoryOrderByWithRelationInput | ItemCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemCategories.
+     */
+    cursor?: ItemCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemCategories.
+     */
+    distinct?: ItemCategoryScalarFieldEnum | ItemCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * ItemCategory findFirstOrThrow
+   */
+  export type ItemCategoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategory
+     */
+    select?: ItemCategorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemCategory to fetch.
+     */
+    where?: ItemCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemCategories to fetch.
+     */
+    orderBy?: ItemCategoryOrderByWithRelationInput | ItemCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ItemCategories.
+     */
+    cursor?: ItemCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ItemCategories.
+     */
+    distinct?: ItemCategoryScalarFieldEnum | ItemCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * ItemCategory findMany
+   */
+  export type ItemCategoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategory
+     */
+    select?: ItemCategorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ItemCategories to fetch.
+     */
+    where?: ItemCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ItemCategories to fetch.
+     */
+    orderBy?: ItemCategoryOrderByWithRelationInput | ItemCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ItemCategories.
+     */
+    cursor?: ItemCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ItemCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ItemCategories.
+     */
+    skip?: number
+    distinct?: ItemCategoryScalarFieldEnum | ItemCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * ItemCategory create
+   */
+  export type ItemCategoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategory
+     */
+    select?: ItemCategorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemCategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ItemCategory.
+     */
+    data: XOR<ItemCategoryCreateInput, ItemCategoryUncheckedCreateInput>
+  }
+
+  /**
+   * ItemCategory createMany
+   */
+  export type ItemCategoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ItemCategories.
+     */
+    data: ItemCategoryCreateManyInput | ItemCategoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ItemCategory createManyAndReturn
+   */
+  export type ItemCategoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategory
+     */
+    select?: ItemCategorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ItemCategories.
+     */
+    data: ItemCategoryCreateManyInput | ItemCategoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemCategoryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ItemCategory update
+   */
+  export type ItemCategoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategory
+     */
+    select?: ItemCategorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemCategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ItemCategory.
+     */
+    data: XOR<ItemCategoryUpdateInput, ItemCategoryUncheckedUpdateInput>
+    /**
+     * Choose, which ItemCategory to update.
+     */
+    where: ItemCategoryWhereUniqueInput
+  }
+
+  /**
+   * ItemCategory updateMany
+   */
+  export type ItemCategoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ItemCategories.
+     */
+    data: XOR<ItemCategoryUpdateManyMutationInput, ItemCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which ItemCategories to update
+     */
+    where?: ItemCategoryWhereInput
+  }
+
+  /**
+   * ItemCategory upsert
+   */
+  export type ItemCategoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategory
+     */
+    select?: ItemCategorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemCategoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ItemCategory to update in case it exists.
+     */
+    where: ItemCategoryWhereUniqueInput
+    /**
+     * In case the ItemCategory found by the `where` argument doesn't exist, create a new ItemCategory with this data.
+     */
+    create: XOR<ItemCategoryCreateInput, ItemCategoryUncheckedCreateInput>
+    /**
+     * In case the ItemCategory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ItemCategoryUpdateInput, ItemCategoryUncheckedUpdateInput>
+  }
+
+  /**
+   * ItemCategory delete
+   */
+  export type ItemCategoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategory
+     */
+    select?: ItemCategorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemCategoryInclude<ExtArgs> | null
+    /**
+     * Filter which ItemCategory to delete.
+     */
+    where: ItemCategoryWhereUniqueInput
+  }
+
+  /**
+   * ItemCategory deleteMany
+   */
+  export type ItemCategoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ItemCategories to delete
+     */
+    where?: ItemCategoryWhereInput
+  }
+
+  /**
+   * ItemCategory.Item
+   */
+  export type ItemCategory$ItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Item
+     */
+    select?: ItemSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemInclude<ExtArgs> | null
+    where?: ItemWhereInput
+    orderBy?: ItemOrderByWithRelationInput | ItemOrderByWithRelationInput[]
+    cursor?: ItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ItemScalarFieldEnum | ItemScalarFieldEnum[]
+  }
+
+  /**
+   * ItemCategory without action
+   */
+  export type ItemCategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ItemCategory
+     */
+    select?: ItemCategorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemCategoryInclude<ExtArgs> | null
   }
 
 
@@ -4647,6 +5680,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     authorId: number | null
+    projectScope: $Enums.ProjectScope | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4656,6 +5690,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     authorId: number | null
+    projectScope: $Enums.ProjectScope | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4665,6 +5700,7 @@ export namespace Prisma {
     title: number
     description: number
     authorId: number
+    projectScope: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4686,6 +5722,7 @@ export namespace Prisma {
     title?: true
     description?: true
     authorId?: true
+    projectScope?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4695,6 +5732,7 @@ export namespace Prisma {
     title?: true
     description?: true
     authorId?: true
+    projectScope?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4704,6 +5742,7 @@ export namespace Prisma {
     title?: true
     description?: true
     authorId?: true
+    projectScope?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4800,6 +5839,7 @@ export namespace Prisma {
     title: string
     description: string
     authorId: number
+    projectScope: $Enums.ProjectScope
     createdAt: Date
     updatedAt: Date
     _count: ProjectCountAggregateOutputType | null
@@ -4828,10 +5868,13 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     authorId?: boolean
+    projectScope?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    ProjectMember?: boolean | Project$ProjectMemberArgs<ExtArgs>
+    ItemCategory?: boolean | Project$ItemCategoryArgs<ExtArgs>
+    MyProject?: boolean | Project$MyProjectArgs<ExtArgs>
+    Board?: boolean | Project$BoardArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
@@ -4840,6 +5883,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     authorId?: boolean
+    projectScope?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4850,13 +5894,16 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     authorId?: boolean
+    projectScope?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
   export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    ProjectMember?: boolean | Project$ProjectMemberArgs<ExtArgs>
+    ItemCategory?: boolean | Project$ItemCategoryArgs<ExtArgs>
+    MyProject?: boolean | Project$MyProjectArgs<ExtArgs>
+    Board?: boolean | Project$BoardArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4867,13 +5914,16 @@ export namespace Prisma {
     name: "Project"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      ProjectMember: Prisma.$ProjectMemberPayload<ExtArgs>[]
+      ItemCategory: Prisma.$ItemCategoryPayload<ExtArgs>[]
+      MyProject: Prisma.$MyProjectPayload<ExtArgs>[]
+      Board: Prisma.$BoardPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       title: string
       description: string
       authorId: number
+      projectScope: $Enums.ProjectScope
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["project"]>
@@ -5241,7 +6291,9 @@ export namespace Prisma {
   export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    ProjectMember<T extends Project$ProjectMemberArgs<ExtArgs> = {}>(args?: Subset<T, Project$ProjectMemberArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findMany"> | Null>
+    ItemCategory<T extends Project$ItemCategoryArgs<ExtArgs> = {}>(args?: Subset<T, Project$ItemCategoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemCategoryPayload<ExtArgs>, T, "findMany"> | Null>
+    MyProject<T extends Project$MyProjectArgs<ExtArgs> = {}>(args?: Subset<T, Project$MyProjectArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MyProjectPayload<ExtArgs>, T, "findMany"> | Null>
+    Board<T extends Project$BoardArgs<ExtArgs> = {}>(args?: Subset<T, Project$BoardArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5275,6 +6327,7 @@ export namespace Prisma {
     readonly title: FieldRef<"Project", 'String'>
     readonly description: FieldRef<"Project", 'String'>
     readonly authorId: FieldRef<"Project", 'Int'>
+    readonly projectScope: FieldRef<"Project", 'ProjectScope'>
     readonly createdAt: FieldRef<"Project", 'DateTime'>
     readonly updatedAt: FieldRef<"Project", 'DateTime'>
   }
@@ -5595,23 +6648,63 @@ export namespace Prisma {
   }
 
   /**
-   * Project.ProjectMember
+   * Project.ItemCategory
    */
-  export type Project$ProjectMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Project$ItemCategoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProjectMember
+     * Select specific fields to fetch from the ItemCategory
      */
-    select?: ProjectMemberSelect<ExtArgs> | null
+    select?: ItemCategorySelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProjectMemberInclude<ExtArgs> | null
-    where?: ProjectMemberWhereInput
-    orderBy?: ProjectMemberOrderByWithRelationInput | ProjectMemberOrderByWithRelationInput[]
-    cursor?: ProjectMemberWhereUniqueInput
+    include?: ItemCategoryInclude<ExtArgs> | null
+    where?: ItemCategoryWhereInput
+    orderBy?: ItemCategoryOrderByWithRelationInput | ItemCategoryOrderByWithRelationInput[]
+    cursor?: ItemCategoryWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ProjectMemberScalarFieldEnum | ProjectMemberScalarFieldEnum[]
+    distinct?: ItemCategoryScalarFieldEnum | ItemCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Project.MyProject
+   */
+  export type Project$MyProjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MyProject
+     */
+    select?: MyProjectSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MyProjectInclude<ExtArgs> | null
+    where?: MyProjectWhereInput
+    orderBy?: MyProjectOrderByWithRelationInput | MyProjectOrderByWithRelationInput[]
+    cursor?: MyProjectWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MyProjectScalarFieldEnum | MyProjectScalarFieldEnum[]
+  }
+
+  /**
+   * Project.Board
+   */
+  export type Project$BoardArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Board
+     */
+    select?: BoardSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BoardInclude<ExtArgs> | null
+    where?: BoardWhereInput
+    orderBy?: BoardOrderByWithRelationInput | BoardOrderByWithRelationInput[]
+    cursor?: BoardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BoardScalarFieldEnum | BoardScalarFieldEnum[]
   }
 
   /**
@@ -5630,244 +6723,264 @@ export namespace Prisma {
 
 
   /**
-   * Model ProjectMember
+   * Model MyProject
    */
 
-  export type AggregateProjectMember = {
-    _count: ProjectMemberCountAggregateOutputType | null
-    _avg: ProjectMemberAvgAggregateOutputType | null
-    _sum: ProjectMemberSumAggregateOutputType | null
-    _min: ProjectMemberMinAggregateOutputType | null
-    _max: ProjectMemberMaxAggregateOutputType | null
+  export type AggregateMyProject = {
+    _count: MyProjectCountAggregateOutputType | null
+    _avg: MyProjectAvgAggregateOutputType | null
+    _sum: MyProjectSumAggregateOutputType | null
+    _min: MyProjectMinAggregateOutputType | null
+    _max: MyProjectMaxAggregateOutputType | null
   }
 
-  export type ProjectMemberAvgAggregateOutputType = {
+  export type MyProjectAvgAggregateOutputType = {
     id: number | null
     userId: number | null
     projectId: number | null
   }
 
-  export type ProjectMemberSumAggregateOutputType = {
+  export type MyProjectSumAggregateOutputType = {
     id: number | null
     userId: number | null
     projectId: number | null
   }
 
-  export type ProjectMemberMinAggregateOutputType = {
+  export type MyProjectMinAggregateOutputType = {
     id: number | null
     userId: number | null
     projectId: number | null
-    role: $Enums.MemberRole | null
-    joinDate: Date | null
+    role: $Enums.ProjectRole | null
+    isFavorite: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
-  export type ProjectMemberMaxAggregateOutputType = {
+  export type MyProjectMaxAggregateOutputType = {
     id: number | null
     userId: number | null
     projectId: number | null
-    role: $Enums.MemberRole | null
-    joinDate: Date | null
+    role: $Enums.ProjectRole | null
+    isFavorite: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
-  export type ProjectMemberCountAggregateOutputType = {
+  export type MyProjectCountAggregateOutputType = {
     id: number
     userId: number
     projectId: number
     role: number
-    joinDate: number
+    isFavorite: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
-  export type ProjectMemberAvgAggregateInputType = {
+  export type MyProjectAvgAggregateInputType = {
     id?: true
     userId?: true
     projectId?: true
   }
 
-  export type ProjectMemberSumAggregateInputType = {
+  export type MyProjectSumAggregateInputType = {
     id?: true
     userId?: true
     projectId?: true
   }
 
-  export type ProjectMemberMinAggregateInputType = {
+  export type MyProjectMinAggregateInputType = {
     id?: true
     userId?: true
     projectId?: true
     role?: true
-    joinDate?: true
+    isFavorite?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
-  export type ProjectMemberMaxAggregateInputType = {
+  export type MyProjectMaxAggregateInputType = {
     id?: true
     userId?: true
     projectId?: true
     role?: true
-    joinDate?: true
+    isFavorite?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
-  export type ProjectMemberCountAggregateInputType = {
+  export type MyProjectCountAggregateInputType = {
     id?: true
     userId?: true
     projectId?: true
     role?: true
-    joinDate?: true
+    isFavorite?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
-  export type ProjectMemberAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which ProjectMember to aggregate.
+     * Filter which MyProject to aggregate.
      */
-    where?: ProjectMemberWhereInput
+    where?: MyProjectWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ProjectMembers to fetch.
+     * Determine the order of MyProjects to fetch.
      */
-    orderBy?: ProjectMemberOrderByWithRelationInput | ProjectMemberOrderByWithRelationInput[]
+    orderBy?: MyProjectOrderByWithRelationInput | MyProjectOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: ProjectMemberWhereUniqueInput
+    cursor?: MyProjectWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ProjectMembers from the position of the cursor.
+     * Take `±n` MyProjects from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ProjectMembers.
+     * Skip the first `n` MyProjects.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ProjectMembers
+     * Count returned MyProjects
     **/
-    _count?: true | ProjectMemberCountAggregateInputType
+    _count?: true | MyProjectCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ProjectMemberAvgAggregateInputType
+    _avg?: MyProjectAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ProjectMemberSumAggregateInputType
+    _sum?: MyProjectSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ProjectMemberMinAggregateInputType
+    _min?: MyProjectMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ProjectMemberMaxAggregateInputType
+    _max?: MyProjectMaxAggregateInputType
   }
 
-  export type GetProjectMemberAggregateType<T extends ProjectMemberAggregateArgs> = {
-        [P in keyof T & keyof AggregateProjectMember]: P extends '_count' | 'count'
+  export type GetMyProjectAggregateType<T extends MyProjectAggregateArgs> = {
+        [P in keyof T & keyof AggregateMyProject]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateProjectMember[P]>
-      : GetScalarType<T[P], AggregateProjectMember[P]>
+        : GetScalarType<T[P], AggregateMyProject[P]>
+      : GetScalarType<T[P], AggregateMyProject[P]>
   }
 
 
 
 
-  export type ProjectMemberGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProjectMemberWhereInput
-    orderBy?: ProjectMemberOrderByWithAggregationInput | ProjectMemberOrderByWithAggregationInput[]
-    by: ProjectMemberScalarFieldEnum[] | ProjectMemberScalarFieldEnum
-    having?: ProjectMemberScalarWhereWithAggregatesInput
+  export type MyProjectGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MyProjectWhereInput
+    orderBy?: MyProjectOrderByWithAggregationInput | MyProjectOrderByWithAggregationInput[]
+    by: MyProjectScalarFieldEnum[] | MyProjectScalarFieldEnum
+    having?: MyProjectScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ProjectMemberCountAggregateInputType | true
-    _avg?: ProjectMemberAvgAggregateInputType
-    _sum?: ProjectMemberSumAggregateInputType
-    _min?: ProjectMemberMinAggregateInputType
-    _max?: ProjectMemberMaxAggregateInputType
+    _count?: MyProjectCountAggregateInputType | true
+    _avg?: MyProjectAvgAggregateInputType
+    _sum?: MyProjectSumAggregateInputType
+    _min?: MyProjectMinAggregateInputType
+    _max?: MyProjectMaxAggregateInputType
   }
 
-  export type ProjectMemberGroupByOutputType = {
+  export type MyProjectGroupByOutputType = {
     id: number
     userId: number
     projectId: number
-    role: $Enums.MemberRole
-    joinDate: Date
-    _count: ProjectMemberCountAggregateOutputType | null
-    _avg: ProjectMemberAvgAggregateOutputType | null
-    _sum: ProjectMemberSumAggregateOutputType | null
-    _min: ProjectMemberMinAggregateOutputType | null
-    _max: ProjectMemberMaxAggregateOutputType | null
+    role: $Enums.ProjectRole
+    isFavorite: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: MyProjectCountAggregateOutputType | null
+    _avg: MyProjectAvgAggregateOutputType | null
+    _sum: MyProjectSumAggregateOutputType | null
+    _min: MyProjectMinAggregateOutputType | null
+    _max: MyProjectMaxAggregateOutputType | null
   }
 
-  type GetProjectMemberGroupByPayload<T extends ProjectMemberGroupByArgs> = Prisma.PrismaPromise<
+  type GetMyProjectGroupByPayload<T extends MyProjectGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<ProjectMemberGroupByOutputType, T['by']> &
+      PickEnumerable<MyProjectGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ProjectMemberGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof MyProjectGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ProjectMemberGroupByOutputType[P]>
-            : GetScalarType<T[P], ProjectMemberGroupByOutputType[P]>
+              : GetScalarType<T[P], MyProjectGroupByOutputType[P]>
+            : GetScalarType<T[P], MyProjectGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ProjectMemberSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MyProjectSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     projectId?: boolean
     role?: boolean
-    joinDate?: boolean
+    isFavorite?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["projectMember"]>
+  }, ExtArgs["result"]["myProject"]>
 
-  export type ProjectMemberSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MyProjectSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     projectId?: boolean
     role?: boolean
-    joinDate?: boolean
+    isFavorite?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["projectMember"]>
+  }, ExtArgs["result"]["myProject"]>
 
-  export type ProjectMemberSelectScalar = {
+  export type MyProjectSelectScalar = {
     id?: boolean
     userId?: boolean
     projectId?: boolean
     role?: boolean
-    joinDate?: boolean
+    isFavorite?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type ProjectMemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }
-  export type ProjectMemberIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }
 
-  export type $ProjectMemberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "ProjectMember"
+  export type $MyProjectPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MyProject"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       project: Prisma.$ProjectPayload<ExtArgs>
@@ -5876,138 +6989,140 @@ export namespace Prisma {
       id: number
       userId: number
       projectId: number
-      role: $Enums.MemberRole
-      joinDate: Date
-    }, ExtArgs["result"]["projectMember"]>
+      role: $Enums.ProjectRole
+      isFavorite: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["myProject"]>
     composites: {}
   }
 
-  type ProjectMemberGetPayload<S extends boolean | null | undefined | ProjectMemberDefaultArgs> = $Result.GetResult<Prisma.$ProjectMemberPayload, S>
+  type MyProjectGetPayload<S extends boolean | null | undefined | MyProjectDefaultArgs> = $Result.GetResult<Prisma.$MyProjectPayload, S>
 
-  type ProjectMemberCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<ProjectMemberFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: ProjectMemberCountAggregateInputType | true
+  type MyProjectCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MyProjectFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MyProjectCountAggregateInputType | true
     }
 
-  export interface ProjectMemberDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProjectMember'], meta: { name: 'ProjectMember' } }
+  export interface MyProjectDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MyProject'], meta: { name: 'MyProject' } }
     /**
-     * Find zero or one ProjectMember that matches the filter.
-     * @param {ProjectMemberFindUniqueArgs} args - Arguments to find a ProjectMember
+     * Find zero or one MyProject that matches the filter.
+     * @param {MyProjectFindUniqueArgs} args - Arguments to find a MyProject
      * @example
-     * // Get one ProjectMember
-     * const projectMember = await prisma.projectMember.findUnique({
+     * // Get one MyProject
+     * const myProject = await prisma.myProject.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends ProjectMemberFindUniqueArgs>(args: SelectSubset<T, ProjectMemberFindUniqueArgs<ExtArgs>>): Prisma__ProjectMemberClient<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+    findUnique<T extends MyProjectFindUniqueArgs>(args: SelectSubset<T, MyProjectFindUniqueArgs<ExtArgs>>): Prisma__MyProjectClient<$Result.GetResult<Prisma.$MyProjectPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
 
     /**
-     * Find one ProjectMember that matches the filter or throw an error with `error.code='P2025'` 
+     * Find one MyProject that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
-     * @param {ProjectMemberFindUniqueOrThrowArgs} args - Arguments to find a ProjectMember
+     * @param {MyProjectFindUniqueOrThrowArgs} args - Arguments to find a MyProject
      * @example
-     * // Get one ProjectMember
-     * const projectMember = await prisma.projectMember.findUniqueOrThrow({
+     * // Get one MyProject
+     * const myProject = await prisma.myProject.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends ProjectMemberFindUniqueOrThrowArgs>(args: SelectSubset<T, ProjectMemberFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProjectMemberClient<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+    findUniqueOrThrow<T extends MyProjectFindUniqueOrThrowArgs>(args: SelectSubset<T, MyProjectFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MyProjectClient<$Result.GetResult<Prisma.$MyProjectPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
 
     /**
-     * Find the first ProjectMember that matches the filter.
+     * Find the first MyProject that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectMemberFindFirstArgs} args - Arguments to find a ProjectMember
+     * @param {MyProjectFindFirstArgs} args - Arguments to find a MyProject
      * @example
-     * // Get one ProjectMember
-     * const projectMember = await prisma.projectMember.findFirst({
+     * // Get one MyProject
+     * const myProject = await prisma.myProject.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends ProjectMemberFindFirstArgs>(args?: SelectSubset<T, ProjectMemberFindFirstArgs<ExtArgs>>): Prisma__ProjectMemberClient<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+    findFirst<T extends MyProjectFindFirstArgs>(args?: SelectSubset<T, MyProjectFindFirstArgs<ExtArgs>>): Prisma__MyProjectClient<$Result.GetResult<Prisma.$MyProjectPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
 
     /**
-     * Find the first ProjectMember that matches the filter or
+     * Find the first MyProject that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectMemberFindFirstOrThrowArgs} args - Arguments to find a ProjectMember
+     * @param {MyProjectFindFirstOrThrowArgs} args - Arguments to find a MyProject
      * @example
-     * // Get one ProjectMember
-     * const projectMember = await prisma.projectMember.findFirstOrThrow({
+     * // Get one MyProject
+     * const myProject = await prisma.myProject.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends ProjectMemberFindFirstOrThrowArgs>(args?: SelectSubset<T, ProjectMemberFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProjectMemberClient<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+    findFirstOrThrow<T extends MyProjectFindFirstOrThrowArgs>(args?: SelectSubset<T, MyProjectFindFirstOrThrowArgs<ExtArgs>>): Prisma__MyProjectClient<$Result.GetResult<Prisma.$MyProjectPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
 
     /**
-     * Find zero or more ProjectMembers that matches the filter.
+     * Find zero or more MyProjects that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectMemberFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {MyProjectFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ProjectMembers
-     * const projectMembers = await prisma.projectMember.findMany()
+     * // Get all MyProjects
+     * const myProjects = await prisma.myProject.findMany()
      * 
-     * // Get first 10 ProjectMembers
-     * const projectMembers = await prisma.projectMember.findMany({ take: 10 })
+     * // Get first 10 MyProjects
+     * const myProjects = await prisma.myProject.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const projectMemberWithIdOnly = await prisma.projectMember.findMany({ select: { id: true } })
+     * const myProjectWithIdOnly = await prisma.myProject.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends ProjectMemberFindManyArgs>(args?: SelectSubset<T, ProjectMemberFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findMany">>
+    findMany<T extends MyProjectFindManyArgs>(args?: SelectSubset<T, MyProjectFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MyProjectPayload<ExtArgs>, T, "findMany">>
 
     /**
-     * Create a ProjectMember.
-     * @param {ProjectMemberCreateArgs} args - Arguments to create a ProjectMember.
+     * Create a MyProject.
+     * @param {MyProjectCreateArgs} args - Arguments to create a MyProject.
      * @example
-     * // Create one ProjectMember
-     * const ProjectMember = await prisma.projectMember.create({
+     * // Create one MyProject
+     * const MyProject = await prisma.myProject.create({
      *   data: {
-     *     // ... data to create a ProjectMember
+     *     // ... data to create a MyProject
      *   }
      * })
      * 
      */
-    create<T extends ProjectMemberCreateArgs>(args: SelectSubset<T, ProjectMemberCreateArgs<ExtArgs>>): Prisma__ProjectMemberClient<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "create">, never, ExtArgs>
+    create<T extends MyProjectCreateArgs>(args: SelectSubset<T, MyProjectCreateArgs<ExtArgs>>): Prisma__MyProjectClient<$Result.GetResult<Prisma.$MyProjectPayload<ExtArgs>, T, "create">, never, ExtArgs>
 
     /**
-     * Create many ProjectMembers.
-     * @param {ProjectMemberCreateManyArgs} args - Arguments to create many ProjectMembers.
+     * Create many MyProjects.
+     * @param {MyProjectCreateManyArgs} args - Arguments to create many MyProjects.
      * @example
-     * // Create many ProjectMembers
-     * const projectMember = await prisma.projectMember.createMany({
+     * // Create many MyProjects
+     * const myProject = await prisma.myProject.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends ProjectMemberCreateManyArgs>(args?: SelectSubset<T, ProjectMemberCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends MyProjectCreateManyArgs>(args?: SelectSubset<T, MyProjectCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many ProjectMembers and returns the data saved in the database.
-     * @param {ProjectMemberCreateManyAndReturnArgs} args - Arguments to create many ProjectMembers.
+     * Create many MyProjects and returns the data saved in the database.
+     * @param {MyProjectCreateManyAndReturnArgs} args - Arguments to create many MyProjects.
      * @example
-     * // Create many ProjectMembers
-     * const projectMember = await prisma.projectMember.createManyAndReturn({
+     * // Create many MyProjects
+     * const myProject = await prisma.myProject.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many ProjectMembers and only return the `id`
-     * const projectMemberWithIdOnly = await prisma.projectMember.createManyAndReturn({ 
+     * // Create many MyProjects and only return the `id`
+     * const myProjectWithIdOnly = await prisma.myProject.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -6017,28 +7132,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends ProjectMemberCreateManyAndReturnArgs>(args?: SelectSubset<T, ProjectMemberCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "createManyAndReturn">>
+    createManyAndReturn<T extends MyProjectCreateManyAndReturnArgs>(args?: SelectSubset<T, MyProjectCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MyProjectPayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
-     * Delete a ProjectMember.
-     * @param {ProjectMemberDeleteArgs} args - Arguments to delete one ProjectMember.
+     * Delete a MyProject.
+     * @param {MyProjectDeleteArgs} args - Arguments to delete one MyProject.
      * @example
-     * // Delete one ProjectMember
-     * const ProjectMember = await prisma.projectMember.delete({
+     * // Delete one MyProject
+     * const MyProject = await prisma.myProject.delete({
      *   where: {
-     *     // ... filter to delete one ProjectMember
+     *     // ... filter to delete one MyProject
      *   }
      * })
      * 
      */
-    delete<T extends ProjectMemberDeleteArgs>(args: SelectSubset<T, ProjectMemberDeleteArgs<ExtArgs>>): Prisma__ProjectMemberClient<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+    delete<T extends MyProjectDeleteArgs>(args: SelectSubset<T, MyProjectDeleteArgs<ExtArgs>>): Prisma__MyProjectClient<$Result.GetResult<Prisma.$MyProjectPayload<ExtArgs>, T, "delete">, never, ExtArgs>
 
     /**
-     * Update one ProjectMember.
-     * @param {ProjectMemberUpdateArgs} args - Arguments to update one ProjectMember.
+     * Update one MyProject.
+     * @param {MyProjectUpdateArgs} args - Arguments to update one MyProject.
      * @example
-     * // Update one ProjectMember
-     * const projectMember = await prisma.projectMember.update({
+     * // Update one MyProject
+     * const myProject = await prisma.myProject.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6048,30 +7163,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends ProjectMemberUpdateArgs>(args: SelectSubset<T, ProjectMemberUpdateArgs<ExtArgs>>): Prisma__ProjectMemberClient<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "update">, never, ExtArgs>
+    update<T extends MyProjectUpdateArgs>(args: SelectSubset<T, MyProjectUpdateArgs<ExtArgs>>): Prisma__MyProjectClient<$Result.GetResult<Prisma.$MyProjectPayload<ExtArgs>, T, "update">, never, ExtArgs>
 
     /**
-     * Delete zero or more ProjectMembers.
-     * @param {ProjectMemberDeleteManyArgs} args - Arguments to filter ProjectMembers to delete.
+     * Delete zero or more MyProjects.
+     * @param {MyProjectDeleteManyArgs} args - Arguments to filter MyProjects to delete.
      * @example
-     * // Delete a few ProjectMembers
-     * const { count } = await prisma.projectMember.deleteMany({
+     * // Delete a few MyProjects
+     * const { count } = await prisma.myProject.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends ProjectMemberDeleteManyArgs>(args?: SelectSubset<T, ProjectMemberDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends MyProjectDeleteManyArgs>(args?: SelectSubset<T, MyProjectDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ProjectMembers.
+     * Update zero or more MyProjects.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectMemberUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {MyProjectUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ProjectMembers
-     * const projectMember = await prisma.projectMember.updateMany({
+     * // Update many MyProjects
+     * const myProject = await prisma.myProject.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6081,56 +7196,56 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends ProjectMemberUpdateManyArgs>(args: SelectSubset<T, ProjectMemberUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends MyProjectUpdateManyArgs>(args: SelectSubset<T, MyProjectUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one ProjectMember.
-     * @param {ProjectMemberUpsertArgs} args - Arguments to update or create a ProjectMember.
+     * Create or update one MyProject.
+     * @param {MyProjectUpsertArgs} args - Arguments to update or create a MyProject.
      * @example
-     * // Update or create a ProjectMember
-     * const projectMember = await prisma.projectMember.upsert({
+     * // Update or create a MyProject
+     * const myProject = await prisma.myProject.upsert({
      *   create: {
-     *     // ... data to create a ProjectMember
+     *     // ... data to create a MyProject
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ProjectMember we want to update
+     *     // ... the filter for the MyProject we want to update
      *   }
      * })
      */
-    upsert<T extends ProjectMemberUpsertArgs>(args: SelectSubset<T, ProjectMemberUpsertArgs<ExtArgs>>): Prisma__ProjectMemberClient<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+    upsert<T extends MyProjectUpsertArgs>(args: SelectSubset<T, MyProjectUpsertArgs<ExtArgs>>): Prisma__MyProjectClient<$Result.GetResult<Prisma.$MyProjectPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
 
 
     /**
-     * Count the number of ProjectMembers.
+     * Count the number of MyProjects.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectMemberCountArgs} args - Arguments to filter ProjectMembers to count.
+     * @param {MyProjectCountArgs} args - Arguments to filter MyProjects to count.
      * @example
-     * // Count the number of ProjectMembers
-     * const count = await prisma.projectMember.count({
+     * // Count the number of MyProjects
+     * const count = await prisma.myProject.count({
      *   where: {
-     *     // ... the filter for the ProjectMembers we want to count
+     *     // ... the filter for the MyProjects we want to count
      *   }
      * })
     **/
-    count<T extends ProjectMemberCountArgs>(
-      args?: Subset<T, ProjectMemberCountArgs>,
+    count<T extends MyProjectCountArgs>(
+      args?: Subset<T, MyProjectCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ProjectMemberCountAggregateOutputType>
+          : GetScalarType<T['select'], MyProjectCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ProjectMember.
+     * Allows you to perform aggregations operations on a MyProject.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectMemberAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {MyProjectAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -6150,13 +7265,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ProjectMemberAggregateArgs>(args: Subset<T, ProjectMemberAggregateArgs>): Prisma.PrismaPromise<GetProjectMemberAggregateType<T>>
+    aggregate<T extends MyProjectAggregateArgs>(args: Subset<T, MyProjectAggregateArgs>): Prisma.PrismaPromise<GetMyProjectAggregateType<T>>
 
     /**
-     * Group by ProjectMember.
+     * Group by MyProject.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectMemberGroupByArgs} args - Group by arguments.
+     * @param {MyProjectGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -6171,14 +7286,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ProjectMemberGroupByArgs,
+      T extends MyProjectGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ProjectMemberGroupByArgs['orderBy'] }
-        : { orderBy?: ProjectMemberGroupByArgs['orderBy'] },
+        ? { orderBy: MyProjectGroupByArgs['orderBy'] }
+        : { orderBy?: MyProjectGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -6227,20 +7342,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ProjectMemberGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProjectMemberGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, MyProjectGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMyProjectGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the ProjectMember model
+   * Fields of the MyProject model
    */
-  readonly fields: ProjectMemberFieldRefs;
+  readonly fields: MyProjectFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ProjectMember.
+   * The delegate class that acts as a "Promise-like" for MyProject.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__ProjectMemberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__MyProjectClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
@@ -6270,2152 +7385,345 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the ProjectMember model
+   * Fields of the MyProject model
    */ 
-  interface ProjectMemberFieldRefs {
-    readonly id: FieldRef<"ProjectMember", 'Int'>
-    readonly userId: FieldRef<"ProjectMember", 'Int'>
-    readonly projectId: FieldRef<"ProjectMember", 'Int'>
-    readonly role: FieldRef<"ProjectMember", 'MemberRole'>
-    readonly joinDate: FieldRef<"ProjectMember", 'DateTime'>
+  interface MyProjectFieldRefs {
+    readonly id: FieldRef<"MyProject", 'Int'>
+    readonly userId: FieldRef<"MyProject", 'Int'>
+    readonly projectId: FieldRef<"MyProject", 'Int'>
+    readonly role: FieldRef<"MyProject", 'ProjectRole'>
+    readonly isFavorite: FieldRef<"MyProject", 'Boolean'>
+    readonly createdAt: FieldRef<"MyProject", 'DateTime'>
+    readonly updatedAt: FieldRef<"MyProject", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * ProjectMember findUnique
+   * MyProject findUnique
    */
-  export type ProjectMemberFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProjectMember
+     * Select specific fields to fetch from the MyProject
      */
-    select?: ProjectMemberSelect<ExtArgs> | null
+    select?: MyProjectSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProjectMemberInclude<ExtArgs> | null
+    include?: MyProjectInclude<ExtArgs> | null
     /**
-     * Filter, which ProjectMember to fetch.
+     * Filter, which MyProject to fetch.
      */
-    where: ProjectMemberWhereUniqueInput
+    where: MyProjectWhereUniqueInput
   }
 
   /**
-   * ProjectMember findUniqueOrThrow
+   * MyProject findUniqueOrThrow
    */
-  export type ProjectMemberFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProjectMember
+     * Select specific fields to fetch from the MyProject
      */
-    select?: ProjectMemberSelect<ExtArgs> | null
+    select?: MyProjectSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProjectMemberInclude<ExtArgs> | null
+    include?: MyProjectInclude<ExtArgs> | null
     /**
-     * Filter, which ProjectMember to fetch.
+     * Filter, which MyProject to fetch.
      */
-    where: ProjectMemberWhereUniqueInput
+    where: MyProjectWhereUniqueInput
   }
 
   /**
-   * ProjectMember findFirst
+   * MyProject findFirst
    */
-  export type ProjectMemberFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProjectMember
+     * Select specific fields to fetch from the MyProject
      */
-    select?: ProjectMemberSelect<ExtArgs> | null
+    select?: MyProjectSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProjectMemberInclude<ExtArgs> | null
+    include?: MyProjectInclude<ExtArgs> | null
     /**
-     * Filter, which ProjectMember to fetch.
+     * Filter, which MyProject to fetch.
      */
-    where?: ProjectMemberWhereInput
+    where?: MyProjectWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ProjectMembers to fetch.
+     * Determine the order of MyProjects to fetch.
      */
-    orderBy?: ProjectMemberOrderByWithRelationInput | ProjectMemberOrderByWithRelationInput[]
+    orderBy?: MyProjectOrderByWithRelationInput | MyProjectOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ProjectMembers.
+     * Sets the position for searching for MyProjects.
      */
-    cursor?: ProjectMemberWhereUniqueInput
+    cursor?: MyProjectWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ProjectMembers from the position of the cursor.
+     * Take `±n` MyProjects from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ProjectMembers.
+     * Skip the first `n` MyProjects.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ProjectMembers.
+     * Filter by unique combinations of MyProjects.
      */
-    distinct?: ProjectMemberScalarFieldEnum | ProjectMemberScalarFieldEnum[]
+    distinct?: MyProjectScalarFieldEnum | MyProjectScalarFieldEnum[]
   }
 
   /**
-   * ProjectMember findFirstOrThrow
+   * MyProject findFirstOrThrow
    */
-  export type ProjectMemberFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProjectMember
+     * Select specific fields to fetch from the MyProject
      */
-    select?: ProjectMemberSelect<ExtArgs> | null
+    select?: MyProjectSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProjectMemberInclude<ExtArgs> | null
+    include?: MyProjectInclude<ExtArgs> | null
     /**
-     * Filter, which ProjectMember to fetch.
+     * Filter, which MyProject to fetch.
      */
-    where?: ProjectMemberWhereInput
+    where?: MyProjectWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ProjectMembers to fetch.
+     * Determine the order of MyProjects to fetch.
      */
-    orderBy?: ProjectMemberOrderByWithRelationInput | ProjectMemberOrderByWithRelationInput[]
+    orderBy?: MyProjectOrderByWithRelationInput | MyProjectOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ProjectMembers.
+     * Sets the position for searching for MyProjects.
      */
-    cursor?: ProjectMemberWhereUniqueInput
+    cursor?: MyProjectWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ProjectMembers from the position of the cursor.
+     * Take `±n` MyProjects from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ProjectMembers.
+     * Skip the first `n` MyProjects.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ProjectMembers.
+     * Filter by unique combinations of MyProjects.
      */
-    distinct?: ProjectMemberScalarFieldEnum | ProjectMemberScalarFieldEnum[]
+    distinct?: MyProjectScalarFieldEnum | MyProjectScalarFieldEnum[]
   }
 
   /**
-   * ProjectMember findMany
+   * MyProject findMany
    */
-  export type ProjectMemberFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProjectMember
+     * Select specific fields to fetch from the MyProject
      */
-    select?: ProjectMemberSelect<ExtArgs> | null
+    select?: MyProjectSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProjectMemberInclude<ExtArgs> | null
+    include?: MyProjectInclude<ExtArgs> | null
     /**
-     * Filter, which ProjectMembers to fetch.
+     * Filter, which MyProjects to fetch.
      */
-    where?: ProjectMemberWhereInput
+    where?: MyProjectWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ProjectMembers to fetch.
+     * Determine the order of MyProjects to fetch.
      */
-    orderBy?: ProjectMemberOrderByWithRelationInput | ProjectMemberOrderByWithRelationInput[]
+    orderBy?: MyProjectOrderByWithRelationInput | MyProjectOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ProjectMembers.
+     * Sets the position for listing MyProjects.
      */
-    cursor?: ProjectMemberWhereUniqueInput
+    cursor?: MyProjectWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ProjectMembers from the position of the cursor.
+     * Take `±n` MyProjects from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ProjectMembers.
+     * Skip the first `n` MyProjects.
      */
     skip?: number
-    distinct?: ProjectMemberScalarFieldEnum | ProjectMemberScalarFieldEnum[]
+    distinct?: MyProjectScalarFieldEnum | MyProjectScalarFieldEnum[]
   }
 
   /**
-   * ProjectMember create
+   * MyProject create
    */
-  export type ProjectMemberCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProjectMember
+     * Select specific fields to fetch from the MyProject
      */
-    select?: ProjectMemberSelect<ExtArgs> | null
+    select?: MyProjectSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProjectMemberInclude<ExtArgs> | null
+    include?: MyProjectInclude<ExtArgs> | null
     /**
-     * The data needed to create a ProjectMember.
+     * The data needed to create a MyProject.
      */
-    data: XOR<ProjectMemberCreateInput, ProjectMemberUncheckedCreateInput>
+    data: XOR<MyProjectCreateInput, MyProjectUncheckedCreateInput>
   }
 
   /**
-   * ProjectMember createMany
+   * MyProject createMany
    */
-  export type ProjectMemberCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many ProjectMembers.
+     * The data used to create many MyProjects.
      */
-    data: ProjectMemberCreateManyInput | ProjectMemberCreateManyInput[]
+    data: MyProjectCreateManyInput | MyProjectCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * ProjectMember createManyAndReturn
+   * MyProject createManyAndReturn
    */
-  export type ProjectMemberCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProjectMember
+     * Select specific fields to fetch from the MyProject
      */
-    select?: ProjectMemberSelectCreateManyAndReturn<ExtArgs> | null
+    select?: MyProjectSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * The data used to create many ProjectMembers.
+     * The data used to create many MyProjects.
      */
-    data: ProjectMemberCreateManyInput | ProjectMemberCreateManyInput[]
+    data: MyProjectCreateManyInput | MyProjectCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProjectMemberIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: MyProjectIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * ProjectMember update
+   * MyProject update
    */
-  export type ProjectMemberUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProjectMember
+     * Select specific fields to fetch from the MyProject
      */
-    select?: ProjectMemberSelect<ExtArgs> | null
+    select?: MyProjectSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProjectMemberInclude<ExtArgs> | null
+    include?: MyProjectInclude<ExtArgs> | null
     /**
-     * The data needed to update a ProjectMember.
+     * The data needed to update a MyProject.
      */
-    data: XOR<ProjectMemberUpdateInput, ProjectMemberUncheckedUpdateInput>
+    data: XOR<MyProjectUpdateInput, MyProjectUncheckedUpdateInput>
     /**
-     * Choose, which ProjectMember to update.
+     * Choose, which MyProject to update.
      */
-    where: ProjectMemberWhereUniqueInput
+    where: MyProjectWhereUniqueInput
   }
 
   /**
-   * ProjectMember updateMany
+   * MyProject updateMany
    */
-  export type ProjectMemberUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update ProjectMembers.
+     * The data used to update MyProjects.
      */
-    data: XOR<ProjectMemberUpdateManyMutationInput, ProjectMemberUncheckedUpdateManyInput>
+    data: XOR<MyProjectUpdateManyMutationInput, MyProjectUncheckedUpdateManyInput>
     /**
-     * Filter which ProjectMembers to update
+     * Filter which MyProjects to update
      */
-    where?: ProjectMemberWhereInput
+    where?: MyProjectWhereInput
   }
 
   /**
-   * ProjectMember upsert
+   * MyProject upsert
    */
-  export type ProjectMemberUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProjectMember
+     * Select specific fields to fetch from the MyProject
      */
-    select?: ProjectMemberSelect<ExtArgs> | null
+    select?: MyProjectSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProjectMemberInclude<ExtArgs> | null
+    include?: MyProjectInclude<ExtArgs> | null
     /**
-     * The filter to search for the ProjectMember to update in case it exists.
+     * The filter to search for the MyProject to update in case it exists.
      */
-    where: ProjectMemberWhereUniqueInput
+    where: MyProjectWhereUniqueInput
     /**
-     * In case the ProjectMember found by the `where` argument doesn't exist, create a new ProjectMember with this data.
+     * In case the MyProject found by the `where` argument doesn't exist, create a new MyProject with this data.
      */
-    create: XOR<ProjectMemberCreateInput, ProjectMemberUncheckedCreateInput>
+    create: XOR<MyProjectCreateInput, MyProjectUncheckedCreateInput>
     /**
-     * In case the ProjectMember was found with the provided `where` argument, update it with this data.
+     * In case the MyProject was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<ProjectMemberUpdateInput, ProjectMemberUncheckedUpdateInput>
+    update: XOR<MyProjectUpdateInput, MyProjectUncheckedUpdateInput>
   }
 
   /**
-   * ProjectMember delete
+   * MyProject delete
    */
-  export type ProjectMemberDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProjectMember
+     * Select specific fields to fetch from the MyProject
      */
-    select?: ProjectMemberSelect<ExtArgs> | null
+    select?: MyProjectSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProjectMemberInclude<ExtArgs> | null
+    include?: MyProjectInclude<ExtArgs> | null
     /**
-     * Filter which ProjectMember to delete.
+     * Filter which MyProject to delete.
      */
-    where: ProjectMemberWhereUniqueInput
+    where: MyProjectWhereUniqueInput
   }
 
   /**
-   * ProjectMember deleteMany
+   * MyProject deleteMany
    */
-  export type ProjectMemberDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which ProjectMembers to delete
+     * Filter which MyProjects to delete
      */
-    where?: ProjectMemberWhereInput
+    where?: MyProjectWhereInput
   }
 
   /**
-   * ProjectMember without action
+   * MyProject without action
    */
-  export type ProjectMemberDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MyProjectDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProjectMember
+     * Select specific fields to fetch from the MyProject
      */
-    select?: ProjectMemberSelect<ExtArgs> | null
+    select?: MyProjectSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProjectMemberInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model Session
-   */
-
-  export type AggregateSession = {
-    _count: SessionCountAggregateOutputType | null
-    _avg: SessionAvgAggregateOutputType | null
-    _sum: SessionSumAggregateOutputType | null
-    _min: SessionMinAggregateOutputType | null
-    _max: SessionMaxAggregateOutputType | null
-  }
-
-  export type SessionAvgAggregateOutputType = {
-    userId: number | null
-  }
-
-  export type SessionSumAggregateOutputType = {
-    userId: number | null
-  }
-
-  export type SessionMinAggregateOutputType = {
-    id: string | null
-    sessionToken: string | null
-    userId: number | null
-    expires: Date | null
-  }
-
-  export type SessionMaxAggregateOutputType = {
-    id: string | null
-    sessionToken: string | null
-    userId: number | null
-    expires: Date | null
-  }
-
-  export type SessionCountAggregateOutputType = {
-    id: number
-    sessionToken: number
-    userId: number
-    expires: number
-    _all: number
-  }
-
-
-  export type SessionAvgAggregateInputType = {
-    userId?: true
-  }
-
-  export type SessionSumAggregateInputType = {
-    userId?: true
-  }
-
-  export type SessionMinAggregateInputType = {
-    id?: true
-    sessionToken?: true
-    userId?: true
-    expires?: true
-  }
-
-  export type SessionMaxAggregateInputType = {
-    id?: true
-    sessionToken?: true
-    userId?: true
-    expires?: true
-  }
-
-  export type SessionCountAggregateInputType = {
-    id?: true
-    sessionToken?: true
-    userId?: true
-    expires?: true
-    _all?: true
-  }
-
-  export type SessionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Session to aggregate.
-     */
-    where?: SessionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Sessions to fetch.
-     */
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: SessionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Sessions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Sessions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Sessions
-    **/
-    _count?: true | SessionCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: SessionAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SessionSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SessionMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SessionMaxAggregateInputType
-  }
-
-  export type GetSessionAggregateType<T extends SessionAggregateArgs> = {
-        [P in keyof T & keyof AggregateSession]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSession[P]>
-      : GetScalarType<T[P], AggregateSession[P]>
-  }
-
-
-
-
-  export type SessionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SessionWhereInput
-    orderBy?: SessionOrderByWithAggregationInput | SessionOrderByWithAggregationInput[]
-    by: SessionScalarFieldEnum[] | SessionScalarFieldEnum
-    having?: SessionScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SessionCountAggregateInputType | true
-    _avg?: SessionAvgAggregateInputType
-    _sum?: SessionSumAggregateInputType
-    _min?: SessionMinAggregateInputType
-    _max?: SessionMaxAggregateInputType
-  }
-
-  export type SessionGroupByOutputType = {
-    id: string
-    sessionToken: string
-    userId: number
-    expires: Date
-    _count: SessionCountAggregateOutputType | null
-    _avg: SessionAvgAggregateOutputType | null
-    _sum: SessionSumAggregateOutputType | null
-    _min: SessionMinAggregateOutputType | null
-    _max: SessionMaxAggregateOutputType | null
-  }
-
-  type GetSessionGroupByPayload<T extends SessionGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<SessionGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SessionGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SessionGroupByOutputType[P]>
-            : GetScalarType<T[P], SessionGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type SessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    sessionToken?: boolean
-    userId?: boolean
-    expires?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["session"]>
-
-  export type SessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    sessionToken?: boolean
-    userId?: boolean
-    expires?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["session"]>
-
-  export type SessionSelectScalar = {
-    id?: boolean
-    sessionToken?: boolean
-    userId?: boolean
-    expires?: boolean
-  }
-
-  export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type SessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $SessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Session"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      sessionToken: string
-      userId: number
-      expires: Date
-    }, ExtArgs["result"]["session"]>
-    composites: {}
-  }
-
-  type SessionGetPayload<S extends boolean | null | undefined | SessionDefaultArgs> = $Result.GetResult<Prisma.$SessionPayload, S>
-
-  type SessionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<SessionFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: SessionCountAggregateInputType | true
-    }
-
-  export interface SessionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Session'], meta: { name: 'Session' } }
-    /**
-     * Find zero or one Session that matches the filter.
-     * @param {SessionFindUniqueArgs} args - Arguments to find a Session
-     * @example
-     * // Get one Session
-     * const session = await prisma.session.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends SessionFindUniqueArgs>(args: SelectSubset<T, SessionFindUniqueArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
-
-    /**
-     * Find one Session that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
-     * @param {SessionFindUniqueOrThrowArgs} args - Arguments to find a Session
-     * @example
-     * // Get one Session
-     * const session = await prisma.session.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends SessionFindUniqueOrThrowArgs>(args: SelectSubset<T, SessionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
-
-    /**
-     * Find the first Session that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionFindFirstArgs} args - Arguments to find a Session
-     * @example
-     * // Get one Session
-     * const session = await prisma.session.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends SessionFindFirstArgs>(args?: SelectSubset<T, SessionFindFirstArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
-
-    /**
-     * Find the first Session that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionFindFirstOrThrowArgs} args - Arguments to find a Session
-     * @example
-     * // Get one Session
-     * const session = await prisma.session.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends SessionFindFirstOrThrowArgs>(args?: SelectSubset<T, SessionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
-
-    /**
-     * Find zero or more Sessions that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Sessions
-     * const sessions = await prisma.session.findMany()
-     * 
-     * // Get first 10 Sessions
-     * const sessions = await prisma.session.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const sessionWithIdOnly = await prisma.session.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends SessionFindManyArgs>(args?: SelectSubset<T, SessionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany">>
-
-    /**
-     * Create a Session.
-     * @param {SessionCreateArgs} args - Arguments to create a Session.
-     * @example
-     * // Create one Session
-     * const Session = await prisma.session.create({
-     *   data: {
-     *     // ... data to create a Session
-     *   }
-     * })
-     * 
-     */
-    create<T extends SessionCreateArgs>(args: SelectSubset<T, SessionCreateArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "create">, never, ExtArgs>
-
-    /**
-     * Create many Sessions.
-     * @param {SessionCreateManyArgs} args - Arguments to create many Sessions.
-     * @example
-     * // Create many Sessions
-     * const session = await prisma.session.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends SessionCreateManyArgs>(args?: SelectSubset<T, SessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Sessions and returns the data saved in the database.
-     * @param {SessionCreateManyAndReturnArgs} args - Arguments to create many Sessions.
-     * @example
-     * // Create many Sessions
-     * const session = await prisma.session.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Sessions and only return the `id`
-     * const sessionWithIdOnly = await prisma.session.createManyAndReturn({ 
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends SessionCreateManyAndReturnArgs>(args?: SelectSubset<T, SessionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "createManyAndReturn">>
-
-    /**
-     * Delete a Session.
-     * @param {SessionDeleteArgs} args - Arguments to delete one Session.
-     * @example
-     * // Delete one Session
-     * const Session = await prisma.session.delete({
-     *   where: {
-     *     // ... filter to delete one Session
-     *   }
-     * })
-     * 
-     */
-    delete<T extends SessionDeleteArgs>(args: SelectSubset<T, SessionDeleteArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
-
-    /**
-     * Update one Session.
-     * @param {SessionUpdateArgs} args - Arguments to update one Session.
-     * @example
-     * // Update one Session
-     * const session = await prisma.session.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends SessionUpdateArgs>(args: SelectSubset<T, SessionUpdateArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "update">, never, ExtArgs>
-
-    /**
-     * Delete zero or more Sessions.
-     * @param {SessionDeleteManyArgs} args - Arguments to filter Sessions to delete.
-     * @example
-     * // Delete a few Sessions
-     * const { count } = await prisma.session.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends SessionDeleteManyArgs>(args?: SelectSubset<T, SessionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Sessions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Sessions
-     * const session = await prisma.session.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends SessionUpdateManyArgs>(args: SelectSubset<T, SessionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Session.
-     * @param {SessionUpsertArgs} args - Arguments to update or create a Session.
-     * @example
-     * // Update or create a Session
-     * const session = await prisma.session.upsert({
-     *   create: {
-     *     // ... data to create a Session
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Session we want to update
-     *   }
-     * })
-     */
-    upsert<T extends SessionUpsertArgs>(args: SelectSubset<T, SessionUpsertArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
-
-    /**
-     * Count the number of Sessions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionCountArgs} args - Arguments to filter Sessions to count.
-     * @example
-     * // Count the number of Sessions
-     * const count = await prisma.session.count({
-     *   where: {
-     *     // ... the filter for the Sessions we want to count
-     *   }
-     * })
-    **/
-    count<T extends SessionCountArgs>(
-      args?: Subset<T, SessionCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SessionCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Session.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SessionAggregateArgs>(args: Subset<T, SessionAggregateArgs>): Prisma.PrismaPromise<GetSessionAggregateType<T>>
-
-    /**
-     * Group by Session.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends SessionGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SessionGroupByArgs['orderBy'] }
-        : { orderBy?: SessionGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, SessionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Session model
-   */
-  readonly fields: SessionFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Session.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__SessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Session model
-   */ 
-  interface SessionFieldRefs {
-    readonly id: FieldRef<"Session", 'String'>
-    readonly sessionToken: FieldRef<"Session", 'String'>
-    readonly userId: FieldRef<"Session", 'Int'>
-    readonly expires: FieldRef<"Session", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Session findUnique
-   */
-  export type SessionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * Filter, which Session to fetch.
-     */
-    where: SessionWhereUniqueInput
-  }
-
-  /**
-   * Session findUniqueOrThrow
-   */
-  export type SessionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * Filter, which Session to fetch.
-     */
-    where: SessionWhereUniqueInput
-  }
-
-  /**
-   * Session findFirst
-   */
-  export type SessionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * Filter, which Session to fetch.
-     */
-    where?: SessionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Sessions to fetch.
-     */
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Sessions.
-     */
-    cursor?: SessionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Sessions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Sessions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Sessions.
-     */
-    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
-  }
-
-  /**
-   * Session findFirstOrThrow
-   */
-  export type SessionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * Filter, which Session to fetch.
-     */
-    where?: SessionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Sessions to fetch.
-     */
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Sessions.
-     */
-    cursor?: SessionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Sessions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Sessions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Sessions.
-     */
-    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
-  }
-
-  /**
-   * Session findMany
-   */
-  export type SessionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * Filter, which Sessions to fetch.
-     */
-    where?: SessionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Sessions to fetch.
-     */
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Sessions.
-     */
-    cursor?: SessionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Sessions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Sessions.
-     */
-    skip?: number
-    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
-  }
-
-  /**
-   * Session create
-   */
-  export type SessionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Session.
-     */
-    data: XOR<SessionCreateInput, SessionUncheckedCreateInput>
-  }
-
-  /**
-   * Session createMany
-   */
-  export type SessionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Sessions.
-     */
-    data: SessionCreateManyInput | SessionCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Session createManyAndReturn
-   */
-  export type SessionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * The data used to create many Sessions.
-     */
-    data: SessionCreateManyInput | SessionCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Session update
-   */
-  export type SessionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Session.
-     */
-    data: XOR<SessionUpdateInput, SessionUncheckedUpdateInput>
-    /**
-     * Choose, which Session to update.
-     */
-    where: SessionWhereUniqueInput
-  }
-
-  /**
-   * Session updateMany
-   */
-  export type SessionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Sessions.
-     */
-    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyInput>
-    /**
-     * Filter which Sessions to update
-     */
-    where?: SessionWhereInput
-  }
-
-  /**
-   * Session upsert
-   */
-  export type SessionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Session to update in case it exists.
-     */
-    where: SessionWhereUniqueInput
-    /**
-     * In case the Session found by the `where` argument doesn't exist, create a new Session with this data.
-     */
-    create: XOR<SessionCreateInput, SessionUncheckedCreateInput>
-    /**
-     * In case the Session was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<SessionUpdateInput, SessionUncheckedUpdateInput>
-  }
-
-  /**
-   * Session delete
-   */
-  export type SessionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * Filter which Session to delete.
-     */
-    where: SessionWhereUniqueInput
-  }
-
-  /**
-   * Session deleteMany
-   */
-  export type SessionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Sessions to delete
-     */
-    where?: SessionWhereInput
-  }
-
-  /**
-   * Session without action
-   */
-  export type SessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model VerificationToken
-   */
-
-  export type AggregateVerificationToken = {
-    _count: VerificationTokenCountAggregateOutputType | null
-    _min: VerificationTokenMinAggregateOutputType | null
-    _max: VerificationTokenMaxAggregateOutputType | null
-  }
-
-  export type VerificationTokenMinAggregateOutputType = {
-    identifier: string | null
-    token: string | null
-    expires: Date | null
-  }
-
-  export type VerificationTokenMaxAggregateOutputType = {
-    identifier: string | null
-    token: string | null
-    expires: Date | null
-  }
-
-  export type VerificationTokenCountAggregateOutputType = {
-    identifier: number
-    token: number
-    expires: number
-    _all: number
-  }
-
-
-  export type VerificationTokenMinAggregateInputType = {
-    identifier?: true
-    token?: true
-    expires?: true
-  }
-
-  export type VerificationTokenMaxAggregateInputType = {
-    identifier?: true
-    token?: true
-    expires?: true
-  }
-
-  export type VerificationTokenCountAggregateInputType = {
-    identifier?: true
-    token?: true
-    expires?: true
-    _all?: true
-  }
-
-  export type VerificationTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which VerificationToken to aggregate.
-     */
-    where?: VerificationTokenWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of VerificationTokens to fetch.
-     */
-    orderBy?: VerificationTokenOrderByWithRelationInput | VerificationTokenOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: VerificationTokenWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` VerificationTokens from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` VerificationTokens.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned VerificationTokens
-    **/
-    _count?: true | VerificationTokenCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: VerificationTokenMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: VerificationTokenMaxAggregateInputType
-  }
-
-  export type GetVerificationTokenAggregateType<T extends VerificationTokenAggregateArgs> = {
-        [P in keyof T & keyof AggregateVerificationToken]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateVerificationToken[P]>
-      : GetScalarType<T[P], AggregateVerificationToken[P]>
-  }
-
-
-
-
-  export type VerificationTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: VerificationTokenWhereInput
-    orderBy?: VerificationTokenOrderByWithAggregationInput | VerificationTokenOrderByWithAggregationInput[]
-    by: VerificationTokenScalarFieldEnum[] | VerificationTokenScalarFieldEnum
-    having?: VerificationTokenScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: VerificationTokenCountAggregateInputType | true
-    _min?: VerificationTokenMinAggregateInputType
-    _max?: VerificationTokenMaxAggregateInputType
-  }
-
-  export type VerificationTokenGroupByOutputType = {
-    identifier: string
-    token: string
-    expires: Date
-    _count: VerificationTokenCountAggregateOutputType | null
-    _min: VerificationTokenMinAggregateOutputType | null
-    _max: VerificationTokenMaxAggregateOutputType | null
-  }
-
-  type GetVerificationTokenGroupByPayload<T extends VerificationTokenGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<VerificationTokenGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof VerificationTokenGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], VerificationTokenGroupByOutputType[P]>
-            : GetScalarType<T[P], VerificationTokenGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type VerificationTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    identifier?: boolean
-    token?: boolean
-    expires?: boolean
-  }, ExtArgs["result"]["verificationToken"]>
-
-  export type VerificationTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    identifier?: boolean
-    token?: boolean
-    expires?: boolean
-  }, ExtArgs["result"]["verificationToken"]>
-
-  export type VerificationTokenSelectScalar = {
-    identifier?: boolean
-    token?: boolean
-    expires?: boolean
-  }
-
-
-  export type $VerificationTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "VerificationToken"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      identifier: string
-      token: string
-      expires: Date
-    }, ExtArgs["result"]["verificationToken"]>
-    composites: {}
-  }
-
-  type VerificationTokenGetPayload<S extends boolean | null | undefined | VerificationTokenDefaultArgs> = $Result.GetResult<Prisma.$VerificationTokenPayload, S>
-
-  type VerificationTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<VerificationTokenFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: VerificationTokenCountAggregateInputType | true
-    }
-
-  export interface VerificationTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VerificationToken'], meta: { name: 'VerificationToken' } }
-    /**
-     * Find zero or one VerificationToken that matches the filter.
-     * @param {VerificationTokenFindUniqueArgs} args - Arguments to find a VerificationToken
-     * @example
-     * // Get one VerificationToken
-     * const verificationToken = await prisma.verificationToken.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends VerificationTokenFindUniqueArgs>(args: SelectSubset<T, VerificationTokenFindUniqueArgs<ExtArgs>>): Prisma__VerificationTokenClient<$Result.GetResult<Prisma.$VerificationTokenPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
-
-    /**
-     * Find one VerificationToken that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
-     * @param {VerificationTokenFindUniqueOrThrowArgs} args - Arguments to find a VerificationToken
-     * @example
-     * // Get one VerificationToken
-     * const verificationToken = await prisma.verificationToken.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends VerificationTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, VerificationTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VerificationTokenClient<$Result.GetResult<Prisma.$VerificationTokenPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
-
-    /**
-     * Find the first VerificationToken that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationTokenFindFirstArgs} args - Arguments to find a VerificationToken
-     * @example
-     * // Get one VerificationToken
-     * const verificationToken = await prisma.verificationToken.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends VerificationTokenFindFirstArgs>(args?: SelectSubset<T, VerificationTokenFindFirstArgs<ExtArgs>>): Prisma__VerificationTokenClient<$Result.GetResult<Prisma.$VerificationTokenPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
-
-    /**
-     * Find the first VerificationToken that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationTokenFindFirstOrThrowArgs} args - Arguments to find a VerificationToken
-     * @example
-     * // Get one VerificationToken
-     * const verificationToken = await prisma.verificationToken.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends VerificationTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, VerificationTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__VerificationTokenClient<$Result.GetResult<Prisma.$VerificationTokenPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
-
-    /**
-     * Find zero or more VerificationTokens that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationTokenFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all VerificationTokens
-     * const verificationTokens = await prisma.verificationToken.findMany()
-     * 
-     * // Get first 10 VerificationTokens
-     * const verificationTokens = await prisma.verificationToken.findMany({ take: 10 })
-     * 
-     * // Only select the `identifier`
-     * const verificationTokenWithIdentifierOnly = await prisma.verificationToken.findMany({ select: { identifier: true } })
-     * 
-     */
-    findMany<T extends VerificationTokenFindManyArgs>(args?: SelectSubset<T, VerificationTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationTokenPayload<ExtArgs>, T, "findMany">>
-
-    /**
-     * Create a VerificationToken.
-     * @param {VerificationTokenCreateArgs} args - Arguments to create a VerificationToken.
-     * @example
-     * // Create one VerificationToken
-     * const VerificationToken = await prisma.verificationToken.create({
-     *   data: {
-     *     // ... data to create a VerificationToken
-     *   }
-     * })
-     * 
-     */
-    create<T extends VerificationTokenCreateArgs>(args: SelectSubset<T, VerificationTokenCreateArgs<ExtArgs>>): Prisma__VerificationTokenClient<$Result.GetResult<Prisma.$VerificationTokenPayload<ExtArgs>, T, "create">, never, ExtArgs>
-
-    /**
-     * Create many VerificationTokens.
-     * @param {VerificationTokenCreateManyArgs} args - Arguments to create many VerificationTokens.
-     * @example
-     * // Create many VerificationTokens
-     * const verificationToken = await prisma.verificationToken.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends VerificationTokenCreateManyArgs>(args?: SelectSubset<T, VerificationTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many VerificationTokens and returns the data saved in the database.
-     * @param {VerificationTokenCreateManyAndReturnArgs} args - Arguments to create many VerificationTokens.
-     * @example
-     * // Create many VerificationTokens
-     * const verificationToken = await prisma.verificationToken.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many VerificationTokens and only return the `identifier`
-     * const verificationTokenWithIdentifierOnly = await prisma.verificationToken.createManyAndReturn({ 
-     *   select: { identifier: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends VerificationTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, VerificationTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationTokenPayload<ExtArgs>, T, "createManyAndReturn">>
-
-    /**
-     * Delete a VerificationToken.
-     * @param {VerificationTokenDeleteArgs} args - Arguments to delete one VerificationToken.
-     * @example
-     * // Delete one VerificationToken
-     * const VerificationToken = await prisma.verificationToken.delete({
-     *   where: {
-     *     // ... filter to delete one VerificationToken
-     *   }
-     * })
-     * 
-     */
-    delete<T extends VerificationTokenDeleteArgs>(args: SelectSubset<T, VerificationTokenDeleteArgs<ExtArgs>>): Prisma__VerificationTokenClient<$Result.GetResult<Prisma.$VerificationTokenPayload<ExtArgs>, T, "delete">, never, ExtArgs>
-
-    /**
-     * Update one VerificationToken.
-     * @param {VerificationTokenUpdateArgs} args - Arguments to update one VerificationToken.
-     * @example
-     * // Update one VerificationToken
-     * const verificationToken = await prisma.verificationToken.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends VerificationTokenUpdateArgs>(args: SelectSubset<T, VerificationTokenUpdateArgs<ExtArgs>>): Prisma__VerificationTokenClient<$Result.GetResult<Prisma.$VerificationTokenPayload<ExtArgs>, T, "update">, never, ExtArgs>
-
-    /**
-     * Delete zero or more VerificationTokens.
-     * @param {VerificationTokenDeleteManyArgs} args - Arguments to filter VerificationTokens to delete.
-     * @example
-     * // Delete a few VerificationTokens
-     * const { count } = await prisma.verificationToken.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends VerificationTokenDeleteManyArgs>(args?: SelectSubset<T, VerificationTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more VerificationTokens.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationTokenUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many VerificationTokens
-     * const verificationToken = await prisma.verificationToken.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends VerificationTokenUpdateManyArgs>(args: SelectSubset<T, VerificationTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one VerificationToken.
-     * @param {VerificationTokenUpsertArgs} args - Arguments to update or create a VerificationToken.
-     * @example
-     * // Update or create a VerificationToken
-     * const verificationToken = await prisma.verificationToken.upsert({
-     *   create: {
-     *     // ... data to create a VerificationToken
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the VerificationToken we want to update
-     *   }
-     * })
-     */
-    upsert<T extends VerificationTokenUpsertArgs>(args: SelectSubset<T, VerificationTokenUpsertArgs<ExtArgs>>): Prisma__VerificationTokenClient<$Result.GetResult<Prisma.$VerificationTokenPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
-
-    /**
-     * Count the number of VerificationTokens.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationTokenCountArgs} args - Arguments to filter VerificationTokens to count.
-     * @example
-     * // Count the number of VerificationTokens
-     * const count = await prisma.verificationToken.count({
-     *   where: {
-     *     // ... the filter for the VerificationTokens we want to count
-     *   }
-     * })
-    **/
-    count<T extends VerificationTokenCountArgs>(
-      args?: Subset<T, VerificationTokenCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], VerificationTokenCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a VerificationToken.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends VerificationTokenAggregateArgs>(args: Subset<T, VerificationTokenAggregateArgs>): Prisma.PrismaPromise<GetVerificationTokenAggregateType<T>>
-
-    /**
-     * Group by VerificationToken.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationTokenGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends VerificationTokenGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: VerificationTokenGroupByArgs['orderBy'] }
-        : { orderBy?: VerificationTokenGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, VerificationTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVerificationTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the VerificationToken model
-   */
-  readonly fields: VerificationTokenFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for VerificationToken.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__VerificationTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the VerificationToken model
-   */ 
-  interface VerificationTokenFieldRefs {
-    readonly identifier: FieldRef<"VerificationToken", 'String'>
-    readonly token: FieldRef<"VerificationToken", 'String'>
-    readonly expires: FieldRef<"VerificationToken", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * VerificationToken findUnique
-   */
-  export type VerificationTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VerificationToken
-     */
-    select?: VerificationTokenSelect<ExtArgs> | null
-    /**
-     * Filter, which VerificationToken to fetch.
-     */
-    where: VerificationTokenWhereUniqueInput
-  }
-
-  /**
-   * VerificationToken findUniqueOrThrow
-   */
-  export type VerificationTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VerificationToken
-     */
-    select?: VerificationTokenSelect<ExtArgs> | null
-    /**
-     * Filter, which VerificationToken to fetch.
-     */
-    where: VerificationTokenWhereUniqueInput
-  }
-
-  /**
-   * VerificationToken findFirst
-   */
-  export type VerificationTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VerificationToken
-     */
-    select?: VerificationTokenSelect<ExtArgs> | null
-    /**
-     * Filter, which VerificationToken to fetch.
-     */
-    where?: VerificationTokenWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of VerificationTokens to fetch.
-     */
-    orderBy?: VerificationTokenOrderByWithRelationInput | VerificationTokenOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for VerificationTokens.
-     */
-    cursor?: VerificationTokenWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` VerificationTokens from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` VerificationTokens.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of VerificationTokens.
-     */
-    distinct?: VerificationTokenScalarFieldEnum | VerificationTokenScalarFieldEnum[]
-  }
-
-  /**
-   * VerificationToken findFirstOrThrow
-   */
-  export type VerificationTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VerificationToken
-     */
-    select?: VerificationTokenSelect<ExtArgs> | null
-    /**
-     * Filter, which VerificationToken to fetch.
-     */
-    where?: VerificationTokenWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of VerificationTokens to fetch.
-     */
-    orderBy?: VerificationTokenOrderByWithRelationInput | VerificationTokenOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for VerificationTokens.
-     */
-    cursor?: VerificationTokenWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` VerificationTokens from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` VerificationTokens.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of VerificationTokens.
-     */
-    distinct?: VerificationTokenScalarFieldEnum | VerificationTokenScalarFieldEnum[]
-  }
-
-  /**
-   * VerificationToken findMany
-   */
-  export type VerificationTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VerificationToken
-     */
-    select?: VerificationTokenSelect<ExtArgs> | null
-    /**
-     * Filter, which VerificationTokens to fetch.
-     */
-    where?: VerificationTokenWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of VerificationTokens to fetch.
-     */
-    orderBy?: VerificationTokenOrderByWithRelationInput | VerificationTokenOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing VerificationTokens.
-     */
-    cursor?: VerificationTokenWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` VerificationTokens from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` VerificationTokens.
-     */
-    skip?: number
-    distinct?: VerificationTokenScalarFieldEnum | VerificationTokenScalarFieldEnum[]
-  }
-
-  /**
-   * VerificationToken create
-   */
-  export type VerificationTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VerificationToken
-     */
-    select?: VerificationTokenSelect<ExtArgs> | null
-    /**
-     * The data needed to create a VerificationToken.
-     */
-    data: XOR<VerificationTokenCreateInput, VerificationTokenUncheckedCreateInput>
-  }
-
-  /**
-   * VerificationToken createMany
-   */
-  export type VerificationTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many VerificationTokens.
-     */
-    data: VerificationTokenCreateManyInput | VerificationTokenCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * VerificationToken createManyAndReturn
-   */
-  export type VerificationTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VerificationToken
-     */
-    select?: VerificationTokenSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * The data used to create many VerificationTokens.
-     */
-    data: VerificationTokenCreateManyInput | VerificationTokenCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * VerificationToken update
-   */
-  export type VerificationTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VerificationToken
-     */
-    select?: VerificationTokenSelect<ExtArgs> | null
-    /**
-     * The data needed to update a VerificationToken.
-     */
-    data: XOR<VerificationTokenUpdateInput, VerificationTokenUncheckedUpdateInput>
-    /**
-     * Choose, which VerificationToken to update.
-     */
-    where: VerificationTokenWhereUniqueInput
-  }
-
-  /**
-   * VerificationToken updateMany
-   */
-  export type VerificationTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update VerificationTokens.
-     */
-    data: XOR<VerificationTokenUpdateManyMutationInput, VerificationTokenUncheckedUpdateManyInput>
-    /**
-     * Filter which VerificationTokens to update
-     */
-    where?: VerificationTokenWhereInput
-  }
-
-  /**
-   * VerificationToken upsert
-   */
-  export type VerificationTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VerificationToken
-     */
-    select?: VerificationTokenSelect<ExtArgs> | null
-    /**
-     * The filter to search for the VerificationToken to update in case it exists.
-     */
-    where: VerificationTokenWhereUniqueInput
-    /**
-     * In case the VerificationToken found by the `where` argument doesn't exist, create a new VerificationToken with this data.
-     */
-    create: XOR<VerificationTokenCreateInput, VerificationTokenUncheckedCreateInput>
-    /**
-     * In case the VerificationToken was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<VerificationTokenUpdateInput, VerificationTokenUncheckedUpdateInput>
-  }
-
-  /**
-   * VerificationToken delete
-   */
-  export type VerificationTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VerificationToken
-     */
-    select?: VerificationTokenSelect<ExtArgs> | null
-    /**
-     * Filter which VerificationToken to delete.
-     */
-    where: VerificationTokenWhereUniqueInput
-  }
-
-  /**
-   * VerificationToken deleteMany
-   */
-  export type VerificationTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which VerificationTokens to delete
-     */
-    where?: VerificationTokenWhereInput
-  }
-
-  /**
-   * VerificationToken without action
-   */
-  export type VerificationTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the VerificationToken
-     */
-    select?: VerificationTokenSelect<ExtArgs> | null
+    include?: MyProjectInclude<ExtArgs> | null
   }
 
 
@@ -8449,7 +7757,8 @@ export namespace Prisma {
   export const BoardScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    ownerId: 'ownerId',
+    projectId: 'projectId',
+    color: 'color',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8460,9 +7769,13 @@ export namespace Prisma {
   export const ItemScalarFieldEnum: {
     id: 'id',
     content: 'content',
+    description: 'description',
     status: 'status',
     boardId: 'boardId',
     userId: 'userId',
+    itemCategoryId: 'itemCategoryId',
+    start: 'start',
+    end: 'end',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8470,11 +7783,24 @@ export namespace Prisma {
   export type ItemScalarFieldEnum = (typeof ItemScalarFieldEnum)[keyof typeof ItemScalarFieldEnum]
 
 
+  export const ItemCategoryScalarFieldEnum: {
+    id: 'id',
+    projectId: 'projectId',
+    category: 'category',
+    color: 'color',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ItemCategoryScalarFieldEnum = (typeof ItemCategoryScalarFieldEnum)[keyof typeof ItemCategoryScalarFieldEnum]
+
+
   export const ProjectScalarFieldEnum: {
     id: 'id',
     title: 'title',
     description: 'description',
     authorId: 'authorId',
+    projectScope: 'projectScope',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8482,34 +7808,17 @@ export namespace Prisma {
   export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
 
 
-  export const ProjectMemberScalarFieldEnum: {
+  export const MyProjectScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
     projectId: 'projectId',
     role: 'role',
-    joinDate: 'joinDate'
+    isFavorite: 'isFavorite',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
-  export type ProjectMemberScalarFieldEnum = (typeof ProjectMemberScalarFieldEnum)[keyof typeof ProjectMemberScalarFieldEnum]
-
-
-  export const SessionScalarFieldEnum: {
-    id: 'id',
-    sessionToken: 'sessionToken',
-    userId: 'userId',
-    expires: 'expires'
-  };
-
-  export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
-
-
-  export const VerificationTokenScalarFieldEnum: {
-    identifier: 'identifier',
-    token: 'token',
-    expires: 'expires'
-  };
-
-  export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
+  export type MyProjectScalarFieldEnum = (typeof MyProjectScalarFieldEnum)[keyof typeof MyProjectScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8526,6 +7835,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -8590,16 +7907,37 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'MemberRole'
+   * Reference to a field of type 'ProjectScope'
    */
-  export type EnumMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MemberRole'>
+  export type EnumProjectScopeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectScope'>
     
 
 
   /**
-   * Reference to a field of type 'MemberRole[]'
+   * Reference to a field of type 'ProjectScope[]'
    */
-  export type ListEnumMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MemberRole[]'>
+  export type ListEnumProjectScopeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectScope[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProjectRole'
+   */
+  export type EnumProjectRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'ProjectRole[]'
+   */
+  export type ListEnumProjectRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -8631,11 +7969,9 @@ export namespace Prisma {
     image?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    Board?: BoardListRelationFilter
     Project?: ProjectListRelationFilter
-    ProjectMember?: ProjectMemberListRelationFilter
     Item?: ItemListRelationFilter
-    Session?: SessionListRelationFilter
+    MyProject?: MyProjectListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8646,11 +7982,9 @@ export namespace Prisma {
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    Board?: BoardOrderByRelationAggregateInput
     Project?: ProjectOrderByRelationAggregateInput
-    ProjectMember?: ProjectMemberOrderByRelationAggregateInput
     Item?: ItemOrderByRelationAggregateInput
-    Session?: SessionOrderByRelationAggregateInput
+    MyProject?: MyProjectOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8664,11 +7998,9 @@ export namespace Prisma {
     image?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    Board?: BoardListRelationFilter
     Project?: ProjectListRelationFilter
-    ProjectMember?: ProjectMemberListRelationFilter
     Item?: ItemListRelationFilter
-    Session?: SessionListRelationFilter
+    MyProject?: MyProjectListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -8705,20 +8037,22 @@ export namespace Prisma {
     NOT?: BoardWhereInput | BoardWhereInput[]
     id?: IntFilter<"Board"> | number
     title?: StringFilter<"Board"> | string
-    ownerId?: IntFilter<"Board"> | number
+    projectId?: IntFilter<"Board"> | number
+    color?: StringNullableFilter<"Board"> | string | null
     createdAt?: DateTimeFilter<"Board"> | Date | string
     updatedAt?: DateTimeFilter<"Board"> | Date | string
-    owner?: XOR<UserRelationFilter, UserWhereInput>
+    project?: XOR<ProjectRelationFilter, ProjectWhereInput>
     Item?: ItemListRelationFilter
   }
 
   export type BoardOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    ownerId?: SortOrder
+    projectId?: SortOrder
+    color?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    owner?: UserOrderByWithRelationInput
+    project?: ProjectOrderByWithRelationInput
     Item?: ItemOrderByRelationAggregateInput
   }
 
@@ -8728,17 +8062,19 @@ export namespace Prisma {
     OR?: BoardWhereInput[]
     NOT?: BoardWhereInput | BoardWhereInput[]
     title?: StringFilter<"Board"> | string
-    ownerId?: IntFilter<"Board"> | number
+    projectId?: IntFilter<"Board"> | number
+    color?: StringNullableFilter<"Board"> | string | null
     createdAt?: DateTimeFilter<"Board"> | Date | string
     updatedAt?: DateTimeFilter<"Board"> | Date | string
-    owner?: XOR<UserRelationFilter, UserWhereInput>
+    project?: XOR<ProjectRelationFilter, ProjectWhereInput>
     Item?: ItemListRelationFilter
   }, "id">
 
   export type BoardOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    ownerId?: SortOrder
+    projectId?: SortOrder
+    color?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: BoardCountOrderByAggregateInput
@@ -8754,7 +8090,8 @@ export namespace Prisma {
     NOT?: BoardScalarWhereWithAggregatesInput | BoardScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Board"> | number
     title?: StringWithAggregatesFilter<"Board"> | string
-    ownerId?: IntWithAggregatesFilter<"Board"> | number
+    projectId?: IntWithAggregatesFilter<"Board"> | number
+    color?: StringNullableWithAggregatesFilter<"Board"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Board"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Board"> | Date | string
   }
@@ -8765,25 +8102,35 @@ export namespace Prisma {
     NOT?: ItemWhereInput | ItemWhereInput[]
     id?: IntFilter<"Item"> | number
     content?: StringFilter<"Item"> | string
+    description?: StringNullableFilter<"Item"> | string | null
     status?: EnumItemStatusFilter<"Item"> | $Enums.ItemStatus
-    boardId?: IntFilter<"Item"> | number
-    userId?: IntFilter<"Item"> | number
+    boardId?: IntNullableFilter<"Item"> | number | null
+    userId?: IntNullableFilter<"Item"> | number | null
+    itemCategoryId?: IntNullableFilter<"Item"> | number | null
+    start?: DateTimeNullableFilter<"Item"> | Date | string | null
+    end?: DateTimeNullableFilter<"Item"> | Date | string | null
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeFilter<"Item"> | Date | string
-    board?: XOR<BoardRelationFilter, BoardWhereInput>
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    board?: XOR<BoardNullableRelationFilter, BoardWhereInput> | null
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    itemCategory?: XOR<ItemCategoryNullableRelationFilter, ItemCategoryWhereInput> | null
   }
 
   export type ItemOrderByWithRelationInput = {
     id?: SortOrder
     content?: SortOrder
+    description?: SortOrderInput | SortOrder
     status?: SortOrder
-    boardId?: SortOrder
-    userId?: SortOrder
+    boardId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    itemCategoryId?: SortOrderInput | SortOrder
+    start?: SortOrderInput | SortOrder
+    end?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     board?: BoardOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
+    itemCategory?: ItemCategoryOrderByWithRelationInput
   }
 
   export type ItemWhereUniqueInput = Prisma.AtLeast<{
@@ -8792,21 +8139,30 @@ export namespace Prisma {
     OR?: ItemWhereInput[]
     NOT?: ItemWhereInput | ItemWhereInput[]
     content?: StringFilter<"Item"> | string
+    description?: StringNullableFilter<"Item"> | string | null
     status?: EnumItemStatusFilter<"Item"> | $Enums.ItemStatus
-    boardId?: IntFilter<"Item"> | number
-    userId?: IntFilter<"Item"> | number
+    boardId?: IntNullableFilter<"Item"> | number | null
+    userId?: IntNullableFilter<"Item"> | number | null
+    itemCategoryId?: IntNullableFilter<"Item"> | number | null
+    start?: DateTimeNullableFilter<"Item"> | Date | string | null
+    end?: DateTimeNullableFilter<"Item"> | Date | string | null
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeFilter<"Item"> | Date | string
-    board?: XOR<BoardRelationFilter, BoardWhereInput>
-    user?: XOR<UserRelationFilter, UserWhereInput>
+    board?: XOR<BoardNullableRelationFilter, BoardWhereInput> | null
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    itemCategory?: XOR<ItemCategoryNullableRelationFilter, ItemCategoryWhereInput> | null
   }, "id">
 
   export type ItemOrderByWithAggregationInput = {
     id?: SortOrder
     content?: SortOrder
+    description?: SortOrderInput | SortOrder
     status?: SortOrder
-    boardId?: SortOrder
-    userId?: SortOrder
+    boardId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    itemCategoryId?: SortOrderInput | SortOrder
+    start?: SortOrderInput | SortOrder
+    end?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ItemCountOrderByAggregateInput
@@ -8822,11 +8178,80 @@ export namespace Prisma {
     NOT?: ItemScalarWhereWithAggregatesInput | ItemScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Item"> | number
     content?: StringWithAggregatesFilter<"Item"> | string
+    description?: StringNullableWithAggregatesFilter<"Item"> | string | null
     status?: EnumItemStatusWithAggregatesFilter<"Item"> | $Enums.ItemStatus
-    boardId?: IntWithAggregatesFilter<"Item"> | number
-    userId?: IntWithAggregatesFilter<"Item"> | number
+    boardId?: IntNullableWithAggregatesFilter<"Item"> | number | null
+    userId?: IntNullableWithAggregatesFilter<"Item"> | number | null
+    itemCategoryId?: IntNullableWithAggregatesFilter<"Item"> | number | null
+    start?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
+    end?: DateTimeNullableWithAggregatesFilter<"Item"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Item"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Item"> | Date | string
+  }
+
+  export type ItemCategoryWhereInput = {
+    AND?: ItemCategoryWhereInput | ItemCategoryWhereInput[]
+    OR?: ItemCategoryWhereInput[]
+    NOT?: ItemCategoryWhereInput | ItemCategoryWhereInput[]
+    id?: IntFilter<"ItemCategory"> | number
+    projectId?: IntFilter<"ItemCategory"> | number
+    category?: StringFilter<"ItemCategory"> | string
+    color?: StringNullableFilter<"ItemCategory"> | string | null
+    createdAt?: DateTimeFilter<"ItemCategory"> | Date | string
+    updatedAt?: DateTimeFilter<"ItemCategory"> | Date | string
+    project?: XOR<ProjectRelationFilter, ProjectWhereInput>
+    Item?: ItemListRelationFilter
+  }
+
+  export type ItemCategoryOrderByWithRelationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    category?: SortOrder
+    color?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    project?: ProjectOrderByWithRelationInput
+    Item?: ItemOrderByRelationAggregateInput
+  }
+
+  export type ItemCategoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ItemCategoryWhereInput | ItemCategoryWhereInput[]
+    OR?: ItemCategoryWhereInput[]
+    NOT?: ItemCategoryWhereInput | ItemCategoryWhereInput[]
+    projectId?: IntFilter<"ItemCategory"> | number
+    category?: StringFilter<"ItemCategory"> | string
+    color?: StringNullableFilter<"ItemCategory"> | string | null
+    createdAt?: DateTimeFilter<"ItemCategory"> | Date | string
+    updatedAt?: DateTimeFilter<"ItemCategory"> | Date | string
+    project?: XOR<ProjectRelationFilter, ProjectWhereInput>
+    Item?: ItemListRelationFilter
+  }, "id">
+
+  export type ItemCategoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    category?: SortOrder
+    color?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ItemCategoryCountOrderByAggregateInput
+    _avg?: ItemCategoryAvgOrderByAggregateInput
+    _max?: ItemCategoryMaxOrderByAggregateInput
+    _min?: ItemCategoryMinOrderByAggregateInput
+    _sum?: ItemCategorySumOrderByAggregateInput
+  }
+
+  export type ItemCategoryScalarWhereWithAggregatesInput = {
+    AND?: ItemCategoryScalarWhereWithAggregatesInput | ItemCategoryScalarWhereWithAggregatesInput[]
+    OR?: ItemCategoryScalarWhereWithAggregatesInput[]
+    NOT?: ItemCategoryScalarWhereWithAggregatesInput | ItemCategoryScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ItemCategory"> | number
+    projectId?: IntWithAggregatesFilter<"ItemCategory"> | number
+    category?: StringWithAggregatesFilter<"ItemCategory"> | string
+    color?: StringNullableWithAggregatesFilter<"ItemCategory"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ItemCategory"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ItemCategory"> | Date | string
   }
 
   export type ProjectWhereInput = {
@@ -8837,10 +8262,13 @@ export namespace Prisma {
     title?: StringFilter<"Project"> | string
     description?: StringFilter<"Project"> | string
     authorId?: IntFilter<"Project"> | number
+    projectScope?: EnumProjectScopeFilter<"Project"> | $Enums.ProjectScope
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
-    ProjectMember?: ProjectMemberListRelationFilter
+    ItemCategory?: ItemCategoryListRelationFilter
+    MyProject?: MyProjectListRelationFilter
+    Board?: BoardListRelationFilter
   }
 
   export type ProjectOrderByWithRelationInput = {
@@ -8848,10 +8276,13 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     authorId?: SortOrder
+    projectScope?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
-    ProjectMember?: ProjectMemberOrderByRelationAggregateInput
+    ItemCategory?: ItemCategoryOrderByRelationAggregateInput
+    MyProject?: MyProjectOrderByRelationAggregateInput
+    Board?: BoardOrderByRelationAggregateInput
   }
 
   export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -8862,10 +8293,13 @@ export namespace Prisma {
     title?: StringFilter<"Project"> | string
     description?: StringFilter<"Project"> | string
     authorId?: IntFilter<"Project"> | number
+    projectScope?: EnumProjectScopeFilter<"Project"> | $Enums.ProjectScope
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
-    ProjectMember?: ProjectMemberListRelationFilter
+    ItemCategory?: ItemCategoryListRelationFilter
+    MyProject?: MyProjectListRelationFilter
+    Board?: BoardListRelationFilter
   }, "id">
 
   export type ProjectOrderByWithAggregationInput = {
@@ -8873,6 +8307,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     authorId?: SortOrder
+    projectScope?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProjectCountOrderByAggregateInput
@@ -8890,163 +8325,79 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Project"> | string
     description?: StringWithAggregatesFilter<"Project"> | string
     authorId?: IntWithAggregatesFilter<"Project"> | number
+    projectScope?: EnumProjectScopeWithAggregatesFilter<"Project"> | $Enums.ProjectScope
     createdAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
   }
 
-  export type ProjectMemberWhereInput = {
-    AND?: ProjectMemberWhereInput | ProjectMemberWhereInput[]
-    OR?: ProjectMemberWhereInput[]
-    NOT?: ProjectMemberWhereInput | ProjectMemberWhereInput[]
-    id?: IntFilter<"ProjectMember"> | number
-    userId?: IntFilter<"ProjectMember"> | number
-    projectId?: IntFilter<"ProjectMember"> | number
-    role?: EnumMemberRoleFilter<"ProjectMember"> | $Enums.MemberRole
-    joinDate?: DateTimeFilter<"ProjectMember"> | Date | string
+  export type MyProjectWhereInput = {
+    AND?: MyProjectWhereInput | MyProjectWhereInput[]
+    OR?: MyProjectWhereInput[]
+    NOT?: MyProjectWhereInput | MyProjectWhereInput[]
+    id?: IntFilter<"MyProject"> | number
+    userId?: IntFilter<"MyProject"> | number
+    projectId?: IntFilter<"MyProject"> | number
+    role?: EnumProjectRoleFilter<"MyProject"> | $Enums.ProjectRole
+    isFavorite?: BoolFilter<"MyProject"> | boolean
+    createdAt?: DateTimeFilter<"MyProject"> | Date | string
+    updatedAt?: DateTimeFilter<"MyProject"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     project?: XOR<ProjectRelationFilter, ProjectWhereInput>
   }
 
-  export type ProjectMemberOrderByWithRelationInput = {
+  export type MyProjectOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     projectId?: SortOrder
     role?: SortOrder
-    joinDate?: SortOrder
+    isFavorite?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     project?: ProjectOrderByWithRelationInput
   }
 
-  export type ProjectMemberWhereUniqueInput = Prisma.AtLeast<{
+  export type MyProjectWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    AND?: ProjectMemberWhereInput | ProjectMemberWhereInput[]
-    OR?: ProjectMemberWhereInput[]
-    NOT?: ProjectMemberWhereInput | ProjectMemberWhereInput[]
-    userId?: IntFilter<"ProjectMember"> | number
-    projectId?: IntFilter<"ProjectMember"> | number
-    role?: EnumMemberRoleFilter<"ProjectMember"> | $Enums.MemberRole
-    joinDate?: DateTimeFilter<"ProjectMember"> | Date | string
+    AND?: MyProjectWhereInput | MyProjectWhereInput[]
+    OR?: MyProjectWhereInput[]
+    NOT?: MyProjectWhereInput | MyProjectWhereInput[]
+    userId?: IntFilter<"MyProject"> | number
+    projectId?: IntFilter<"MyProject"> | number
+    role?: EnumProjectRoleFilter<"MyProject"> | $Enums.ProjectRole
+    isFavorite?: BoolFilter<"MyProject"> | boolean
+    createdAt?: DateTimeFilter<"MyProject"> | Date | string
+    updatedAt?: DateTimeFilter<"MyProject"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     project?: XOR<ProjectRelationFilter, ProjectWhereInput>
   }, "id">
 
-  export type ProjectMemberOrderByWithAggregationInput = {
+  export type MyProjectOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     projectId?: SortOrder
     role?: SortOrder
-    joinDate?: SortOrder
-    _count?: ProjectMemberCountOrderByAggregateInput
-    _avg?: ProjectMemberAvgOrderByAggregateInput
-    _max?: ProjectMemberMaxOrderByAggregateInput
-    _min?: ProjectMemberMinOrderByAggregateInput
-    _sum?: ProjectMemberSumOrderByAggregateInput
+    isFavorite?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MyProjectCountOrderByAggregateInput
+    _avg?: MyProjectAvgOrderByAggregateInput
+    _max?: MyProjectMaxOrderByAggregateInput
+    _min?: MyProjectMinOrderByAggregateInput
+    _sum?: MyProjectSumOrderByAggregateInput
   }
 
-  export type ProjectMemberScalarWhereWithAggregatesInput = {
-    AND?: ProjectMemberScalarWhereWithAggregatesInput | ProjectMemberScalarWhereWithAggregatesInput[]
-    OR?: ProjectMemberScalarWhereWithAggregatesInput[]
-    NOT?: ProjectMemberScalarWhereWithAggregatesInput | ProjectMemberScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"ProjectMember"> | number
-    userId?: IntWithAggregatesFilter<"ProjectMember"> | number
-    projectId?: IntWithAggregatesFilter<"ProjectMember"> | number
-    role?: EnumMemberRoleWithAggregatesFilter<"ProjectMember"> | $Enums.MemberRole
-    joinDate?: DateTimeWithAggregatesFilter<"ProjectMember"> | Date | string
-  }
-
-  export type SessionWhereInput = {
-    AND?: SessionWhereInput | SessionWhereInput[]
-    OR?: SessionWhereInput[]
-    NOT?: SessionWhereInput | SessionWhereInput[]
-    id?: StringFilter<"Session"> | string
-    sessionToken?: StringFilter<"Session"> | string
-    userId?: IntFilter<"Session"> | number
-    expires?: DateTimeFilter<"Session"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
-  }
-
-  export type SessionOrderByWithRelationInput = {
-    id?: SortOrder
-    sessionToken?: SortOrder
-    userId?: SortOrder
-    expires?: SortOrder
-    user?: UserOrderByWithRelationInput
-  }
-
-  export type SessionWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    sessionToken?: string
-    AND?: SessionWhereInput | SessionWhereInput[]
-    OR?: SessionWhereInput[]
-    NOT?: SessionWhereInput | SessionWhereInput[]
-    userId?: IntFilter<"Session"> | number
-    expires?: DateTimeFilter<"Session"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
-  }, "id" | "sessionToken">
-
-  export type SessionOrderByWithAggregationInput = {
-    id?: SortOrder
-    sessionToken?: SortOrder
-    userId?: SortOrder
-    expires?: SortOrder
-    _count?: SessionCountOrderByAggregateInput
-    _avg?: SessionAvgOrderByAggregateInput
-    _max?: SessionMaxOrderByAggregateInput
-    _min?: SessionMinOrderByAggregateInput
-    _sum?: SessionSumOrderByAggregateInput
-  }
-
-  export type SessionScalarWhereWithAggregatesInput = {
-    AND?: SessionScalarWhereWithAggregatesInput | SessionScalarWhereWithAggregatesInput[]
-    OR?: SessionScalarWhereWithAggregatesInput[]
-    NOT?: SessionScalarWhereWithAggregatesInput | SessionScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Session"> | string
-    sessionToken?: StringWithAggregatesFilter<"Session"> | string
-    userId?: IntWithAggregatesFilter<"Session"> | number
-    expires?: DateTimeWithAggregatesFilter<"Session"> | Date | string
-  }
-
-  export type VerificationTokenWhereInput = {
-    AND?: VerificationTokenWhereInput | VerificationTokenWhereInput[]
-    OR?: VerificationTokenWhereInput[]
-    NOT?: VerificationTokenWhereInput | VerificationTokenWhereInput[]
-    identifier?: StringFilter<"VerificationToken"> | string
-    token?: StringFilter<"VerificationToken"> | string
-    expires?: DateTimeFilter<"VerificationToken"> | Date | string
-  }
-
-  export type VerificationTokenOrderByWithRelationInput = {
-    identifier?: SortOrder
-    token?: SortOrder
-    expires?: SortOrder
-  }
-
-  export type VerificationTokenWhereUniqueInput = Prisma.AtLeast<{
-    token?: string
-    identifier_token?: VerificationTokenIdentifierTokenCompoundUniqueInput
-    AND?: VerificationTokenWhereInput | VerificationTokenWhereInput[]
-    OR?: VerificationTokenWhereInput[]
-    NOT?: VerificationTokenWhereInput | VerificationTokenWhereInput[]
-    identifier?: StringFilter<"VerificationToken"> | string
-    expires?: DateTimeFilter<"VerificationToken"> | Date | string
-  }, "token" | "identifier_token">
-
-  export type VerificationTokenOrderByWithAggregationInput = {
-    identifier?: SortOrder
-    token?: SortOrder
-    expires?: SortOrder
-    _count?: VerificationTokenCountOrderByAggregateInput
-    _max?: VerificationTokenMaxOrderByAggregateInput
-    _min?: VerificationTokenMinOrderByAggregateInput
-  }
-
-  export type VerificationTokenScalarWhereWithAggregatesInput = {
-    AND?: VerificationTokenScalarWhereWithAggregatesInput | VerificationTokenScalarWhereWithAggregatesInput[]
-    OR?: VerificationTokenScalarWhereWithAggregatesInput[]
-    NOT?: VerificationTokenScalarWhereWithAggregatesInput | VerificationTokenScalarWhereWithAggregatesInput[]
-    identifier?: StringWithAggregatesFilter<"VerificationToken"> | string
-    token?: StringWithAggregatesFilter<"VerificationToken"> | string
-    expires?: DateTimeWithAggregatesFilter<"VerificationToken"> | Date | string
+  export type MyProjectScalarWhereWithAggregatesInput = {
+    AND?: MyProjectScalarWhereWithAggregatesInput | MyProjectScalarWhereWithAggregatesInput[]
+    OR?: MyProjectScalarWhereWithAggregatesInput[]
+    NOT?: MyProjectScalarWhereWithAggregatesInput | MyProjectScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"MyProject"> | number
+    userId?: IntWithAggregatesFilter<"MyProject"> | number
+    projectId?: IntWithAggregatesFilter<"MyProject"> | number
+    role?: EnumProjectRoleWithAggregatesFilter<"MyProject"> | $Enums.ProjectRole
+    isFavorite?: BoolWithAggregatesFilter<"MyProject"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"MyProject"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MyProject"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -9056,11 +8407,9 @@ export namespace Prisma {
     image?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Board?: BoardCreateNestedManyWithoutOwnerInput
     Project?: ProjectCreateNestedManyWithoutUserInput
-    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
     Item?: ItemCreateNestedManyWithoutUserInput
-    Session?: SessionCreateNestedManyWithoutUserInput
+    MyProject?: MyProjectCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9071,11 +8420,9 @@ export namespace Prisma {
     image?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Board?: BoardUncheckedCreateNestedManyWithoutOwnerInput
     Project?: ProjectUncheckedCreateNestedManyWithoutUserInput
-    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
     Item?: ItemUncheckedCreateNestedManyWithoutUserInput
-    Session?: SessionUncheckedCreateNestedManyWithoutUserInput
+    MyProject?: MyProjectUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9085,11 +8432,9 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Board?: BoardUpdateManyWithoutOwnerNestedInput
     Project?: ProjectUpdateManyWithoutUserNestedInput
-    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
     Item?: ItemUpdateManyWithoutUserNestedInput
-    Session?: SessionUpdateManyWithoutUserNestedInput
+    MyProject?: MyProjectUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9100,11 +8445,9 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Board?: BoardUncheckedUpdateManyWithoutOwnerNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutUserNestedInput
-    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
     Item?: ItemUncheckedUpdateManyWithoutUserNestedInput
-    Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    MyProject?: MyProjectUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9138,16 +8481,18 @@ export namespace Prisma {
 
   export type BoardCreateInput = {
     title: string
+    color?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    owner: UserCreateNestedOneWithoutBoardInput
+    project: ProjectCreateNestedOneWithoutBoardInput
     Item?: ItemCreateNestedManyWithoutBoardInput
   }
 
   export type BoardUncheckedCreateInput = {
     id?: number
     title: string
-    ownerId: number
+    projectId: number
+    color?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     Item?: ItemUncheckedCreateNestedManyWithoutBoardInput
@@ -9155,16 +8500,18 @@ export namespace Prisma {
 
   export type BoardUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owner?: UserUpdateOneRequiredWithoutBoardNestedInput
+    project?: ProjectUpdateOneRequiredWithoutBoardNestedInput
     Item?: ItemUpdateManyWithoutBoardNestedInput
   }
 
   export type BoardUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    ownerId?: IntFieldUpdateOperationsInput | number
+    projectId?: IntFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Item?: ItemUncheckedUpdateManyWithoutBoardNestedInput
@@ -9173,13 +8520,15 @@ export namespace Prisma {
   export type BoardCreateManyInput = {
     id?: number
     title: string
-    ownerId: number
+    projectId: number
+    color?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type BoardUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9187,45 +8536,62 @@ export namespace Prisma {
   export type BoardUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    ownerId?: IntFieldUpdateOperationsInput | number
+    projectId?: IntFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ItemCreateInput = {
     content: string
+    description?: string | null
     status?: $Enums.ItemStatus
+    start?: Date | string | null
+    end?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    board: BoardCreateNestedOneWithoutItemInput
-    user: UserCreateNestedOneWithoutItemInput
+    board?: BoardCreateNestedOneWithoutItemInput
+    user?: UserCreateNestedOneWithoutItemInput
+    itemCategory?: ItemCategoryCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateInput = {
     id?: number
     content: string
+    description?: string | null
     status?: $Enums.ItemStatus
-    boardId: number
-    userId: number
+    boardId?: number | null
+    userId?: number | null
+    itemCategoryId?: number | null
+    start?: Date | string | null
+    end?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ItemUpdateInput = {
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    board?: BoardUpdateOneRequiredWithoutItemNestedInput
-    user?: UserUpdateOneRequiredWithoutItemNestedInput
+    board?: BoardUpdateOneWithoutItemNestedInput
+    user?: UserUpdateOneWithoutItemNestedInput
+    itemCategory?: ItemCategoryUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
-    boardId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    boardId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    itemCategoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9233,16 +8599,23 @@ export namespace Prisma {
   export type ItemCreateManyInput = {
     id?: number
     content: string
+    description?: string | null
     status?: $Enums.ItemStatus
-    boardId: number
-    userId: number
+    boardId?: number | null
+    userId?: number | null
+    itemCategoryId?: number | null
+    start?: Date | string | null
+    end?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ItemUpdateManyMutationInput = {
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9250,9 +8623,76 @@ export namespace Prisma {
   export type ItemUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
-    boardId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
+    boardId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    itemCategoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItemCategoryCreateInput = {
+    category: string
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project: ProjectCreateNestedOneWithoutItemCategoryInput
+    Item?: ItemCreateNestedManyWithoutItemCategoryInput
+  }
+
+  export type ItemCategoryUncheckedCreateInput = {
+    id?: number
+    projectId: number
+    category: string
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Item?: ItemUncheckedCreateNestedManyWithoutItemCategoryInput
+  }
+
+  export type ItemCategoryUpdateInput = {
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutItemCategoryNestedInput
+    Item?: ItemUpdateManyWithoutItemCategoryNestedInput
+  }
+
+  export type ItemCategoryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    projectId?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Item?: ItemUncheckedUpdateManyWithoutItemCategoryNestedInput
+  }
+
+  export type ItemCategoryCreateManyInput = {
+    id?: number
+    projectId: number
+    category: string
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ItemCategoryUpdateManyMutationInput = {
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItemCategoryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    projectId?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9260,10 +8700,13 @@ export namespace Prisma {
   export type ProjectCreateInput = {
     title: string
     description: string
+    projectScope?: $Enums.ProjectScope
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutProjectInput
-    ProjectMember?: ProjectMemberCreateNestedManyWithoutProjectInput
+    ItemCategory?: ItemCategoryCreateNestedManyWithoutProjectInput
+    MyProject?: MyProjectCreateNestedManyWithoutProjectInput
+    Board?: BoardCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateInput = {
@@ -9271,18 +8714,24 @@ export namespace Prisma {
     title: string
     description: string
     authorId: number
+    projectScope?: $Enums.ProjectScope
     createdAt?: Date | string
     updatedAt?: Date | string
-    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+    ItemCategory?: ItemCategoryUncheckedCreateNestedManyWithoutProjectInput
+    MyProject?: MyProjectUncheckedCreateNestedManyWithoutProjectInput
+    Board?: BoardUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUpdateInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProjectNestedInput
-    ProjectMember?: ProjectMemberUpdateManyWithoutProjectNestedInput
+    ItemCategory?: ItemCategoryUpdateManyWithoutProjectNestedInput
+    MyProject?: MyProjectUpdateManyWithoutProjectNestedInput
+    Board?: BoardUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateInput = {
@@ -9290,9 +8739,12 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     authorId?: IntFieldUpdateOperationsInput | number
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+    ItemCategory?: ItemCategoryUncheckedUpdateManyWithoutProjectNestedInput
+    MyProject?: MyProjectUncheckedUpdateManyWithoutProjectNestedInput
+    Board?: BoardUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateManyInput = {
@@ -9300,6 +8752,7 @@ export namespace Prisma {
     title: string
     description: string
     authorId: number
+    projectScope?: $Enums.ProjectScope
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9307,6 +8760,7 @@ export namespace Prisma {
   export type ProjectUpdateManyMutationInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9316,149 +8770,74 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     authorId?: IntFieldUpdateOperationsInput | number
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ProjectMemberCreateInput = {
-    role: $Enums.MemberRole
-    joinDate?: Date | string
-    user: UserCreateNestedOneWithoutProjectMemberInput
-    project: ProjectCreateNestedOneWithoutProjectMemberInput
+  export type MyProjectCreateInput = {
+    role?: $Enums.ProjectRole
+    isFavorite: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutMyProjectInput
+    project: ProjectCreateNestedOneWithoutMyProjectInput
   }
 
-  export type ProjectMemberUncheckedCreateInput = {
+  export type MyProjectUncheckedCreateInput = {
     id?: number
     userId: number
     projectId: number
-    role: $Enums.MemberRole
-    joinDate?: Date | string
+    role?: $Enums.ProjectRole
+    isFavorite: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type ProjectMemberUpdateInput = {
-    role?: EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
-    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutProjectMemberNestedInput
-    project?: ProjectUpdateOneRequiredWithoutProjectMemberNestedInput
+  export type MyProjectUpdateInput = {
+    role?: EnumProjectRoleFieldUpdateOperationsInput | $Enums.ProjectRole
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMyProjectNestedInput
+    project?: ProjectUpdateOneRequiredWithoutMyProjectNestedInput
   }
 
-  export type ProjectMemberUncheckedUpdateInput = {
+  export type MyProjectUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     projectId?: IntFieldUpdateOperationsInput | number
-    role?: EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
-    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: EnumProjectRoleFieldUpdateOperationsInput | $Enums.ProjectRole
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ProjectMemberCreateManyInput = {
+  export type MyProjectCreateManyInput = {
     id?: number
     userId: number
     projectId: number
-    role: $Enums.MemberRole
-    joinDate?: Date | string
+    role?: $Enums.ProjectRole
+    isFavorite: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type ProjectMemberUpdateManyMutationInput = {
-    role?: EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
-    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type MyProjectUpdateManyMutationInput = {
+    role?: EnumProjectRoleFieldUpdateOperationsInput | $Enums.ProjectRole
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ProjectMemberUncheckedUpdateManyInput = {
+  export type MyProjectUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     projectId?: IntFieldUpdateOperationsInput | number
-    role?: EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
-    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SessionCreateInput = {
-    id?: string
-    sessionToken: string
-    expires: Date | string
-    user: UserCreateNestedOneWithoutSessionInput
-  }
-
-  export type SessionUncheckedCreateInput = {
-    id?: string
-    sessionToken: string
-    userId: number
-    expires: Date | string
-  }
-
-  export type SessionUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    sessionToken?: StringFieldUpdateOperationsInput | string
-    expires?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutSessionNestedInput
-  }
-
-  export type SessionUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    sessionToken?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
-    expires?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SessionCreateManyInput = {
-    id?: string
-    sessionToken: string
-    userId: number
-    expires: Date | string
-  }
-
-  export type SessionUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    sessionToken?: StringFieldUpdateOperationsInput | string
-    expires?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SessionUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    sessionToken?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
-    expires?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type VerificationTokenCreateInput = {
-    identifier: string
-    token: string
-    expires: Date | string
-  }
-
-  export type VerificationTokenUncheckedCreateInput = {
-    identifier: string
-    token: string
-    expires: Date | string
-  }
-
-  export type VerificationTokenUpdateInput = {
-    identifier?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    expires?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type VerificationTokenUncheckedUpdateInput = {
-    identifier?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    expires?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type VerificationTokenCreateManyInput = {
-    identifier: string
-    token: string
-    expires: Date | string
-  }
-
-  export type VerificationTokenUpdateManyMutationInput = {
-    identifier?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    expires?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type VerificationTokenUncheckedUpdateManyInput = {
-    identifier?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    expires?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: EnumProjectRoleFieldUpdateOperationsInput | $Enums.ProjectRole
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -9498,22 +8877,10 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type BoardListRelationFilter = {
-    every?: BoardWhereInput
-    some?: BoardWhereInput
-    none?: BoardWhereInput
-  }
-
   export type ProjectListRelationFilter = {
     every?: ProjectWhereInput
     some?: ProjectWhereInput
     none?: ProjectWhereInput
-  }
-
-  export type ProjectMemberListRelationFilter = {
-    every?: ProjectMemberWhereInput
-    some?: ProjectMemberWhereInput
-    none?: ProjectMemberWhereInput
   }
 
   export type ItemListRelationFilter = {
@@ -9522,21 +8889,13 @@ export namespace Prisma {
     none?: ItemWhereInput
   }
 
-  export type SessionListRelationFilter = {
-    every?: SessionWhereInput
-    some?: SessionWhereInput
-    none?: SessionWhereInput
-  }
-
-  export type BoardOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type MyProjectListRelationFilter = {
+    every?: MyProjectWhereInput
+    some?: MyProjectWhereInput
+    none?: MyProjectWhereInput
   }
 
   export type ProjectOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ProjectMemberOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9544,7 +8903,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type SessionOrderByRelationAggregateInput = {
+  export type MyProjectOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9634,28 +8993,50 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type UserRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type ProjectRelationFilter = {
+    is?: ProjectWhereInput
+    isNot?: ProjectWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type BoardCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    ownerId?: SortOrder
+    projectId?: SortOrder
+    color?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type BoardAvgOrderByAggregateInput = {
     id?: SortOrder
-    ownerId?: SortOrder
+    projectId?: SortOrder
   }
 
   export type BoardMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    ownerId?: SortOrder
+    projectId?: SortOrder
+    color?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9663,14 +9044,33 @@ export namespace Prisma {
   export type BoardMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    ownerId?: SortOrder
+    projectId?: SortOrder
+    color?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type BoardSumOrderByAggregateInput = {
     id?: SortOrder
-    ownerId?: SortOrder
+    projectId?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumItemStatusFilter<$PrismaModel = never> = {
@@ -9680,17 +9080,53 @@ export namespace Prisma {
     not?: NestedEnumItemStatusFilter<$PrismaModel> | $Enums.ItemStatus
   }
 
-  export type BoardRelationFilter = {
-    is?: BoardWhereInput
-    isNot?: BoardWhereInput
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type BoardNullableRelationFilter = {
+    is?: BoardWhereInput | null
+    isNot?: BoardWhereInput | null
+  }
+
+  export type UserNullableRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type ItemCategoryNullableRelationFilter = {
+    is?: ItemCategoryWhereInput | null
+    isNot?: ItemCategoryWhereInput | null
   }
 
   export type ItemCountOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
+    description?: SortOrder
     status?: SortOrder
     boardId?: SortOrder
     userId?: SortOrder
+    itemCategoryId?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9699,14 +9135,19 @@ export namespace Prisma {
     id?: SortOrder
     boardId?: SortOrder
     userId?: SortOrder
+    itemCategoryId?: SortOrder
   }
 
   export type ItemMaxOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
+    description?: SortOrder
     status?: SortOrder
     boardId?: SortOrder
     userId?: SortOrder
+    itemCategoryId?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9714,9 +9155,13 @@ export namespace Prisma {
   export type ItemMinOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
+    description?: SortOrder
     status?: SortOrder
     boardId?: SortOrder
     userId?: SortOrder
+    itemCategoryId?: SortOrder
+    start?: SortOrder
+    end?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9725,6 +9170,7 @@ export namespace Prisma {
     id?: SortOrder
     boardId?: SortOrder
     userId?: SortOrder
+    itemCategoryId?: SortOrder
   }
 
   export type EnumItemStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -9737,11 +9183,111 @@ export namespace Prisma {
     _max?: NestedEnumItemStatusFilter<$PrismaModel>
   }
 
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type ItemCategoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    category?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ItemCategoryAvgOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+  }
+
+  export type ItemCategoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    category?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ItemCategoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    category?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ItemCategorySumOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+  }
+
+  export type EnumProjectScopeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectScope | EnumProjectScopeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProjectScope[] | ListEnumProjectScopeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProjectScope[] | ListEnumProjectScopeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProjectScopeFilter<$PrismaModel> | $Enums.ProjectScope
+  }
+
+  export type UserRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type ItemCategoryListRelationFilter = {
+    every?: ItemCategoryWhereInput
+    some?: ItemCategoryWhereInput
+    none?: ItemCategoryWhereInput
+  }
+
+  export type BoardListRelationFilter = {
+    every?: BoardWhereInput
+    some?: BoardWhereInput
+    none?: BoardWhereInput
+  }
+
+  export type ItemCategoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BoardOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ProjectCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
     authorId?: SortOrder
+    projectScope?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9756,6 +9302,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     authorId?: SortOrder
+    projectScope?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9765,6 +9312,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     authorId?: SortOrder
+    projectScope?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9774,121 +9322,86 @@ export namespace Prisma {
     authorId?: SortOrder
   }
 
-  export type EnumMemberRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.MemberRole | EnumMemberRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.MemberRole[] | ListEnumMemberRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.MemberRole[] | ListEnumMemberRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumMemberRoleFilter<$PrismaModel> | $Enums.MemberRole
-  }
-
-  export type ProjectRelationFilter = {
-    is?: ProjectWhereInput
-    isNot?: ProjectWhereInput
-  }
-
-  export type ProjectMemberCountOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    projectId?: SortOrder
-    role?: SortOrder
-    joinDate?: SortOrder
-  }
-
-  export type ProjectMemberAvgOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    projectId?: SortOrder
-  }
-
-  export type ProjectMemberMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    projectId?: SortOrder
-    role?: SortOrder
-    joinDate?: SortOrder
-  }
-
-  export type ProjectMemberMinOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    projectId?: SortOrder
-    role?: SortOrder
-    joinDate?: SortOrder
-  }
-
-  export type ProjectMemberSumOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    projectId?: SortOrder
-  }
-
-  export type EnumMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.MemberRole | EnumMemberRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.MemberRole[] | ListEnumMemberRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.MemberRole[] | ListEnumMemberRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.MemberRole
+  export type EnumProjectScopeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectScope | EnumProjectScopeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProjectScope[] | ListEnumProjectScopeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProjectScope[] | ListEnumProjectScopeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProjectScopeWithAggregatesFilter<$PrismaModel> | $Enums.ProjectScope
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumMemberRoleFilter<$PrismaModel>
-    _max?: NestedEnumMemberRoleFilter<$PrismaModel>
+    _min?: NestedEnumProjectScopeFilter<$PrismaModel>
+    _max?: NestedEnumProjectScopeFilter<$PrismaModel>
   }
 
-  export type SessionCountOrderByAggregateInput = {
+  export type EnumProjectRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectRole | EnumProjectRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.ProjectRole[] | ListEnumProjectRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProjectRole[] | ListEnumProjectRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumProjectRoleFilter<$PrismaModel> | $Enums.ProjectRole
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type MyProjectCountOrderByAggregateInput = {
     id?: SortOrder
-    sessionToken?: SortOrder
     userId?: SortOrder
-    expires?: SortOrder
+    projectId?: SortOrder
+    role?: SortOrder
+    isFavorite?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type SessionAvgOrderByAggregateInput = {
-    userId?: SortOrder
-  }
-
-  export type SessionMaxOrderByAggregateInput = {
+  export type MyProjectAvgOrderByAggregateInput = {
     id?: SortOrder
-    sessionToken?: SortOrder
     userId?: SortOrder
-    expires?: SortOrder
+    projectId?: SortOrder
   }
 
-  export type SessionMinOrderByAggregateInput = {
+  export type MyProjectMaxOrderByAggregateInput = {
     id?: SortOrder
-    sessionToken?: SortOrder
     userId?: SortOrder
-    expires?: SortOrder
+    projectId?: SortOrder
+    role?: SortOrder
+    isFavorite?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type SessionSumOrderByAggregateInput = {
+  export type MyProjectMinOrderByAggregateInput = {
+    id?: SortOrder
     userId?: SortOrder
+    projectId?: SortOrder
+    role?: SortOrder
+    isFavorite?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type VerificationTokenIdentifierTokenCompoundUniqueInput = {
-    identifier: string
-    token: string
+  export type MyProjectSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    projectId?: SortOrder
   }
 
-  export type VerificationTokenCountOrderByAggregateInput = {
-    identifier?: SortOrder
-    token?: SortOrder
-    expires?: SortOrder
+  export type EnumProjectRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectRole | EnumProjectRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.ProjectRole[] | ListEnumProjectRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProjectRole[] | ListEnumProjectRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumProjectRoleWithAggregatesFilter<$PrismaModel> | $Enums.ProjectRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProjectRoleFilter<$PrismaModel>
+    _max?: NestedEnumProjectRoleFilter<$PrismaModel>
   }
 
-  export type VerificationTokenMaxOrderByAggregateInput = {
-    identifier?: SortOrder
-    token?: SortOrder
-    expires?: SortOrder
-  }
-
-  export type VerificationTokenMinOrderByAggregateInput = {
-    identifier?: SortOrder
-    token?: SortOrder
-    expires?: SortOrder
-  }
-
-  export type BoardCreateNestedManyWithoutOwnerInput = {
-    create?: XOR<BoardCreateWithoutOwnerInput, BoardUncheckedCreateWithoutOwnerInput> | BoardCreateWithoutOwnerInput[] | BoardUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: BoardCreateOrConnectWithoutOwnerInput | BoardCreateOrConnectWithoutOwnerInput[]
-    createMany?: BoardCreateManyOwnerInputEnvelope
-    connect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ProjectCreateNestedManyWithoutUserInput = {
@@ -9898,13 +9411,6 @@ export namespace Prisma {
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
   }
 
-  export type ProjectMemberCreateNestedManyWithoutUserInput = {
-    create?: XOR<ProjectMemberCreateWithoutUserInput, ProjectMemberUncheckedCreateWithoutUserInput> | ProjectMemberCreateWithoutUserInput[] | ProjectMemberUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProjectMemberCreateOrConnectWithoutUserInput | ProjectMemberCreateOrConnectWithoutUserInput[]
-    createMany?: ProjectMemberCreateManyUserInputEnvelope
-    connect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-  }
-
   export type ItemCreateNestedManyWithoutUserInput = {
     create?: XOR<ItemCreateWithoutUserInput, ItemUncheckedCreateWithoutUserInput> | ItemCreateWithoutUserInput[] | ItemUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ItemCreateOrConnectWithoutUserInput | ItemCreateOrConnectWithoutUserInput[]
@@ -9912,18 +9418,11 @@ export namespace Prisma {
     connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
   }
 
-  export type SessionCreateNestedManyWithoutUserInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-  }
-
-  export type BoardUncheckedCreateNestedManyWithoutOwnerInput = {
-    create?: XOR<BoardCreateWithoutOwnerInput, BoardUncheckedCreateWithoutOwnerInput> | BoardCreateWithoutOwnerInput[] | BoardUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: BoardCreateOrConnectWithoutOwnerInput | BoardCreateOrConnectWithoutOwnerInput[]
-    createMany?: BoardCreateManyOwnerInputEnvelope
-    connect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+  export type MyProjectCreateNestedManyWithoutUserInput = {
+    create?: XOR<MyProjectCreateWithoutUserInput, MyProjectUncheckedCreateWithoutUserInput> | MyProjectCreateWithoutUserInput[] | MyProjectUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MyProjectCreateOrConnectWithoutUserInput | MyProjectCreateOrConnectWithoutUserInput[]
+    createMany?: MyProjectCreateManyUserInputEnvelope
+    connect?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
   }
 
   export type ProjectUncheckedCreateNestedManyWithoutUserInput = {
@@ -9933,13 +9432,6 @@ export namespace Prisma {
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
   }
 
-  export type ProjectMemberUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<ProjectMemberCreateWithoutUserInput, ProjectMemberUncheckedCreateWithoutUserInput> | ProjectMemberCreateWithoutUserInput[] | ProjectMemberUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProjectMemberCreateOrConnectWithoutUserInput | ProjectMemberCreateOrConnectWithoutUserInput[]
-    createMany?: ProjectMemberCreateManyUserInputEnvelope
-    connect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-  }
-
   export type ItemUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ItemCreateWithoutUserInput, ItemUncheckedCreateWithoutUserInput> | ItemCreateWithoutUserInput[] | ItemUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ItemCreateOrConnectWithoutUserInput | ItemCreateOrConnectWithoutUserInput[]
@@ -9947,11 +9439,11 @@ export namespace Prisma {
     connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
   }
 
-  export type SessionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  export type MyProjectUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MyProjectCreateWithoutUserInput, MyProjectUncheckedCreateWithoutUserInput> | MyProjectCreateWithoutUserInput[] | MyProjectUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MyProjectCreateOrConnectWithoutUserInput | MyProjectCreateOrConnectWithoutUserInput[]
+    createMany?: MyProjectCreateManyUserInputEnvelope
+    connect?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -9960,20 +9452,6 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
-  }
-
-  export type BoardUpdateManyWithoutOwnerNestedInput = {
-    create?: XOR<BoardCreateWithoutOwnerInput, BoardUncheckedCreateWithoutOwnerInput> | BoardCreateWithoutOwnerInput[] | BoardUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: BoardCreateOrConnectWithoutOwnerInput | BoardCreateOrConnectWithoutOwnerInput[]
-    upsert?: BoardUpsertWithWhereUniqueWithoutOwnerInput | BoardUpsertWithWhereUniqueWithoutOwnerInput[]
-    createMany?: BoardCreateManyOwnerInputEnvelope
-    set?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
-    disconnect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
-    delete?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
-    connect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
-    update?: BoardUpdateWithWhereUniqueWithoutOwnerInput | BoardUpdateWithWhereUniqueWithoutOwnerInput[]
-    updateMany?: BoardUpdateManyWithWhereWithoutOwnerInput | BoardUpdateManyWithWhereWithoutOwnerInput[]
-    deleteMany?: BoardScalarWhereInput | BoardScalarWhereInput[]
   }
 
   export type ProjectUpdateManyWithoutUserNestedInput = {
@@ -9990,20 +9468,6 @@ export namespace Prisma {
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
-  export type ProjectMemberUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ProjectMemberCreateWithoutUserInput, ProjectMemberUncheckedCreateWithoutUserInput> | ProjectMemberCreateWithoutUserInput[] | ProjectMemberUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProjectMemberCreateOrConnectWithoutUserInput | ProjectMemberCreateOrConnectWithoutUserInput[]
-    upsert?: ProjectMemberUpsertWithWhereUniqueWithoutUserInput | ProjectMemberUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ProjectMemberCreateManyUserInputEnvelope
-    set?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    disconnect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    delete?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    connect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    update?: ProjectMemberUpdateWithWhereUniqueWithoutUserInput | ProjectMemberUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ProjectMemberUpdateManyWithWhereWithoutUserInput | ProjectMemberUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ProjectMemberScalarWhereInput | ProjectMemberScalarWhereInput[]
-  }
-
   export type ItemUpdateManyWithoutUserNestedInput = {
     create?: XOR<ItemCreateWithoutUserInput, ItemUncheckedCreateWithoutUserInput> | ItemCreateWithoutUserInput[] | ItemUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ItemCreateOrConnectWithoutUserInput | ItemCreateOrConnectWithoutUserInput[]
@@ -10018,18 +9482,18 @@ export namespace Prisma {
     deleteMany?: ItemScalarWhereInput | ItemScalarWhereInput[]
   }
 
-  export type SessionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  export type MyProjectUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MyProjectCreateWithoutUserInput, MyProjectUncheckedCreateWithoutUserInput> | MyProjectCreateWithoutUserInput[] | MyProjectUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MyProjectCreateOrConnectWithoutUserInput | MyProjectCreateOrConnectWithoutUserInput[]
+    upsert?: MyProjectUpsertWithWhereUniqueWithoutUserInput | MyProjectUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MyProjectCreateManyUserInputEnvelope
+    set?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    disconnect?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    delete?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    connect?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    update?: MyProjectUpdateWithWhereUniqueWithoutUserInput | MyProjectUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MyProjectUpdateManyWithWhereWithoutUserInput | MyProjectUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MyProjectScalarWhereInput | MyProjectScalarWhereInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -10038,20 +9502,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type BoardUncheckedUpdateManyWithoutOwnerNestedInput = {
-    create?: XOR<BoardCreateWithoutOwnerInput, BoardUncheckedCreateWithoutOwnerInput> | BoardCreateWithoutOwnerInput[] | BoardUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: BoardCreateOrConnectWithoutOwnerInput | BoardCreateOrConnectWithoutOwnerInput[]
-    upsert?: BoardUpsertWithWhereUniqueWithoutOwnerInput | BoardUpsertWithWhereUniqueWithoutOwnerInput[]
-    createMany?: BoardCreateManyOwnerInputEnvelope
-    set?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
-    disconnect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
-    delete?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
-    connect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
-    update?: BoardUpdateWithWhereUniqueWithoutOwnerInput | BoardUpdateWithWhereUniqueWithoutOwnerInput[]
-    updateMany?: BoardUpdateManyWithWhereWithoutOwnerInput | BoardUpdateManyWithWhereWithoutOwnerInput[]
-    deleteMany?: BoardScalarWhereInput | BoardScalarWhereInput[]
   }
 
   export type ProjectUncheckedUpdateManyWithoutUserNestedInput = {
@@ -10068,20 +9518,6 @@ export namespace Prisma {
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
-  export type ProjectMemberUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ProjectMemberCreateWithoutUserInput, ProjectMemberUncheckedCreateWithoutUserInput> | ProjectMemberCreateWithoutUserInput[] | ProjectMemberUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProjectMemberCreateOrConnectWithoutUserInput | ProjectMemberCreateOrConnectWithoutUserInput[]
-    upsert?: ProjectMemberUpsertWithWhereUniqueWithoutUserInput | ProjectMemberUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ProjectMemberCreateManyUserInputEnvelope
-    set?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    disconnect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    delete?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    connect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    update?: ProjectMemberUpdateWithWhereUniqueWithoutUserInput | ProjectMemberUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ProjectMemberUpdateManyWithWhereWithoutUserInput | ProjectMemberUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ProjectMemberScalarWhereInput | ProjectMemberScalarWhereInput[]
-  }
-
   export type ItemUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ItemCreateWithoutUserInput, ItemUncheckedCreateWithoutUserInput> | ItemCreateWithoutUserInput[] | ItemUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ItemCreateOrConnectWithoutUserInput | ItemCreateOrConnectWithoutUserInput[]
@@ -10096,24 +9532,24 @@ export namespace Prisma {
     deleteMany?: ItemScalarWhereInput | ItemScalarWhereInput[]
   }
 
-  export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  export type MyProjectUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MyProjectCreateWithoutUserInput, MyProjectUncheckedCreateWithoutUserInput> | MyProjectCreateWithoutUserInput[] | MyProjectUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MyProjectCreateOrConnectWithoutUserInput | MyProjectCreateOrConnectWithoutUserInput[]
+    upsert?: MyProjectUpsertWithWhereUniqueWithoutUserInput | MyProjectUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MyProjectCreateManyUserInputEnvelope
+    set?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    disconnect?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    delete?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    connect?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    update?: MyProjectUpdateWithWhereUniqueWithoutUserInput | MyProjectUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MyProjectUpdateManyWithWhereWithoutUserInput | MyProjectUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MyProjectScalarWhereInput | MyProjectScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutBoardInput = {
-    create?: XOR<UserCreateWithoutBoardInput, UserUncheckedCreateWithoutBoardInput>
-    connectOrCreate?: UserCreateOrConnectWithoutBoardInput
-    connect?: UserWhereUniqueInput
+  export type ProjectCreateNestedOneWithoutBoardInput = {
+    create?: XOR<ProjectCreateWithoutBoardInput, ProjectUncheckedCreateWithoutBoardInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutBoardInput
+    connect?: ProjectWhereUniqueInput
   }
 
   export type ItemCreateNestedManyWithoutBoardInput = {
@@ -10130,12 +9566,16 @@ export namespace Prisma {
     connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
   }
 
-  export type UserUpdateOneRequiredWithoutBoardNestedInput = {
-    create?: XOR<UserCreateWithoutBoardInput, UserUncheckedCreateWithoutBoardInput>
-    connectOrCreate?: UserCreateOrConnectWithoutBoardInput
-    upsert?: UserUpsertWithoutBoardInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBoardInput, UserUpdateWithoutBoardInput>, UserUncheckedUpdateWithoutBoardInput>
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type ProjectUpdateOneRequiredWithoutBoardNestedInput = {
+    create?: XOR<ProjectCreateWithoutBoardInput, ProjectUncheckedCreateWithoutBoardInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutBoardInput
+    upsert?: ProjectUpsertWithoutBoardInput
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutBoardInput, ProjectUpdateWithoutBoardInput>, ProjectUncheckedUpdateWithoutBoardInput>
   }
 
   export type ItemUpdateManyWithoutBoardNestedInput = {
@@ -10178,24 +9618,112 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type ItemCategoryCreateNestedOneWithoutItemInput = {
+    create?: XOR<ItemCategoryCreateWithoutItemInput, ItemCategoryUncheckedCreateWithoutItemInput>
+    connectOrCreate?: ItemCategoryCreateOrConnectWithoutItemInput
+    connect?: ItemCategoryWhereUniqueInput
+  }
+
   export type EnumItemStatusFieldUpdateOperationsInput = {
     set?: $Enums.ItemStatus
   }
 
-  export type BoardUpdateOneRequiredWithoutItemNestedInput = {
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type BoardUpdateOneWithoutItemNestedInput = {
     create?: XOR<BoardCreateWithoutItemInput, BoardUncheckedCreateWithoutItemInput>
     connectOrCreate?: BoardCreateOrConnectWithoutItemInput
     upsert?: BoardUpsertWithoutItemInput
+    disconnect?: BoardWhereInput | boolean
+    delete?: BoardWhereInput | boolean
     connect?: BoardWhereUniqueInput
     update?: XOR<XOR<BoardUpdateToOneWithWhereWithoutItemInput, BoardUpdateWithoutItemInput>, BoardUncheckedUpdateWithoutItemInput>
   }
 
-  export type UserUpdateOneRequiredWithoutItemNestedInput = {
+  export type UserUpdateOneWithoutItemNestedInput = {
     create?: XOR<UserCreateWithoutItemInput, UserUncheckedCreateWithoutItemInput>
     connectOrCreate?: UserCreateOrConnectWithoutItemInput
     upsert?: UserUpsertWithoutItemInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutItemInput, UserUpdateWithoutItemInput>, UserUncheckedUpdateWithoutItemInput>
+  }
+
+  export type ItemCategoryUpdateOneWithoutItemNestedInput = {
+    create?: XOR<ItemCategoryCreateWithoutItemInput, ItemCategoryUncheckedCreateWithoutItemInput>
+    connectOrCreate?: ItemCategoryCreateOrConnectWithoutItemInput
+    upsert?: ItemCategoryUpsertWithoutItemInput
+    disconnect?: ItemCategoryWhereInput | boolean
+    delete?: ItemCategoryWhereInput | boolean
+    connect?: ItemCategoryWhereUniqueInput
+    update?: XOR<XOR<ItemCategoryUpdateToOneWithWhereWithoutItemInput, ItemCategoryUpdateWithoutItemInput>, ItemCategoryUncheckedUpdateWithoutItemInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ProjectCreateNestedOneWithoutItemCategoryInput = {
+    create?: XOR<ProjectCreateWithoutItemCategoryInput, ProjectUncheckedCreateWithoutItemCategoryInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutItemCategoryInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type ItemCreateNestedManyWithoutItemCategoryInput = {
+    create?: XOR<ItemCreateWithoutItemCategoryInput, ItemUncheckedCreateWithoutItemCategoryInput> | ItemCreateWithoutItemCategoryInput[] | ItemUncheckedCreateWithoutItemCategoryInput[]
+    connectOrCreate?: ItemCreateOrConnectWithoutItemCategoryInput | ItemCreateOrConnectWithoutItemCategoryInput[]
+    createMany?: ItemCreateManyItemCategoryInputEnvelope
+    connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+  }
+
+  export type ItemUncheckedCreateNestedManyWithoutItemCategoryInput = {
+    create?: XOR<ItemCreateWithoutItemCategoryInput, ItemUncheckedCreateWithoutItemCategoryInput> | ItemCreateWithoutItemCategoryInput[] | ItemUncheckedCreateWithoutItemCategoryInput[]
+    connectOrCreate?: ItemCreateOrConnectWithoutItemCategoryInput | ItemCreateOrConnectWithoutItemCategoryInput[]
+    createMany?: ItemCreateManyItemCategoryInputEnvelope
+    connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+  }
+
+  export type ProjectUpdateOneRequiredWithoutItemCategoryNestedInput = {
+    create?: XOR<ProjectCreateWithoutItemCategoryInput, ProjectUncheckedCreateWithoutItemCategoryInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutItemCategoryInput
+    upsert?: ProjectUpsertWithoutItemCategoryInput
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutItemCategoryInput, ProjectUpdateWithoutItemCategoryInput>, ProjectUncheckedUpdateWithoutItemCategoryInput>
+  }
+
+  export type ItemUpdateManyWithoutItemCategoryNestedInput = {
+    create?: XOR<ItemCreateWithoutItemCategoryInput, ItemUncheckedCreateWithoutItemCategoryInput> | ItemCreateWithoutItemCategoryInput[] | ItemUncheckedCreateWithoutItemCategoryInput[]
+    connectOrCreate?: ItemCreateOrConnectWithoutItemCategoryInput | ItemCreateOrConnectWithoutItemCategoryInput[]
+    upsert?: ItemUpsertWithWhereUniqueWithoutItemCategoryInput | ItemUpsertWithWhereUniqueWithoutItemCategoryInput[]
+    createMany?: ItemCreateManyItemCategoryInputEnvelope
+    set?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    disconnect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    delete?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    update?: ItemUpdateWithWhereUniqueWithoutItemCategoryInput | ItemUpdateWithWhereUniqueWithoutItemCategoryInput[]
+    updateMany?: ItemUpdateManyWithWhereWithoutItemCategoryInput | ItemUpdateManyWithWhereWithoutItemCategoryInput[]
+    deleteMany?: ItemScalarWhereInput | ItemScalarWhereInput[]
+  }
+
+  export type ItemUncheckedUpdateManyWithoutItemCategoryNestedInput = {
+    create?: XOR<ItemCreateWithoutItemCategoryInput, ItemUncheckedCreateWithoutItemCategoryInput> | ItemCreateWithoutItemCategoryInput[] | ItemUncheckedCreateWithoutItemCategoryInput[]
+    connectOrCreate?: ItemCreateOrConnectWithoutItemCategoryInput | ItemCreateOrConnectWithoutItemCategoryInput[]
+    upsert?: ItemUpsertWithWhereUniqueWithoutItemCategoryInput | ItemUpsertWithWhereUniqueWithoutItemCategoryInput[]
+    createMany?: ItemCreateManyItemCategoryInputEnvelope
+    set?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    disconnect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    delete?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    connect?: ItemWhereUniqueInput | ItemWhereUniqueInput[]
+    update?: ItemUpdateWithWhereUniqueWithoutItemCategoryInput | ItemUpdateWithWhereUniqueWithoutItemCategoryInput[]
+    updateMany?: ItemUpdateManyWithWhereWithoutItemCategoryInput | ItemUpdateManyWithWhereWithoutItemCategoryInput[]
+    deleteMany?: ItemScalarWhereInput | ItemScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutProjectInput = {
@@ -10204,18 +9732,50 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type ProjectMemberCreateNestedManyWithoutProjectInput = {
-    create?: XOR<ProjectMemberCreateWithoutProjectInput, ProjectMemberUncheckedCreateWithoutProjectInput> | ProjectMemberCreateWithoutProjectInput[] | ProjectMemberUncheckedCreateWithoutProjectInput[]
-    connectOrCreate?: ProjectMemberCreateOrConnectWithoutProjectInput | ProjectMemberCreateOrConnectWithoutProjectInput[]
-    createMany?: ProjectMemberCreateManyProjectInputEnvelope
-    connect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
+  export type ItemCategoryCreateNestedManyWithoutProjectInput = {
+    create?: XOR<ItemCategoryCreateWithoutProjectInput, ItemCategoryUncheckedCreateWithoutProjectInput> | ItemCategoryCreateWithoutProjectInput[] | ItemCategoryUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ItemCategoryCreateOrConnectWithoutProjectInput | ItemCategoryCreateOrConnectWithoutProjectInput[]
+    createMany?: ItemCategoryCreateManyProjectInputEnvelope
+    connect?: ItemCategoryWhereUniqueInput | ItemCategoryWhereUniqueInput[]
   }
 
-  export type ProjectMemberUncheckedCreateNestedManyWithoutProjectInput = {
-    create?: XOR<ProjectMemberCreateWithoutProjectInput, ProjectMemberUncheckedCreateWithoutProjectInput> | ProjectMemberCreateWithoutProjectInput[] | ProjectMemberUncheckedCreateWithoutProjectInput[]
-    connectOrCreate?: ProjectMemberCreateOrConnectWithoutProjectInput | ProjectMemberCreateOrConnectWithoutProjectInput[]
-    createMany?: ProjectMemberCreateManyProjectInputEnvelope
-    connect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
+  export type MyProjectCreateNestedManyWithoutProjectInput = {
+    create?: XOR<MyProjectCreateWithoutProjectInput, MyProjectUncheckedCreateWithoutProjectInput> | MyProjectCreateWithoutProjectInput[] | MyProjectUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: MyProjectCreateOrConnectWithoutProjectInput | MyProjectCreateOrConnectWithoutProjectInput[]
+    createMany?: MyProjectCreateManyProjectInputEnvelope
+    connect?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+  }
+
+  export type BoardCreateNestedManyWithoutProjectInput = {
+    create?: XOR<BoardCreateWithoutProjectInput, BoardUncheckedCreateWithoutProjectInput> | BoardCreateWithoutProjectInput[] | BoardUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: BoardCreateOrConnectWithoutProjectInput | BoardCreateOrConnectWithoutProjectInput[]
+    createMany?: BoardCreateManyProjectInputEnvelope
+    connect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+  }
+
+  export type ItemCategoryUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<ItemCategoryCreateWithoutProjectInput, ItemCategoryUncheckedCreateWithoutProjectInput> | ItemCategoryCreateWithoutProjectInput[] | ItemCategoryUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ItemCategoryCreateOrConnectWithoutProjectInput | ItemCategoryCreateOrConnectWithoutProjectInput[]
+    createMany?: ItemCategoryCreateManyProjectInputEnvelope
+    connect?: ItemCategoryWhereUniqueInput | ItemCategoryWhereUniqueInput[]
+  }
+
+  export type MyProjectUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<MyProjectCreateWithoutProjectInput, MyProjectUncheckedCreateWithoutProjectInput> | MyProjectCreateWithoutProjectInput[] | MyProjectUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: MyProjectCreateOrConnectWithoutProjectInput | MyProjectCreateOrConnectWithoutProjectInput[]
+    createMany?: MyProjectCreateManyProjectInputEnvelope
+    connect?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+  }
+
+  export type BoardUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<BoardCreateWithoutProjectInput, BoardUncheckedCreateWithoutProjectInput> | BoardCreateWithoutProjectInput[] | BoardUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: BoardCreateOrConnectWithoutProjectInput | BoardCreateOrConnectWithoutProjectInput[]
+    createMany?: BoardCreateManyProjectInputEnvelope
+    connect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+  }
+
+  export type EnumProjectScopeFieldUpdateOperationsInput = {
+    set?: $Enums.ProjectScope
   }
 
   export type UserUpdateOneRequiredWithoutProjectNestedInput = {
@@ -10226,78 +9786,124 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProjectInput, UserUpdateWithoutProjectInput>, UserUncheckedUpdateWithoutProjectInput>
   }
 
-  export type ProjectMemberUpdateManyWithoutProjectNestedInput = {
-    create?: XOR<ProjectMemberCreateWithoutProjectInput, ProjectMemberUncheckedCreateWithoutProjectInput> | ProjectMemberCreateWithoutProjectInput[] | ProjectMemberUncheckedCreateWithoutProjectInput[]
-    connectOrCreate?: ProjectMemberCreateOrConnectWithoutProjectInput | ProjectMemberCreateOrConnectWithoutProjectInput[]
-    upsert?: ProjectMemberUpsertWithWhereUniqueWithoutProjectInput | ProjectMemberUpsertWithWhereUniqueWithoutProjectInput[]
-    createMany?: ProjectMemberCreateManyProjectInputEnvelope
-    set?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    disconnect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    delete?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    connect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    update?: ProjectMemberUpdateWithWhereUniqueWithoutProjectInput | ProjectMemberUpdateWithWhereUniqueWithoutProjectInput[]
-    updateMany?: ProjectMemberUpdateManyWithWhereWithoutProjectInput | ProjectMemberUpdateManyWithWhereWithoutProjectInput[]
-    deleteMany?: ProjectMemberScalarWhereInput | ProjectMemberScalarWhereInput[]
+  export type ItemCategoryUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<ItemCategoryCreateWithoutProjectInput, ItemCategoryUncheckedCreateWithoutProjectInput> | ItemCategoryCreateWithoutProjectInput[] | ItemCategoryUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ItemCategoryCreateOrConnectWithoutProjectInput | ItemCategoryCreateOrConnectWithoutProjectInput[]
+    upsert?: ItemCategoryUpsertWithWhereUniqueWithoutProjectInput | ItemCategoryUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: ItemCategoryCreateManyProjectInputEnvelope
+    set?: ItemCategoryWhereUniqueInput | ItemCategoryWhereUniqueInput[]
+    disconnect?: ItemCategoryWhereUniqueInput | ItemCategoryWhereUniqueInput[]
+    delete?: ItemCategoryWhereUniqueInput | ItemCategoryWhereUniqueInput[]
+    connect?: ItemCategoryWhereUniqueInput | ItemCategoryWhereUniqueInput[]
+    update?: ItemCategoryUpdateWithWhereUniqueWithoutProjectInput | ItemCategoryUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: ItemCategoryUpdateManyWithWhereWithoutProjectInput | ItemCategoryUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: ItemCategoryScalarWhereInput | ItemCategoryScalarWhereInput[]
   }
 
-  export type ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput = {
-    create?: XOR<ProjectMemberCreateWithoutProjectInput, ProjectMemberUncheckedCreateWithoutProjectInput> | ProjectMemberCreateWithoutProjectInput[] | ProjectMemberUncheckedCreateWithoutProjectInput[]
-    connectOrCreate?: ProjectMemberCreateOrConnectWithoutProjectInput | ProjectMemberCreateOrConnectWithoutProjectInput[]
-    upsert?: ProjectMemberUpsertWithWhereUniqueWithoutProjectInput | ProjectMemberUpsertWithWhereUniqueWithoutProjectInput[]
-    createMany?: ProjectMemberCreateManyProjectInputEnvelope
-    set?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    disconnect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    delete?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    connect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
-    update?: ProjectMemberUpdateWithWhereUniqueWithoutProjectInput | ProjectMemberUpdateWithWhereUniqueWithoutProjectInput[]
-    updateMany?: ProjectMemberUpdateManyWithWhereWithoutProjectInput | ProjectMemberUpdateManyWithWhereWithoutProjectInput[]
-    deleteMany?: ProjectMemberScalarWhereInput | ProjectMemberScalarWhereInput[]
+  export type MyProjectUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<MyProjectCreateWithoutProjectInput, MyProjectUncheckedCreateWithoutProjectInput> | MyProjectCreateWithoutProjectInput[] | MyProjectUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: MyProjectCreateOrConnectWithoutProjectInput | MyProjectCreateOrConnectWithoutProjectInput[]
+    upsert?: MyProjectUpsertWithWhereUniqueWithoutProjectInput | MyProjectUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: MyProjectCreateManyProjectInputEnvelope
+    set?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    disconnect?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    delete?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    connect?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    update?: MyProjectUpdateWithWhereUniqueWithoutProjectInput | MyProjectUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: MyProjectUpdateManyWithWhereWithoutProjectInput | MyProjectUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: MyProjectScalarWhereInput | MyProjectScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutProjectMemberInput = {
-    create?: XOR<UserCreateWithoutProjectMemberInput, UserUncheckedCreateWithoutProjectMemberInput>
-    connectOrCreate?: UserCreateOrConnectWithoutProjectMemberInput
+  export type BoardUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<BoardCreateWithoutProjectInput, BoardUncheckedCreateWithoutProjectInput> | BoardCreateWithoutProjectInput[] | BoardUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: BoardCreateOrConnectWithoutProjectInput | BoardCreateOrConnectWithoutProjectInput[]
+    upsert?: BoardUpsertWithWhereUniqueWithoutProjectInput | BoardUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: BoardCreateManyProjectInputEnvelope
+    set?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    disconnect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    delete?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    connect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    update?: BoardUpdateWithWhereUniqueWithoutProjectInput | BoardUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: BoardUpdateManyWithWhereWithoutProjectInput | BoardUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: BoardScalarWhereInput | BoardScalarWhereInput[]
+  }
+
+  export type ItemCategoryUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<ItemCategoryCreateWithoutProjectInput, ItemCategoryUncheckedCreateWithoutProjectInput> | ItemCategoryCreateWithoutProjectInput[] | ItemCategoryUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ItemCategoryCreateOrConnectWithoutProjectInput | ItemCategoryCreateOrConnectWithoutProjectInput[]
+    upsert?: ItemCategoryUpsertWithWhereUniqueWithoutProjectInput | ItemCategoryUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: ItemCategoryCreateManyProjectInputEnvelope
+    set?: ItemCategoryWhereUniqueInput | ItemCategoryWhereUniqueInput[]
+    disconnect?: ItemCategoryWhereUniqueInput | ItemCategoryWhereUniqueInput[]
+    delete?: ItemCategoryWhereUniqueInput | ItemCategoryWhereUniqueInput[]
+    connect?: ItemCategoryWhereUniqueInput | ItemCategoryWhereUniqueInput[]
+    update?: ItemCategoryUpdateWithWhereUniqueWithoutProjectInput | ItemCategoryUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: ItemCategoryUpdateManyWithWhereWithoutProjectInput | ItemCategoryUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: ItemCategoryScalarWhereInput | ItemCategoryScalarWhereInput[]
+  }
+
+  export type MyProjectUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<MyProjectCreateWithoutProjectInput, MyProjectUncheckedCreateWithoutProjectInput> | MyProjectCreateWithoutProjectInput[] | MyProjectUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: MyProjectCreateOrConnectWithoutProjectInput | MyProjectCreateOrConnectWithoutProjectInput[]
+    upsert?: MyProjectUpsertWithWhereUniqueWithoutProjectInput | MyProjectUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: MyProjectCreateManyProjectInputEnvelope
+    set?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    disconnect?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    delete?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    connect?: MyProjectWhereUniqueInput | MyProjectWhereUniqueInput[]
+    update?: MyProjectUpdateWithWhereUniqueWithoutProjectInput | MyProjectUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: MyProjectUpdateManyWithWhereWithoutProjectInput | MyProjectUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: MyProjectScalarWhereInput | MyProjectScalarWhereInput[]
+  }
+
+  export type BoardUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<BoardCreateWithoutProjectInput, BoardUncheckedCreateWithoutProjectInput> | BoardCreateWithoutProjectInput[] | BoardUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: BoardCreateOrConnectWithoutProjectInput | BoardCreateOrConnectWithoutProjectInput[]
+    upsert?: BoardUpsertWithWhereUniqueWithoutProjectInput | BoardUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: BoardCreateManyProjectInputEnvelope
+    set?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    disconnect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    delete?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    connect?: BoardWhereUniqueInput | BoardWhereUniqueInput[]
+    update?: BoardUpdateWithWhereUniqueWithoutProjectInput | BoardUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: BoardUpdateManyWithWhereWithoutProjectInput | BoardUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: BoardScalarWhereInput | BoardScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutMyProjectInput = {
+    create?: XOR<UserCreateWithoutMyProjectInput, UserUncheckedCreateWithoutMyProjectInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMyProjectInput
     connect?: UserWhereUniqueInput
   }
 
-  export type ProjectCreateNestedOneWithoutProjectMemberInput = {
-    create?: XOR<ProjectCreateWithoutProjectMemberInput, ProjectUncheckedCreateWithoutProjectMemberInput>
-    connectOrCreate?: ProjectCreateOrConnectWithoutProjectMemberInput
+  export type ProjectCreateNestedOneWithoutMyProjectInput = {
+    create?: XOR<ProjectCreateWithoutMyProjectInput, ProjectUncheckedCreateWithoutMyProjectInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutMyProjectInput
     connect?: ProjectWhereUniqueInput
   }
 
-  export type EnumMemberRoleFieldUpdateOperationsInput = {
-    set?: $Enums.MemberRole
+  export type EnumProjectRoleFieldUpdateOperationsInput = {
+    set?: $Enums.ProjectRole
   }
 
-  export type UserUpdateOneRequiredWithoutProjectMemberNestedInput = {
-    create?: XOR<UserCreateWithoutProjectMemberInput, UserUncheckedCreateWithoutProjectMemberInput>
-    connectOrCreate?: UserCreateOrConnectWithoutProjectMemberInput
-    upsert?: UserUpsertWithoutProjectMemberInput
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutMyProjectNestedInput = {
+    create?: XOR<UserCreateWithoutMyProjectInput, UserUncheckedCreateWithoutMyProjectInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMyProjectInput
+    upsert?: UserUpsertWithoutMyProjectInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProjectMemberInput, UserUpdateWithoutProjectMemberInput>, UserUncheckedUpdateWithoutProjectMemberInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMyProjectInput, UserUpdateWithoutMyProjectInput>, UserUncheckedUpdateWithoutMyProjectInput>
   }
 
-  export type ProjectUpdateOneRequiredWithoutProjectMemberNestedInput = {
-    create?: XOR<ProjectCreateWithoutProjectMemberInput, ProjectUncheckedCreateWithoutProjectMemberInput>
-    connectOrCreate?: ProjectCreateOrConnectWithoutProjectMemberInput
-    upsert?: ProjectUpsertWithoutProjectMemberInput
+  export type ProjectUpdateOneRequiredWithoutMyProjectNestedInput = {
+    create?: XOR<ProjectCreateWithoutMyProjectInput, ProjectUncheckedCreateWithoutMyProjectInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutMyProjectInput
+    upsert?: ProjectUpsertWithoutMyProjectInput
     connect?: ProjectWhereUniqueInput
-    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutProjectMemberInput, ProjectUpdateWithoutProjectMemberInput>, ProjectUncheckedUpdateWithoutProjectMemberInput>
-  }
-
-  export type UserCreateNestedOneWithoutSessionInput = {
-    create?: XOR<UserCreateWithoutSessionInput, UserUncheckedCreateWithoutSessionInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSessionInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type UserUpdateOneRequiredWithoutSessionNestedInput = {
-    create?: XOR<UserCreateWithoutSessionInput, UserUncheckedCreateWithoutSessionInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSessionInput
-    upsert?: UserUpsertWithoutSessionInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionInput, UserUpdateWithoutSessionInput>, UserUncheckedUpdateWithoutSessionInput>
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutMyProjectInput, ProjectUpdateWithoutMyProjectInput>, ProjectUncheckedUpdateWithoutMyProjectInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -10394,11 +10000,64 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumItemStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ItemStatus | EnumItemStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ItemStatus[] | ListEnumItemStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.ItemStatus[] | ListEnumItemStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumItemStatusFilter<$PrismaModel> | $Enums.ItemStatus
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedEnumItemStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -10411,63 +10070,115 @@ export namespace Prisma {
     _max?: NestedEnumItemStatusFilter<$PrismaModel>
   }
 
-  export type NestedEnumMemberRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.MemberRole | EnumMemberRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.MemberRole[] | ListEnumMemberRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.MemberRole[] | ListEnumMemberRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumMemberRoleFilter<$PrismaModel> | $Enums.MemberRole
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.MemberRole | EnumMemberRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.MemberRole[] | ListEnumMemberRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.MemberRole[] | ListEnumMemberRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.MemberRole
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumProjectScopeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectScope | EnumProjectScopeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProjectScope[] | ListEnumProjectScopeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProjectScope[] | ListEnumProjectScopeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProjectScopeFilter<$PrismaModel> | $Enums.ProjectScope
+  }
+
+  export type NestedEnumProjectScopeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectScope | EnumProjectScopeFieldRefInput<$PrismaModel>
+    in?: $Enums.ProjectScope[] | ListEnumProjectScopeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProjectScope[] | ListEnumProjectScopeFieldRefInput<$PrismaModel>
+    not?: NestedEnumProjectScopeWithAggregatesFilter<$PrismaModel> | $Enums.ProjectScope
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumMemberRoleFilter<$PrismaModel>
-    _max?: NestedEnumMemberRoleFilter<$PrismaModel>
+    _min?: NestedEnumProjectScopeFilter<$PrismaModel>
+    _max?: NestedEnumProjectScopeFilter<$PrismaModel>
   }
 
-  export type BoardCreateWithoutOwnerInput = {
-    title: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    Item?: ItemCreateNestedManyWithoutBoardInput
+  export type NestedEnumProjectRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectRole | EnumProjectRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.ProjectRole[] | ListEnumProjectRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProjectRole[] | ListEnumProjectRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumProjectRoleFilter<$PrismaModel> | $Enums.ProjectRole
   }
 
-  export type BoardUncheckedCreateWithoutOwnerInput = {
-    id?: number
-    title: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    Item?: ItemUncheckedCreateNestedManyWithoutBoardInput
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type BoardCreateOrConnectWithoutOwnerInput = {
-    where: BoardWhereUniqueInput
-    create: XOR<BoardCreateWithoutOwnerInput, BoardUncheckedCreateWithoutOwnerInput>
+  export type NestedEnumProjectRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ProjectRole | EnumProjectRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.ProjectRole[] | ListEnumProjectRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ProjectRole[] | ListEnumProjectRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumProjectRoleWithAggregatesFilter<$PrismaModel> | $Enums.ProjectRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumProjectRoleFilter<$PrismaModel>
+    _max?: NestedEnumProjectRoleFilter<$PrismaModel>
   }
 
-  export type BoardCreateManyOwnerInputEnvelope = {
-    data: BoardCreateManyOwnerInput | BoardCreateManyOwnerInput[]
-    skipDuplicates?: boolean
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ProjectCreateWithoutUserInput = {
     title: string
     description: string
+    projectScope?: $Enums.ProjectScope
     createdAt?: Date | string
     updatedAt?: Date | string
-    ProjectMember?: ProjectMemberCreateNestedManyWithoutProjectInput
+    ItemCategory?: ItemCategoryCreateNestedManyWithoutProjectInput
+    MyProject?: MyProjectCreateNestedManyWithoutProjectInput
+    Board?: BoardCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutUserInput = {
     id?: number
     title: string
     description: string
+    projectScope?: $Enums.ProjectScope
     createdAt?: Date | string
     updatedAt?: Date | string
-    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+    ItemCategory?: ItemCategoryUncheckedCreateNestedManyWithoutProjectInput
+    MyProject?: MyProjectUncheckedCreateNestedManyWithoutProjectInput
+    Board?: BoardUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutUserInput = {
@@ -10480,42 +10191,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ProjectMemberCreateWithoutUserInput = {
-    role: $Enums.MemberRole
-    joinDate?: Date | string
-    project: ProjectCreateNestedOneWithoutProjectMemberInput
-  }
-
-  export type ProjectMemberUncheckedCreateWithoutUserInput = {
-    id?: number
-    projectId: number
-    role: $Enums.MemberRole
-    joinDate?: Date | string
-  }
-
-  export type ProjectMemberCreateOrConnectWithoutUserInput = {
-    where: ProjectMemberWhereUniqueInput
-    create: XOR<ProjectMemberCreateWithoutUserInput, ProjectMemberUncheckedCreateWithoutUserInput>
-  }
-
-  export type ProjectMemberCreateManyUserInputEnvelope = {
-    data: ProjectMemberCreateManyUserInput | ProjectMemberCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type ItemCreateWithoutUserInput = {
     content: string
+    description?: string | null
     status?: $Enums.ItemStatus
+    start?: Date | string | null
+    end?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    board: BoardCreateNestedOneWithoutItemInput
+    board?: BoardCreateNestedOneWithoutItemInput
+    itemCategory?: ItemCategoryCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutUserInput = {
     id?: number
     content: string
+    description?: string | null
     status?: $Enums.ItemStatus
-    boardId: number
+    boardId?: number | null
+    itemCategoryId?: number | null
+    start?: Date | string | null
+    end?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10530,53 +10226,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type SessionCreateWithoutUserInput = {
-    id?: string
-    sessionToken: string
-    expires: Date | string
+  export type MyProjectCreateWithoutUserInput = {
+    role?: $Enums.ProjectRole
+    isFavorite: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project: ProjectCreateNestedOneWithoutMyProjectInput
   }
 
-  export type SessionUncheckedCreateWithoutUserInput = {
-    id?: string
-    sessionToken: string
-    expires: Date | string
+  export type MyProjectUncheckedCreateWithoutUserInput = {
+    id?: number
+    projectId: number
+    role?: $Enums.ProjectRole
+    isFavorite: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type SessionCreateOrConnectWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
+  export type MyProjectCreateOrConnectWithoutUserInput = {
+    where: MyProjectWhereUniqueInput
+    create: XOR<MyProjectCreateWithoutUserInput, MyProjectUncheckedCreateWithoutUserInput>
   }
 
-  export type SessionCreateManyUserInputEnvelope = {
-    data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
+  export type MyProjectCreateManyUserInputEnvelope = {
+    data: MyProjectCreateManyUserInput | MyProjectCreateManyUserInput[]
     skipDuplicates?: boolean
-  }
-
-  export type BoardUpsertWithWhereUniqueWithoutOwnerInput = {
-    where: BoardWhereUniqueInput
-    update: XOR<BoardUpdateWithoutOwnerInput, BoardUncheckedUpdateWithoutOwnerInput>
-    create: XOR<BoardCreateWithoutOwnerInput, BoardUncheckedCreateWithoutOwnerInput>
-  }
-
-  export type BoardUpdateWithWhereUniqueWithoutOwnerInput = {
-    where: BoardWhereUniqueInput
-    data: XOR<BoardUpdateWithoutOwnerInput, BoardUncheckedUpdateWithoutOwnerInput>
-  }
-
-  export type BoardUpdateManyWithWhereWithoutOwnerInput = {
-    where: BoardScalarWhereInput
-    data: XOR<BoardUpdateManyMutationInput, BoardUncheckedUpdateManyWithoutOwnerInput>
-  }
-
-  export type BoardScalarWhereInput = {
-    AND?: BoardScalarWhereInput | BoardScalarWhereInput[]
-    OR?: BoardScalarWhereInput[]
-    NOT?: BoardScalarWhereInput | BoardScalarWhereInput[]
-    id?: IntFilter<"Board"> | number
-    title?: StringFilter<"Board"> | string
-    ownerId?: IntFilter<"Board"> | number
-    createdAt?: DateTimeFilter<"Board"> | Date | string
-    updatedAt?: DateTimeFilter<"Board"> | Date | string
   }
 
   export type ProjectUpsertWithWhereUniqueWithoutUserInput = {
@@ -10603,35 +10277,9 @@ export namespace Prisma {
     title?: StringFilter<"Project"> | string
     description?: StringFilter<"Project"> | string
     authorId?: IntFilter<"Project"> | number
+    projectScope?: EnumProjectScopeFilter<"Project"> | $Enums.ProjectScope
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
-  }
-
-  export type ProjectMemberUpsertWithWhereUniqueWithoutUserInput = {
-    where: ProjectMemberWhereUniqueInput
-    update: XOR<ProjectMemberUpdateWithoutUserInput, ProjectMemberUncheckedUpdateWithoutUserInput>
-    create: XOR<ProjectMemberCreateWithoutUserInput, ProjectMemberUncheckedCreateWithoutUserInput>
-  }
-
-  export type ProjectMemberUpdateWithWhereUniqueWithoutUserInput = {
-    where: ProjectMemberWhereUniqueInput
-    data: XOR<ProjectMemberUpdateWithoutUserInput, ProjectMemberUncheckedUpdateWithoutUserInput>
-  }
-
-  export type ProjectMemberUpdateManyWithWhereWithoutUserInput = {
-    where: ProjectMemberScalarWhereInput
-    data: XOR<ProjectMemberUpdateManyMutationInput, ProjectMemberUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type ProjectMemberScalarWhereInput = {
-    AND?: ProjectMemberScalarWhereInput | ProjectMemberScalarWhereInput[]
-    OR?: ProjectMemberScalarWhereInput[]
-    NOT?: ProjectMemberScalarWhereInput | ProjectMemberScalarWhereInput[]
-    id?: IntFilter<"ProjectMember"> | number
-    userId?: IntFilter<"ProjectMember"> | number
-    projectId?: IntFilter<"ProjectMember"> | number
-    role?: EnumMemberRoleFilter<"ProjectMember"> | $Enums.MemberRole
-    joinDate?: DateTimeFilter<"ProjectMember"> | Date | string
   }
 
   export type ItemUpsertWithWhereUniqueWithoutUserInput = {
@@ -10656,84 +10304,95 @@ export namespace Prisma {
     NOT?: ItemScalarWhereInput | ItemScalarWhereInput[]
     id?: IntFilter<"Item"> | number
     content?: StringFilter<"Item"> | string
+    description?: StringNullableFilter<"Item"> | string | null
     status?: EnumItemStatusFilter<"Item"> | $Enums.ItemStatus
-    boardId?: IntFilter<"Item"> | number
-    userId?: IntFilter<"Item"> | number
+    boardId?: IntNullableFilter<"Item"> | number | null
+    userId?: IntNullableFilter<"Item"> | number | null
+    itemCategoryId?: IntNullableFilter<"Item"> | number | null
+    start?: DateTimeNullableFilter<"Item"> | Date | string | null
+    end?: DateTimeNullableFilter<"Item"> | Date | string | null
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeFilter<"Item"> | Date | string
   }
 
-  export type SessionUpsertWithWhereUniqueWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
-    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
+  export type MyProjectUpsertWithWhereUniqueWithoutUserInput = {
+    where: MyProjectWhereUniqueInput
+    update: XOR<MyProjectUpdateWithoutUserInput, MyProjectUncheckedUpdateWithoutUserInput>
+    create: XOR<MyProjectCreateWithoutUserInput, MyProjectUncheckedCreateWithoutUserInput>
   }
 
-  export type SessionUpdateWithWhereUniqueWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    data: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
+  export type MyProjectUpdateWithWhereUniqueWithoutUserInput = {
+    where: MyProjectWhereUniqueInput
+    data: XOR<MyProjectUpdateWithoutUserInput, MyProjectUncheckedUpdateWithoutUserInput>
   }
 
-  export type SessionUpdateManyWithWhereWithoutUserInput = {
-    where: SessionScalarWhereInput
-    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutUserInput>
+  export type MyProjectUpdateManyWithWhereWithoutUserInput = {
+    where: MyProjectScalarWhereInput
+    data: XOR<MyProjectUpdateManyMutationInput, MyProjectUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type SessionScalarWhereInput = {
-    AND?: SessionScalarWhereInput | SessionScalarWhereInput[]
-    OR?: SessionScalarWhereInput[]
-    NOT?: SessionScalarWhereInput | SessionScalarWhereInput[]
-    id?: StringFilter<"Session"> | string
-    sessionToken?: StringFilter<"Session"> | string
-    userId?: IntFilter<"Session"> | number
-    expires?: DateTimeFilter<"Session"> | Date | string
+  export type MyProjectScalarWhereInput = {
+    AND?: MyProjectScalarWhereInput | MyProjectScalarWhereInput[]
+    OR?: MyProjectScalarWhereInput[]
+    NOT?: MyProjectScalarWhereInput | MyProjectScalarWhereInput[]
+    id?: IntFilter<"MyProject"> | number
+    userId?: IntFilter<"MyProject"> | number
+    projectId?: IntFilter<"MyProject"> | number
+    role?: EnumProjectRoleFilter<"MyProject"> | $Enums.ProjectRole
+    isFavorite?: BoolFilter<"MyProject"> | boolean
+    createdAt?: DateTimeFilter<"MyProject"> | Date | string
+    updatedAt?: DateTimeFilter<"MyProject"> | Date | string
   }
 
-  export type UserCreateWithoutBoardInput = {
-    name: string
-    email: string
-    password: string
-    image?: string
+  export type ProjectCreateWithoutBoardInput = {
+    title: string
+    description: string
+    projectScope?: $Enums.ProjectScope
     createdAt?: Date | string
     updatedAt?: Date | string
-    Project?: ProjectCreateNestedManyWithoutUserInput
-    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
-    Item?: ItemCreateNestedManyWithoutUserInput
-    Session?: SessionCreateNestedManyWithoutUserInput
+    user: UserCreateNestedOneWithoutProjectInput
+    ItemCategory?: ItemCategoryCreateNestedManyWithoutProjectInput
+    MyProject?: MyProjectCreateNestedManyWithoutProjectInput
   }
 
-  export type UserUncheckedCreateWithoutBoardInput = {
+  export type ProjectUncheckedCreateWithoutBoardInput = {
     id?: number
-    name: string
-    email: string
-    password: string
-    image?: string
+    title: string
+    description: string
+    authorId: number
+    projectScope?: $Enums.ProjectScope
     createdAt?: Date | string
     updatedAt?: Date | string
-    Project?: ProjectUncheckedCreateNestedManyWithoutUserInput
-    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
-    Item?: ItemUncheckedCreateNestedManyWithoutUserInput
-    Session?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ItemCategory?: ItemCategoryUncheckedCreateNestedManyWithoutProjectInput
+    MyProject?: MyProjectUncheckedCreateNestedManyWithoutProjectInput
   }
 
-  export type UserCreateOrConnectWithoutBoardInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutBoardInput, UserUncheckedCreateWithoutBoardInput>
+  export type ProjectCreateOrConnectWithoutBoardInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutBoardInput, ProjectUncheckedCreateWithoutBoardInput>
   }
 
   export type ItemCreateWithoutBoardInput = {
     content: string
+    description?: string | null
     status?: $Enums.ItemStatus
+    start?: Date | string | null
+    end?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutItemInput
+    user?: UserCreateNestedOneWithoutItemInput
+    itemCategory?: ItemCategoryCreateNestedOneWithoutItemInput
   }
 
   export type ItemUncheckedCreateWithoutBoardInput = {
     id?: number
     content: string
+    description?: string | null
     status?: $Enums.ItemStatus
-    userId: number
+    userId?: number | null
+    itemCategoryId?: number | null
+    start?: Date | string | null
+    end?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10748,42 +10407,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutBoardInput = {
-    update: XOR<UserUpdateWithoutBoardInput, UserUncheckedUpdateWithoutBoardInput>
-    create: XOR<UserCreateWithoutBoardInput, UserUncheckedCreateWithoutBoardInput>
-    where?: UserWhereInput
+  export type ProjectUpsertWithoutBoardInput = {
+    update: XOR<ProjectUpdateWithoutBoardInput, ProjectUncheckedUpdateWithoutBoardInput>
+    create: XOR<ProjectCreateWithoutBoardInput, ProjectUncheckedCreateWithoutBoardInput>
+    where?: ProjectWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutBoardInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutBoardInput, UserUncheckedUpdateWithoutBoardInput>
+  export type ProjectUpdateToOneWithWhereWithoutBoardInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutBoardInput, ProjectUncheckedUpdateWithoutBoardInput>
   }
 
-  export type UserUpdateWithoutBoardInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
+  export type ProjectUpdateWithoutBoardInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Project?: ProjectUpdateManyWithoutUserNestedInput
-    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
-    Item?: ItemUpdateManyWithoutUserNestedInput
-    Session?: SessionUpdateManyWithoutUserNestedInput
+    user?: UserUpdateOneRequiredWithoutProjectNestedInput
+    ItemCategory?: ItemCategoryUpdateManyWithoutProjectNestedInput
+    MyProject?: MyProjectUpdateManyWithoutProjectNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutBoardInput = {
+  export type ProjectUncheckedUpdateWithoutBoardInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    authorId?: IntFieldUpdateOperationsInput | number
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Project?: ProjectUncheckedUpdateManyWithoutUserNestedInput
-    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
-    Item?: ItemUncheckedUpdateManyWithoutUserNestedInput
-    Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ItemCategory?: ItemCategoryUncheckedUpdateManyWithoutProjectNestedInput
+    MyProject?: MyProjectUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ItemUpsertWithWhereUniqueWithoutBoardInput = {
@@ -10804,15 +10459,17 @@ export namespace Prisma {
 
   export type BoardCreateWithoutItemInput = {
     title: string
+    color?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    owner: UserCreateNestedOneWithoutBoardInput
+    project: ProjectCreateNestedOneWithoutBoardInput
   }
 
   export type BoardUncheckedCreateWithoutItemInput = {
     id?: number
     title: string
-    ownerId: number
+    projectId: number
+    color?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10829,10 +10486,8 @@ export namespace Prisma {
     image?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Board?: BoardCreateNestedManyWithoutOwnerInput
     Project?: ProjectCreateNestedManyWithoutUserInput
-    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
-    Session?: SessionCreateNestedManyWithoutUserInput
+    MyProject?: MyProjectCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutItemInput = {
@@ -10843,15 +10498,35 @@ export namespace Prisma {
     image?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Board?: BoardUncheckedCreateNestedManyWithoutOwnerInput
     Project?: ProjectUncheckedCreateNestedManyWithoutUserInput
-    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
-    Session?: SessionUncheckedCreateNestedManyWithoutUserInput
+    MyProject?: MyProjectUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutItemInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutItemInput, UserUncheckedCreateWithoutItemInput>
+  }
+
+  export type ItemCategoryCreateWithoutItemInput = {
+    category: string
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project: ProjectCreateNestedOneWithoutItemCategoryInput
+  }
+
+  export type ItemCategoryUncheckedCreateWithoutItemInput = {
+    id?: number
+    projectId: number
+    category: string
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ItemCategoryCreateOrConnectWithoutItemInput = {
+    where: ItemCategoryWhereUniqueInput
+    create: XOR<ItemCategoryCreateWithoutItemInput, ItemCategoryUncheckedCreateWithoutItemInput>
   }
 
   export type BoardUpsertWithoutItemInput = {
@@ -10867,15 +10542,17 @@ export namespace Prisma {
 
   export type BoardUpdateWithoutItemInput = {
     title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owner?: UserUpdateOneRequiredWithoutBoardNestedInput
+    project?: ProjectUpdateOneRequiredWithoutBoardNestedInput
   }
 
   export type BoardUncheckedUpdateWithoutItemInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
-    ownerId?: IntFieldUpdateOperationsInput | number
+    projectId?: IntFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10898,10 +10575,8 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Board?: BoardUpdateManyWithoutOwnerNestedInput
     Project?: ProjectUpdateManyWithoutUserNestedInput
-    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
-    Session?: SessionUpdateManyWithoutUserNestedInput
+    MyProject?: MyProjectUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutItemInput = {
@@ -10912,10 +10587,149 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Board?: BoardUncheckedUpdateManyWithoutOwnerNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutUserNestedInput
-    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
-    Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    MyProject?: MyProjectUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ItemCategoryUpsertWithoutItemInput = {
+    update: XOR<ItemCategoryUpdateWithoutItemInput, ItemCategoryUncheckedUpdateWithoutItemInput>
+    create: XOR<ItemCategoryCreateWithoutItemInput, ItemCategoryUncheckedCreateWithoutItemInput>
+    where?: ItemCategoryWhereInput
+  }
+
+  export type ItemCategoryUpdateToOneWithWhereWithoutItemInput = {
+    where?: ItemCategoryWhereInput
+    data: XOR<ItemCategoryUpdateWithoutItemInput, ItemCategoryUncheckedUpdateWithoutItemInput>
+  }
+
+  export type ItemCategoryUpdateWithoutItemInput = {
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutItemCategoryNestedInput
+  }
+
+  export type ItemCategoryUncheckedUpdateWithoutItemInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    projectId?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectCreateWithoutItemCategoryInput = {
+    title: string
+    description: string
+    projectScope?: $Enums.ProjectScope
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutProjectInput
+    MyProject?: MyProjectCreateNestedManyWithoutProjectInput
+    Board?: BoardCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutItemCategoryInput = {
+    id?: number
+    title: string
+    description: string
+    authorId: number
+    projectScope?: $Enums.ProjectScope
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    MyProject?: MyProjectUncheckedCreateNestedManyWithoutProjectInput
+    Board?: BoardUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutItemCategoryInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutItemCategoryInput, ProjectUncheckedCreateWithoutItemCategoryInput>
+  }
+
+  export type ItemCreateWithoutItemCategoryInput = {
+    content: string
+    description?: string | null
+    status?: $Enums.ItemStatus
+    start?: Date | string | null
+    end?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    board?: BoardCreateNestedOneWithoutItemInput
+    user?: UserCreateNestedOneWithoutItemInput
+  }
+
+  export type ItemUncheckedCreateWithoutItemCategoryInput = {
+    id?: number
+    content: string
+    description?: string | null
+    status?: $Enums.ItemStatus
+    boardId?: number | null
+    userId?: number | null
+    start?: Date | string | null
+    end?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ItemCreateOrConnectWithoutItemCategoryInput = {
+    where: ItemWhereUniqueInput
+    create: XOR<ItemCreateWithoutItemCategoryInput, ItemUncheckedCreateWithoutItemCategoryInput>
+  }
+
+  export type ItemCreateManyItemCategoryInputEnvelope = {
+    data: ItemCreateManyItemCategoryInput | ItemCreateManyItemCategoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProjectUpsertWithoutItemCategoryInput = {
+    update: XOR<ProjectUpdateWithoutItemCategoryInput, ProjectUncheckedUpdateWithoutItemCategoryInput>
+    create: XOR<ProjectCreateWithoutItemCategoryInput, ProjectUncheckedCreateWithoutItemCategoryInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutItemCategoryInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutItemCategoryInput, ProjectUncheckedUpdateWithoutItemCategoryInput>
+  }
+
+  export type ProjectUpdateWithoutItemCategoryInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutProjectNestedInput
+    MyProject?: MyProjectUpdateManyWithoutProjectNestedInput
+    Board?: BoardUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutItemCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    authorId?: IntFieldUpdateOperationsInput | number
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    MyProject?: MyProjectUncheckedUpdateManyWithoutProjectNestedInput
+    Board?: BoardUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ItemUpsertWithWhereUniqueWithoutItemCategoryInput = {
+    where: ItemWhereUniqueInput
+    update: XOR<ItemUpdateWithoutItemCategoryInput, ItemUncheckedUpdateWithoutItemCategoryInput>
+    create: XOR<ItemCreateWithoutItemCategoryInput, ItemUncheckedCreateWithoutItemCategoryInput>
+  }
+
+  export type ItemUpdateWithWhereUniqueWithoutItemCategoryInput = {
+    where: ItemWhereUniqueInput
+    data: XOR<ItemUpdateWithoutItemCategoryInput, ItemUncheckedUpdateWithoutItemCategoryInput>
+  }
+
+  export type ItemUpdateManyWithWhereWithoutItemCategoryInput = {
+    where: ItemScalarWhereInput
+    data: XOR<ItemUpdateManyMutationInput, ItemUncheckedUpdateManyWithoutItemCategoryInput>
   }
 
   export type UserCreateWithoutProjectInput = {
@@ -10925,10 +10739,8 @@ export namespace Prisma {
     image?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Board?: BoardCreateNestedManyWithoutOwnerInput
-    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
     Item?: ItemCreateNestedManyWithoutUserInput
-    Session?: SessionCreateNestedManyWithoutUserInput
+    MyProject?: MyProjectCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectInput = {
@@ -10939,10 +10751,8 @@ export namespace Prisma {
     image?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Board?: BoardUncheckedCreateNestedManyWithoutOwnerInput
-    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
     Item?: ItemUncheckedCreateNestedManyWithoutUserInput
-    Session?: SessionUncheckedCreateNestedManyWithoutUserInput
+    MyProject?: MyProjectUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectInput = {
@@ -10950,26 +10760,84 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutProjectInput, UserUncheckedCreateWithoutProjectInput>
   }
 
-  export type ProjectMemberCreateWithoutProjectInput = {
-    role: $Enums.MemberRole
-    joinDate?: Date | string
-    user: UserCreateNestedOneWithoutProjectMemberInput
+  export type ItemCategoryCreateWithoutProjectInput = {
+    category: string
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Item?: ItemCreateNestedManyWithoutItemCategoryInput
   }
 
-  export type ProjectMemberUncheckedCreateWithoutProjectInput = {
+  export type ItemCategoryUncheckedCreateWithoutProjectInput = {
+    id?: number
+    category: string
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Item?: ItemUncheckedCreateNestedManyWithoutItemCategoryInput
+  }
+
+  export type ItemCategoryCreateOrConnectWithoutProjectInput = {
+    where: ItemCategoryWhereUniqueInput
+    create: XOR<ItemCategoryCreateWithoutProjectInput, ItemCategoryUncheckedCreateWithoutProjectInput>
+  }
+
+  export type ItemCategoryCreateManyProjectInputEnvelope = {
+    data: ItemCategoryCreateManyProjectInput | ItemCategoryCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MyProjectCreateWithoutProjectInput = {
+    role?: $Enums.ProjectRole
+    isFavorite: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutMyProjectInput
+  }
+
+  export type MyProjectUncheckedCreateWithoutProjectInput = {
     id?: number
     userId: number
-    role: $Enums.MemberRole
-    joinDate?: Date | string
+    role?: $Enums.ProjectRole
+    isFavorite: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type ProjectMemberCreateOrConnectWithoutProjectInput = {
-    where: ProjectMemberWhereUniqueInput
-    create: XOR<ProjectMemberCreateWithoutProjectInput, ProjectMemberUncheckedCreateWithoutProjectInput>
+  export type MyProjectCreateOrConnectWithoutProjectInput = {
+    where: MyProjectWhereUniqueInput
+    create: XOR<MyProjectCreateWithoutProjectInput, MyProjectUncheckedCreateWithoutProjectInput>
   }
 
-  export type ProjectMemberCreateManyProjectInputEnvelope = {
-    data: ProjectMemberCreateManyProjectInput | ProjectMemberCreateManyProjectInput[]
+  export type MyProjectCreateManyProjectInputEnvelope = {
+    data: MyProjectCreateManyProjectInput | MyProjectCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BoardCreateWithoutProjectInput = {
+    title: string
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Item?: ItemCreateNestedManyWithoutBoardInput
+  }
+
+  export type BoardUncheckedCreateWithoutProjectInput = {
+    id?: number
+    title: string
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Item?: ItemUncheckedCreateNestedManyWithoutBoardInput
+  }
+
+  export type BoardCreateOrConnectWithoutProjectInput = {
+    where: BoardWhereUniqueInput
+    create: XOR<BoardCreateWithoutProjectInput, BoardUncheckedCreateWithoutProjectInput>
+  }
+
+  export type BoardCreateManyProjectInputEnvelope = {
+    data: BoardCreateManyProjectInput | BoardCreateManyProjectInput[]
     skipDuplicates?: boolean
   }
 
@@ -10991,10 +10859,8 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Board?: BoardUpdateManyWithoutOwnerNestedInput
-    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
     Item?: ItemUpdateManyWithoutUserNestedInput
-    Session?: SessionUpdateManyWithoutUserNestedInput
+    MyProject?: MyProjectUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectInput = {
@@ -11005,42 +10871,94 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Board?: BoardUncheckedUpdateManyWithoutOwnerNestedInput
-    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
     Item?: ItemUncheckedUpdateManyWithoutUserNestedInput
-    Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    MyProject?: MyProjectUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type ProjectMemberUpsertWithWhereUniqueWithoutProjectInput = {
-    where: ProjectMemberWhereUniqueInput
-    update: XOR<ProjectMemberUpdateWithoutProjectInput, ProjectMemberUncheckedUpdateWithoutProjectInput>
-    create: XOR<ProjectMemberCreateWithoutProjectInput, ProjectMemberUncheckedCreateWithoutProjectInput>
+  export type ItemCategoryUpsertWithWhereUniqueWithoutProjectInput = {
+    where: ItemCategoryWhereUniqueInput
+    update: XOR<ItemCategoryUpdateWithoutProjectInput, ItemCategoryUncheckedUpdateWithoutProjectInput>
+    create: XOR<ItemCategoryCreateWithoutProjectInput, ItemCategoryUncheckedCreateWithoutProjectInput>
   }
 
-  export type ProjectMemberUpdateWithWhereUniqueWithoutProjectInput = {
-    where: ProjectMemberWhereUniqueInput
-    data: XOR<ProjectMemberUpdateWithoutProjectInput, ProjectMemberUncheckedUpdateWithoutProjectInput>
+  export type ItemCategoryUpdateWithWhereUniqueWithoutProjectInput = {
+    where: ItemCategoryWhereUniqueInput
+    data: XOR<ItemCategoryUpdateWithoutProjectInput, ItemCategoryUncheckedUpdateWithoutProjectInput>
   }
 
-  export type ProjectMemberUpdateManyWithWhereWithoutProjectInput = {
-    where: ProjectMemberScalarWhereInput
-    data: XOR<ProjectMemberUpdateManyMutationInput, ProjectMemberUncheckedUpdateManyWithoutProjectInput>
+  export type ItemCategoryUpdateManyWithWhereWithoutProjectInput = {
+    where: ItemCategoryScalarWhereInput
+    data: XOR<ItemCategoryUpdateManyMutationInput, ItemCategoryUncheckedUpdateManyWithoutProjectInput>
   }
 
-  export type UserCreateWithoutProjectMemberInput = {
+  export type ItemCategoryScalarWhereInput = {
+    AND?: ItemCategoryScalarWhereInput | ItemCategoryScalarWhereInput[]
+    OR?: ItemCategoryScalarWhereInput[]
+    NOT?: ItemCategoryScalarWhereInput | ItemCategoryScalarWhereInput[]
+    id?: IntFilter<"ItemCategory"> | number
+    projectId?: IntFilter<"ItemCategory"> | number
+    category?: StringFilter<"ItemCategory"> | string
+    color?: StringNullableFilter<"ItemCategory"> | string | null
+    createdAt?: DateTimeFilter<"ItemCategory"> | Date | string
+    updatedAt?: DateTimeFilter<"ItemCategory"> | Date | string
+  }
+
+  export type MyProjectUpsertWithWhereUniqueWithoutProjectInput = {
+    where: MyProjectWhereUniqueInput
+    update: XOR<MyProjectUpdateWithoutProjectInput, MyProjectUncheckedUpdateWithoutProjectInput>
+    create: XOR<MyProjectCreateWithoutProjectInput, MyProjectUncheckedCreateWithoutProjectInput>
+  }
+
+  export type MyProjectUpdateWithWhereUniqueWithoutProjectInput = {
+    where: MyProjectWhereUniqueInput
+    data: XOR<MyProjectUpdateWithoutProjectInput, MyProjectUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type MyProjectUpdateManyWithWhereWithoutProjectInput = {
+    where: MyProjectScalarWhereInput
+    data: XOR<MyProjectUpdateManyMutationInput, MyProjectUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type BoardUpsertWithWhereUniqueWithoutProjectInput = {
+    where: BoardWhereUniqueInput
+    update: XOR<BoardUpdateWithoutProjectInput, BoardUncheckedUpdateWithoutProjectInput>
+    create: XOR<BoardCreateWithoutProjectInput, BoardUncheckedCreateWithoutProjectInput>
+  }
+
+  export type BoardUpdateWithWhereUniqueWithoutProjectInput = {
+    where: BoardWhereUniqueInput
+    data: XOR<BoardUpdateWithoutProjectInput, BoardUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type BoardUpdateManyWithWhereWithoutProjectInput = {
+    where: BoardScalarWhereInput
+    data: XOR<BoardUpdateManyMutationInput, BoardUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type BoardScalarWhereInput = {
+    AND?: BoardScalarWhereInput | BoardScalarWhereInput[]
+    OR?: BoardScalarWhereInput[]
+    NOT?: BoardScalarWhereInput | BoardScalarWhereInput[]
+    id?: IntFilter<"Board"> | number
+    title?: StringFilter<"Board"> | string
+    projectId?: IntFilter<"Board"> | number
+    color?: StringNullableFilter<"Board"> | string | null
+    createdAt?: DateTimeFilter<"Board"> | Date | string
+    updatedAt?: DateTimeFilter<"Board"> | Date | string
+  }
+
+  export type UserCreateWithoutMyProjectInput = {
     name: string
     email: string
     password: string
     image?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Board?: BoardCreateNestedManyWithoutOwnerInput
     Project?: ProjectCreateNestedManyWithoutUserInput
     Item?: ItemCreateNestedManyWithoutUserInput
-    Session?: SessionCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutProjectMemberInput = {
+  export type UserUncheckedCreateWithoutMyProjectInput = {
     id?: number
     name: string
     email: string
@@ -11048,64 +10966,66 @@ export namespace Prisma {
     image?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Board?: BoardUncheckedCreateNestedManyWithoutOwnerInput
     Project?: ProjectUncheckedCreateNestedManyWithoutUserInput
     Item?: ItemUncheckedCreateNestedManyWithoutUserInput
-    Session?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutProjectMemberInput = {
+  export type UserCreateOrConnectWithoutMyProjectInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutProjectMemberInput, UserUncheckedCreateWithoutProjectMemberInput>
+    create: XOR<UserCreateWithoutMyProjectInput, UserUncheckedCreateWithoutMyProjectInput>
   }
 
-  export type ProjectCreateWithoutProjectMemberInput = {
+  export type ProjectCreateWithoutMyProjectInput = {
     title: string
     description: string
+    projectScope?: $Enums.ProjectScope
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutProjectInput
+    ItemCategory?: ItemCategoryCreateNestedManyWithoutProjectInput
+    Board?: BoardCreateNestedManyWithoutProjectInput
   }
 
-  export type ProjectUncheckedCreateWithoutProjectMemberInput = {
+  export type ProjectUncheckedCreateWithoutMyProjectInput = {
     id?: number
     title: string
     description: string
     authorId: number
+    projectScope?: $Enums.ProjectScope
     createdAt?: Date | string
     updatedAt?: Date | string
+    ItemCategory?: ItemCategoryUncheckedCreateNestedManyWithoutProjectInput
+    Board?: BoardUncheckedCreateNestedManyWithoutProjectInput
   }
 
-  export type ProjectCreateOrConnectWithoutProjectMemberInput = {
+  export type ProjectCreateOrConnectWithoutMyProjectInput = {
     where: ProjectWhereUniqueInput
-    create: XOR<ProjectCreateWithoutProjectMemberInput, ProjectUncheckedCreateWithoutProjectMemberInput>
+    create: XOR<ProjectCreateWithoutMyProjectInput, ProjectUncheckedCreateWithoutMyProjectInput>
   }
 
-  export type UserUpsertWithoutProjectMemberInput = {
-    update: XOR<UserUpdateWithoutProjectMemberInput, UserUncheckedUpdateWithoutProjectMemberInput>
-    create: XOR<UserCreateWithoutProjectMemberInput, UserUncheckedCreateWithoutProjectMemberInput>
+  export type UserUpsertWithoutMyProjectInput = {
+    update: XOR<UserUpdateWithoutMyProjectInput, UserUncheckedUpdateWithoutMyProjectInput>
+    create: XOR<UserCreateWithoutMyProjectInput, UserUncheckedCreateWithoutMyProjectInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutProjectMemberInput = {
+  export type UserUpdateToOneWithWhereWithoutMyProjectInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutProjectMemberInput, UserUncheckedUpdateWithoutProjectMemberInput>
+    data: XOR<UserUpdateWithoutMyProjectInput, UserUncheckedUpdateWithoutMyProjectInput>
   }
 
-  export type UserUpdateWithoutProjectMemberInput = {
+  export type UserUpdateWithoutMyProjectInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Board?: BoardUpdateManyWithoutOwnerNestedInput
     Project?: ProjectUpdateManyWithoutUserNestedInput
     Item?: ItemUpdateManyWithoutUserNestedInput
-    Session?: SessionUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutProjectMemberInput = {
+  export type UserUncheckedUpdateWithoutMyProjectInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -11113,227 +11033,128 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Board?: BoardUncheckedUpdateManyWithoutOwnerNestedInput
     Project?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     Item?: ItemUncheckedUpdateManyWithoutUserNestedInput
-    Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type ProjectUpsertWithoutProjectMemberInput = {
-    update: XOR<ProjectUpdateWithoutProjectMemberInput, ProjectUncheckedUpdateWithoutProjectMemberInput>
-    create: XOR<ProjectCreateWithoutProjectMemberInput, ProjectUncheckedCreateWithoutProjectMemberInput>
+  export type ProjectUpsertWithoutMyProjectInput = {
+    update: XOR<ProjectUpdateWithoutMyProjectInput, ProjectUncheckedUpdateWithoutMyProjectInput>
+    create: XOR<ProjectCreateWithoutMyProjectInput, ProjectUncheckedCreateWithoutMyProjectInput>
     where?: ProjectWhereInput
   }
 
-  export type ProjectUpdateToOneWithWhereWithoutProjectMemberInput = {
+  export type ProjectUpdateToOneWithWhereWithoutMyProjectInput = {
     where?: ProjectWhereInput
-    data: XOR<ProjectUpdateWithoutProjectMemberInput, ProjectUncheckedUpdateWithoutProjectMemberInput>
+    data: XOR<ProjectUpdateWithoutMyProjectInput, ProjectUncheckedUpdateWithoutMyProjectInput>
   }
 
-  export type ProjectUpdateWithoutProjectMemberInput = {
+  export type ProjectUpdateWithoutMyProjectInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProjectNestedInput
+    ItemCategory?: ItemCategoryUpdateManyWithoutProjectNestedInput
+    Board?: BoardUpdateManyWithoutProjectNestedInput
   }
 
-  export type ProjectUncheckedUpdateWithoutProjectMemberInput = {
+  export type ProjectUncheckedUpdateWithoutMyProjectInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     authorId?: IntFieldUpdateOperationsInput | number
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserCreateWithoutSessionInput = {
-    name: string
-    email: string
-    password: string
-    image?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    Board?: BoardCreateNestedManyWithoutOwnerInput
-    Project?: ProjectCreateNestedManyWithoutUserInput
-    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
-    Item?: ItemCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutSessionInput = {
-    id?: number
-    name: string
-    email: string
-    password: string
-    image?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    Board?: BoardUncheckedCreateNestedManyWithoutOwnerInput
-    Project?: ProjectUncheckedCreateNestedManyWithoutUserInput
-    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
-    Item?: ItemUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutSessionInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutSessionInput, UserUncheckedCreateWithoutSessionInput>
-  }
-
-  export type UserUpsertWithoutSessionInput = {
-    update: XOR<UserUpdateWithoutSessionInput, UserUncheckedUpdateWithoutSessionInput>
-    create: XOR<UserCreateWithoutSessionInput, UserUncheckedCreateWithoutSessionInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutSessionInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutSessionInput, UserUncheckedUpdateWithoutSessionInput>
-  }
-
-  export type UserUpdateWithoutSessionInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Board?: BoardUpdateManyWithoutOwnerNestedInput
-    Project?: ProjectUpdateManyWithoutUserNestedInput
-    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
-    Item?: ItemUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutSessionInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Board?: BoardUncheckedUpdateManyWithoutOwnerNestedInput
-    Project?: ProjectUncheckedUpdateManyWithoutUserNestedInput
-    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
-    Item?: ItemUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type BoardCreateManyOwnerInput = {
-    id?: number
-    title: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    ItemCategory?: ItemCategoryUncheckedUpdateManyWithoutProjectNestedInput
+    Board?: BoardUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateManyUserInput = {
     id?: number
     title: string
     description: string
+    projectScope?: $Enums.ProjectScope
     createdAt?: Date | string
     updatedAt?: Date | string
-  }
-
-  export type ProjectMemberCreateManyUserInput = {
-    id?: number
-    projectId: number
-    role: $Enums.MemberRole
-    joinDate?: Date | string
   }
 
   export type ItemCreateManyUserInput = {
     id?: number
     content: string
+    description?: string | null
     status?: $Enums.ItemStatus
-    boardId: number
+    boardId?: number | null
+    itemCategoryId?: number | null
+    start?: Date | string | null
+    end?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type SessionCreateManyUserInput = {
-    id?: string
-    sessionToken: string
-    expires: Date | string
-  }
-
-  export type BoardUpdateWithoutOwnerInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Item?: ItemUpdateManyWithoutBoardNestedInput
-  }
-
-  export type BoardUncheckedUpdateWithoutOwnerInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Item?: ItemUncheckedUpdateManyWithoutBoardNestedInput
-  }
-
-  export type BoardUncheckedUpdateManyWithoutOwnerInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type MyProjectCreateManyUserInput = {
+    id?: number
+    projectId: number
+    role?: $Enums.ProjectRole
+    isFavorite: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ProjectUpdateWithoutUserInput = {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ProjectMember?: ProjectMemberUpdateManyWithoutProjectNestedInput
+    ItemCategory?: ItemCategoryUpdateManyWithoutProjectNestedInput
+    MyProject?: MyProjectUpdateManyWithoutProjectNestedInput
+    Board?: BoardUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+    ItemCategory?: ItemCategoryUncheckedUpdateManyWithoutProjectNestedInput
+    MyProject?: MyProjectUncheckedUpdateManyWithoutProjectNestedInput
+    Board?: BoardUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    projectScope?: EnumProjectScopeFieldUpdateOperationsInput | $Enums.ProjectScope
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProjectMemberUpdateWithoutUserInput = {
-    role?: EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
-    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    project?: ProjectUpdateOneRequiredWithoutProjectMemberNestedInput
-  }
-
-  export type ProjectMemberUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    projectId?: IntFieldUpdateOperationsInput | number
-    role?: EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
-    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProjectMemberUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    projectId?: IntFieldUpdateOperationsInput | number
-    role?: EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
-    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ItemUpdateWithoutUserInput = {
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    board?: BoardUpdateOneRequiredWithoutItemNestedInput
+    board?: BoardUpdateOneWithoutItemNestedInput
+    itemCategory?: ItemCategoryUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
-    boardId?: IntFieldUpdateOperationsInput | number
+    boardId?: NullableIntFieldUpdateOperationsInput | number | null
+    itemCategoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11341,52 +11162,76 @@ export namespace Prisma {
   export type ItemUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
-    boardId?: IntFieldUpdateOperationsInput | number
+    boardId?: NullableIntFieldUpdateOperationsInput | number | null
+    itemCategoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SessionUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    sessionToken?: StringFieldUpdateOperationsInput | string
-    expires?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type MyProjectUpdateWithoutUserInput = {
+    role?: EnumProjectRoleFieldUpdateOperationsInput | $Enums.ProjectRole
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutMyProjectNestedInput
   }
 
-  export type SessionUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    sessionToken?: StringFieldUpdateOperationsInput | string
-    expires?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type MyProjectUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    projectId?: IntFieldUpdateOperationsInput | number
+    role?: EnumProjectRoleFieldUpdateOperationsInput | $Enums.ProjectRole
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SessionUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    sessionToken?: StringFieldUpdateOperationsInput | string
-    expires?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type MyProjectUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    projectId?: IntFieldUpdateOperationsInput | number
+    role?: EnumProjectRoleFieldUpdateOperationsInput | $Enums.ProjectRole
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ItemCreateManyBoardInput = {
     id?: number
     content: string
+    description?: string | null
     status?: $Enums.ItemStatus
-    userId: number
+    userId?: number | null
+    itemCategoryId?: number | null
+    start?: Date | string | null
+    end?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ItemUpdateWithoutBoardInput = {
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutItemNestedInput
+    user?: UserUpdateOneWithoutItemNestedInput
+    itemCategory?: ItemCategoryUpdateOneWithoutItemNestedInput
   }
 
   export type ItemUncheckedUpdateWithoutBoardInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    itemCategoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11394,37 +11239,166 @@ export namespace Prisma {
   export type ItemUncheckedUpdateManyWithoutBoardInput = {
     id?: IntFieldUpdateOperationsInput | number
     content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    itemCategoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ProjectMemberCreateManyProjectInput = {
+  export type ItemCreateManyItemCategoryInput = {
+    id?: number
+    content: string
+    description?: string | null
+    status?: $Enums.ItemStatus
+    boardId?: number | null
+    userId?: number | null
+    start?: Date | string | null
+    end?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ItemUpdateWithoutItemCategoryInput = {
+    content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    board?: BoardUpdateOneWithoutItemNestedInput
+    user?: UserUpdateOneWithoutItemNestedInput
+  }
+
+  export type ItemUncheckedUpdateWithoutItemCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
+    boardId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItemUncheckedUpdateManyWithoutItemCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumItemStatusFieldUpdateOperationsInput | $Enums.ItemStatus
+    boardId?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    start?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    end?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ItemCategoryCreateManyProjectInput = {
+    id?: number
+    category: string
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MyProjectCreateManyProjectInput = {
     id?: number
     userId: number
-    role: $Enums.MemberRole
-    joinDate?: Date | string
+    role?: $Enums.ProjectRole
+    isFavorite: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type ProjectMemberUpdateWithoutProjectInput = {
-    role?: EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
-    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutProjectMemberNestedInput
+  export type BoardCreateManyProjectInput = {
+    id?: number
+    title: string
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type ProjectMemberUncheckedUpdateWithoutProjectInput = {
+  export type ItemCategoryUpdateWithoutProjectInput = {
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Item?: ItemUpdateManyWithoutItemCategoryNestedInput
+  }
+
+  export type ItemCategoryUncheckedUpdateWithoutProjectInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Item?: ItemUncheckedUpdateManyWithoutItemCategoryNestedInput
+  }
+
+  export type ItemCategoryUncheckedUpdateManyWithoutProjectInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    category?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MyProjectUpdateWithoutProjectInput = {
+    role?: EnumProjectRoleFieldUpdateOperationsInput | $Enums.ProjectRole
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMyProjectNestedInput
+  }
+
+  export type MyProjectUncheckedUpdateWithoutProjectInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
-    role?: EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
-    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: EnumProjectRoleFieldUpdateOperationsInput | $Enums.ProjectRole
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ProjectMemberUncheckedUpdateManyWithoutProjectInput = {
+  export type MyProjectUncheckedUpdateManyWithoutProjectInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
-    role?: EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
-    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    role?: EnumProjectRoleFieldUpdateOperationsInput | $Enums.ProjectRole
+    isFavorite?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BoardUpdateWithoutProjectInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Item?: ItemUpdateManyWithoutBoardNestedInput
+  }
+
+  export type BoardUncheckedUpdateWithoutProjectInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Item?: ItemUncheckedUpdateManyWithoutBoardNestedInput
+  }
+
+  export type BoardUncheckedUpdateManyWithoutProjectInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
@@ -11440,6 +11414,10 @@ export namespace Prisma {
      * @deprecated Use BoardCountOutputTypeDefaultArgs instead
      */
     export type BoardCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = BoardCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ItemCategoryCountOutputTypeDefaultArgs instead
+     */
+    export type ItemCategoryCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemCategoryCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ProjectCountOutputTypeDefaultArgs instead
      */
@@ -11457,21 +11435,17 @@ export namespace Prisma {
      */
     export type ItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use ItemCategoryDefaultArgs instead
+     */
+    export type ItemCategoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ItemCategoryDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use ProjectDefaultArgs instead
      */
     export type ProjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProjectDefaultArgs<ExtArgs>
     /**
-     * @deprecated Use ProjectMemberDefaultArgs instead
+     * @deprecated Use MyProjectDefaultArgs instead
      */
-    export type ProjectMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProjectMemberDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use SessionDefaultArgs instead
-     */
-    export type SessionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SessionDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use VerificationTokenDefaultArgs instead
-     */
-    export type VerificationTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = VerificationTokenDefaultArgs<ExtArgs>
+    export type MyProjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MyProjectDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

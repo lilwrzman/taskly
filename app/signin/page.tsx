@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -67,7 +67,7 @@ export default function SignInPage() {
     });
 
     if (res?.ok) {
-      router.push("/protected");
+      router.push("/projects");
     } else {
       if (res?.error) {
         const parsedErrors = JSON.parse(res.error);
@@ -131,7 +131,11 @@ export default function SignInPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button type="button" className="absolute right-2" onClick={() => setShowPassword(!showPassword)}>
+                    <button
+                      type="button"
+                      className="absolute right-2"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
                       {showPassword ? (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

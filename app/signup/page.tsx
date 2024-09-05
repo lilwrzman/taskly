@@ -20,6 +20,7 @@ export default function SignupPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
+    setIsLoading(true)
 
     const res = await fetch("/api/signup", {
       method: "POST",
@@ -34,6 +35,8 @@ export default function SignupPage() {
     });
 
     const data = await res.json();
+    setIsLoading(false)
+
     if (res.ok) {
       alert(data.message);
       router.push("/signin");
@@ -45,7 +48,7 @@ export default function SignupPage() {
   return (
     <div className="relative">
       {isLoading && <Spinner />}
-      <div className="flex flex-col gap-4 items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div className="w-full bg-white rounded-2xl md:mt-0 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-6 md:space-y-6 sm:p-8">
             <div className="flex flex-col gap-2">

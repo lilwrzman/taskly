@@ -20,82 +20,91 @@ enum ItemStatus {
   COMPLETED
 }
 
-enum MemberRole {
+enum ProjectRole {
   LEADER
   MEMBER
   GUEST
 }
 
+enum ProjectScope {
+  PUBLIC
+  PRIVATE
+}
+
 model User {
-  id            Int             @id @default(autoincrement())
-  name          String
-  email         String          @unique
-  password      String
-  image         String          @default("/image/default.png")
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  Board         Board[]
-  Project       Project[]
-  ProjectMember ProjectMember[]
-  Item          Item[]
-  Session       Session[]
+  id        Int         @id @default(autoincrement())
+  name      String
+  email     String      @unique
+  password  String
+  image     String      @default("/image/default.png")
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  Project   Project[]
+  Item      Item[]
+  MyProject MyProject[]
 }
 
 model Board {
   id        Int      @id @default(autoincrement())
   title     String
-  owner     User     @relation(fields: [ownerId], references: [id])
-  ownerId   Int
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId Int
+  color     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Item      Item[]
 }
 
 model Item {
-  id        Int        @id @default(autoincrement())
-  content   String
-  status    ItemStatus @default(TODO)
-  board     Board      @relation(fields: [boardId], references: [id])
-  boardId   Int
-  user      User       @relation(fields: [userId], references: [id])
-  userId    Int
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id             Int           @id @default(autoincrement())
+  content        String
+  description    String?
+  status         ItemStatus    @default(TODO)
+  board          Board?        @relation(fields: [boardId], references: [id])
+  boardId        Int?
+  user           User?         @relation(fields: [userId], references: [id])
+  userId         Int?
+  itemCategory   ItemCategory? @relation(fields: [itemCategoryId], references: [id])
+  itemCategoryId Int?
+  start          DateTime?
+  end            DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model ItemCategory {
+  id        Int      @id @default(autoincrement())
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId Int
+  category  String
+  color     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Item      Item[]
 }
 
 model Project {
-  id            Int             @id @default(autoincrement())
-  title         String
-  description   String
-  user          User            @relation(fields: [authorId], references: [id])
-  authorId      Int
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  ProjectMember ProjectMember[]
+  id           Int            @id @default(autoincrement())
+  title        String
+  description  String
+  user         User           @relation(fields: [authorId], references: [id])
+  authorId     Int
+  projectScope ProjectScope   @default(PRIVATE)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  ItemCategory ItemCategory[]
+  MyProject    MyProject[]
+  Board        Board[]
 }
 
-model ProjectMember {
-  id        Int        @id @default(autoincrement())
-  user      User       @relation(fields: [userId], references: [id])
-  project   Project    @relation(fields: [projectId], references: [id])
-  userId    Int
-  projectId Int
-  role      MemberRole
-  joinDate  DateTime   @default(now())
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       Int
-  user         User     @relation(fields: [userId], references: [id])
-  expires      DateTime
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
+model MyProject {
+  id         Int         @id @default(autoincrement())
+  user       User        @relation(fields: [userId], references: [id])
+  userId     Int
+  project    Project     @relation(fields: [projectId], references: [id])
+  projectId  Int
+  role       ProjectRole @default(LEADER)
+  isFavorite Boolean
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 }
