@@ -1,11 +1,11 @@
 import { authOptions } from "@/app/lib/AuthOptions";
 import { PrismaClient } from "@/prisma/generated/client";
 import { getServerSession } from "next-auth/next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function POST(req: NextResponse) {
+export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
     const { itemId, status } = await req.json();
